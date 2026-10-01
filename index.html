@@ -1,157 +1,124 @@
 <!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta name="description" content="Sprint de Gestão Monitore — quatro semanas para organizar a gestão, definir prioridades e transformar desafios em resultados.">
-  <title>Sprint de Gestão | Monitore</title>
-  <link rel="icon" type="image/png" href="favicon.png">
-  <link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
-  <link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
-  <style>
-    :root{
-      --blue:#0b2438;
-      --blue2:#123d59;
-      --teal:#10b4bd;
-      --teal2:#0b8e97;
-      --ice:#eef8f9;
-      --bg:#f7f9fa;
-      --text:#14252d;
-      --muted:#66777d;
-      --line:#dce6e9;
-      --white:#fff;
-      --shadow:0 20px 55px rgba(11,36,56,.12);
-      --radius:24px;
-    }
-    *{box-sizing:border-box}
-    html{scroll-behavior:smooth}
-    body{margin:0;font-family:Montserrat,Arial,sans-serif;color:var(--text);background:var(--white);line-height:1.55}
-    a{text-decoration:none;color:inherit}
-    .wrap{width:min(1160px,92%);margin:auto}
-    .top{background:var(--blue);color:#fff;padding-top:82px}
-    header{height:82px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(11,36,56,.98);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);padding:0 max(4%, calc((100vw - 1160px)/2))}
-    .logo{width:190px;display:block}
-    .logo img{width:100%;height:auto;display:block}
-    nav{display:flex;align-items:center;gap:28px;font-size:13px;font-weight:700;color:#d7e4e8}
-    nav a:hover{color:#fff}
-    .nav-btn{background:var(--teal);color:#fff;padding:12px 18px;border-radius:10px}
-    .hero{background:var(--blue);color:#fff;padding:42px 0 52px}
-    .hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
-    .eyebrow{font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:18px}
-    h1{font-size:clamp(36px,4.4vw,54px);line-height:1.03;letter-spacing:-.055em;margin:0 0 18px}
-    h1 em{font-style:normal;color:#5ed8dc}
-    .hero-copy{font-size:16px;line-height:1.6;color:#c9d7dc;max-width:690px;margin:0 0 24px}
-    .hero-actions{display:flex;gap:12px;flex-wrap:wrap}
-    .btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:14px 22px;border-radius:11px;font-size:13px;font-weight:900;transition:.2s}
-    .btn.primary{background:var(--teal);color:#fff}
-    .btn.primary:hover{background:#22c4cc;transform:translateY(-2px)}
-    .btn.ghost{border:1px solid #476474;color:#fff}
-    .btn.ghost:hover{border-color:#7e9aa7}
-    .hero-proof{display:flex;gap:24px;flex-wrap:wrap;margin-top:24px;color:#afc1c7;font-size:12px;font-weight:700}
-    .hero-proof span::before{content:"✓";color:var(--teal);font-weight:900;margin-right:7px}
-    .hero-card{background:#fff;color:var(--text);border-radius:26px;padding:25px;box-shadow:0 25px 65px rgba(0,0,0,.22)}
-    .hero-card .mini{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--teal2)}
-    .hero-card h2{font-size:23px;line-height:1.18;margin:8px 0 7px;letter-spacing:-.03em}
-    .hero-card p{font-size:13px;color:var(--muted);margin:0 0 22px}
-    .timeline{display:grid;gap:11px;margin:0 0 22px}
-    .step{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:center}
-    .step-num{width:34px;height:34px;border-radius:50%;background:var(--ice);color:var(--teal2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}
-    .step strong{display:block;font-size:13px}
-    .step small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
-    .card-note{border-top:1px solid var(--line);padding-top:17px;font-size:11px;color:var(--muted)}
-    section{padding:62px 0}
-    .section-kicker{font-size:11px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--teal2);margin-bottom:12px}
-    .section-title{font-size:clamp(30px,4vw,45px);line-height:1.08;letter-spacing:-.045em;margin:0 0 15px}
-    .section-lead{color:var(--muted);max-width:720px;font-size:16px;margin:0}
-    .center{text-align:center}.center .section-lead{margin:auto}
-    .pain{background:var(--bg)}
-    .pain-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:start;margin-top:30px}
-    .pain-list{display:grid;gap:14px}
-    .pain-item{display:grid;grid-template-columns:42px 1fr;gap:15px;padding:19px;background:#fff;border:1px solid var(--line);border-radius:15px}
-    .pain-item b{width:42px;height:42px;border-radius:12px;background:var(--ice);color:var(--teal2);display:flex;align-items:center;justify-content:center;font-size:12px}
-    .pain-item strong{font-size:14px}.pain-item p{margin:4px 0 0;color:var(--muted);font-size:12px}
-    .statement{background:var(--blue);border-radius:25px;padding:30px;color:#fff;position:sticky;top:25px}
-    .statement .quote{font-size:21px;line-height:1.35;letter-spacing:-.03em;font-weight:700;margin:0 0 22px}
-    .statement p{color:#b9ccd2;font-size:13px;margin:0}
-    .four{background:#fff}
-    .weeks{display:grid;grid-template-columns:repeat(4,1fr);margin-top:30px;border:1px solid var(--line);border-radius:22px;overflow:hidden}
-    .week{padding:22px 20px;min-height:175px;border-right:1px solid var(--line)}
-    .week:last-child{border-right:0}
-    .week .n{font-size:10px;letter-spacing:.12em;font-weight:900;color:var(--teal2)}
-    .week h3{font-size:20px;margin:8px 0 7px}
-    .week p{font-size:12px;color:var(--muted);margin:0}
-    .week:nth-child(2),.week:nth-child(4){background:#f8fbfb}
-    .offers{background:var(--bg)}
-    .offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:30px;align-items:stretch}
-    .offer{background:#fff;border:1px solid var(--line);border-radius:25px;padding:26px;display:flex;flex-direction:column;box-shadow:0 12px 35px rgba(11,36,56,.06)}
-    .offer.featured{border:2px solid var(--teal);box-shadow:var(--shadow);position:relative}
-    .badge{position:absolute;top:-13px;left:25px;background:var(--teal);color:#fff;border-radius:999px;padding:7px 12px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
-    .offer-label{font-size:10px;text-transform:uppercase;letter-spacing:.13em;font-weight:900;color:var(--teal2)}
-    .offer h3{font-size:25px;letter-spacing:-.035em;margin:9px 0 7px}
-    .offer-desc{font-size:12px;color:var(--muted);min-height:42px;margin:0}
-    .old-price{font-size:12px;color:#87969b;text-decoration:line-through;margin-top:17px;margin-bottom:-7px;font-weight:600}.price-row{display:flex;align-items:baseline;gap:7px;margin:17px 0 2px}
-    .price{font-size:36px;letter-spacing:-.045em;font-weight:900}
-    .price-unit{font-size:11px;color:var(--muted)}
-    .installment{font-size:11px;color:var(--teal2);font-weight:800;margin-bottom:20px}
-    .features{border-top:1px solid var(--line);margin:0;padding:10px 0 18px;list-style:none;flex:1}
-    .features li{font-size:12px;padding:8px 0;display:flex;gap:9px}
-    .features li::before{content:"✓";color:var(--teal);font-weight:900}
-    .offer .btn{width:100%}
-    .after{font-size:11px;color:var(--muted);text-align:center;margin:20px auto 0;max-width:700px}
-    .deliver{background:#fff}
-    .deliver-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
-    .deliver-card{padding:20px;border-radius:18px;background:var(--bg);border:1px solid var(--line)}
-    .deliver-card .num{font-size:11px;font-weight:900;color:var(--teal2)}
-    .deliver-card h3{font-size:16px;margin:8px 0}
-    .deliver-card p{font-size:11px;color:var(--muted);margin:0}
-    .method{background:var(--blue);color:#fff}
-    .method .section-lead{color:#b9ccd2}
-    .method-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:38px}
-    .method-item{background:#102f44;border:1px solid #25485b;border-radius:14px;padding:14px 8px;text-align:center}
-    .method-item b{display:block;color:#5ed8dc;font-size:25px;margin-bottom:5px}
-    .method-item span{font-size:9px;font-weight:800;color:#d5e3e7}
-    .faq{background:var(--bg)}
-    .faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:38px}
-    details{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 20px}
-    summary{font-size:13px;font-weight:800;cursor:pointer}
-    details p{font-size:11px;color:var(--muted);margin:12px 0 0}
-    .final{background:linear-gradient(135deg,var(--blue),#174b5a);color:#fff;text-align:center;padding:65px 0}
-    .final h2{font-size:clamp(30px,4vw,44px);line-height:1.05;letter-spacing:-.05em;max-width:780px;margin:0 auto 17px}
-    .final p{max-width:620px;color:#c4d5da;font-size:14px;margin:0 auto 28px}
-    footer{background:#07151f;color:#8fa6ae;padding:28px 0;font-size:10px}
-    footer .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}
-    footer strong{color:#fff}
-    @media(max-width:900px){
-      nav a:not(.nav-btn){display:none}
-      .hero-grid,.pain-grid{grid-template-columns:1fr}
-      .statement{position:static}
-      .weeks{grid-template-columns:1fr 1fr}
-      .week:nth-child(2){border-right:0}.week:nth-child(3){border-top:1px solid var(--line)}
-      .method-grid{grid-template-columns:repeat(4,1fr)}
-      .deliver-grid{grid-template-columns:1fr 1fr}
-    }
-    @media(max-width:620px){
-      .top{padding-top:70px}
-      header{height:70px}.logo{width:160px}.nav-btn{padding:10px 13px;font-size:11px}
-      .hero{padding:30px 0 55px}.hero-grid{gap:35px}h1{font-size:43px}.hero-copy{font-size:15px}
-      section{padding:48px 0}.weeks,.offer-grid,.faq-grid{grid-template-columns:1fr}
-      .week{border-right:0!important;border-bottom:1px solid var(--line)}.week:last-child{border-bottom:0}
-      .deliver-grid{grid-template-columns:1fr}.method-grid{grid-template-columns:1fr 1fr}
-      .offer{padding:25px}.statement{padding:28px}
-    }
-  </style>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="description" content="Sprint de Gestão Monitore — quatro semanas para construir uma estrutura de gestão personalizada para sua empresa.">
+<title>Sprint de Gestão | Monitore</title>
+<link rel="icon" type="image/png" href="favicon.png">
+<link rel="icon" type="image/png" sizes="32x32" href="favicon-32.png">
+<link rel="apple-touch-icon" sizes="180x180" href="favicon-180.png">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+<style>
+:root{
+  --blue:#0b2438;--blue2:#123d59;--teal:#10b4bd;--teal2:#0b8e97;
+  --ice:#eef8f9;--bg:#f7f9fa;--text:#14252d;--muted:#66777d;
+  --line:#dce6e9;--white:#fff;--shadow:0 20px 55px rgba(11,36,56,.12);--radius:24px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:Montserrat,Arial,sans-serif;color:var(--text);background:#fff;line-height:1.55}
+a{text-decoration:none;color:inherit}
+.wrap{width:min(1160px,92%);margin:auto}
+.top{background:var(--blue);color:#fff;padding-top:82px}
+header{height:82px;display:flex;align-items:center;justify-content:space-between;position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(11,36,56,.98);backdrop-filter:blur(10px);border-bottom:1px solid rgba(255,255,255,.08);padding:0 max(4%,calc((100vw - 1160px)/2))}
+.logo{width:190px;display:block}.logo img{width:100%;height:auto;display:block}
+nav{display:flex;align-items:center;gap:28px;font-size:13px;font-weight:700;color:#d7e4e8}
+nav a:hover{color:#fff}.nav-btn{background:var(--teal);color:#fff;padding:12px 18px;border-radius:10px}
+.hero{background:var(--blue);color:#fff;padding:42px 0 64px}
+.hero-grid{display:grid;grid-template-columns:1.08fr .92fr;gap:48px;align-items:center}
+.eyebrow{font-size:11px;font-weight:900;letter-spacing:.16em;text-transform:uppercase;color:var(--teal);margin-bottom:18px}
+h1{font-size:clamp(36px,4.4vw,54px);line-height:1.03;letter-spacing:-.055em;margin:0 0 18px}
+h1 em{font-style:normal;color:#5ed8dc}
+.hero-copy{font-size:16px;line-height:1.6;color:#c9d7dc;max-width:690px;margin:0 0 24px}
+.hero-actions{display:flex;gap:12px;flex-wrap:wrap}
+.btn{display:inline-flex;align-items:center;justify-content:center;min-height:50px;padding:14px 22px;border-radius:11px;font-size:13px;font-weight:900;transition:.2s}
+.btn.primary{background:var(--teal);color:#fff}.btn.primary:hover{background:#22c4cc;transform:translateY(-2px)}
+.btn.ghost{border:1px solid #476474;color:#fff}.btn.ghost:hover{border-color:#7e9aa7}
+.hero-proof{display:flex;gap:24px;flex-wrap:wrap;margin-top:24px;color:#afc1c7;font-size:12px;font-weight:700}
+.hero-proof span::before{content:"✓";color:var(--teal);font-weight:900;margin-right:7px}
+.hero-card{background:#fff;color:var(--text);border-radius:26px;padding:25px;box-shadow:0 25px 65px rgba(0,0,0,.22)}
+.hero-card .mini{font-size:11px;text-transform:uppercase;letter-spacing:.12em;font-weight:900;color:var(--teal2)}
+.hero-card h2{font-size:23px;line-height:1.18;margin:8px 0 7px;letter-spacing:-.03em}
+.hero-card p{font-size:13px;color:var(--muted);margin:0 0 22px}
+.timeline{display:grid;gap:11px;margin:0 0 22px}.step{display:grid;grid-template-columns:34px 1fr;gap:12px;align-items:center}
+.step-num{width:34px;height:34px;border-radius:50%;background:var(--ice);color:var(--teal2);display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:900}
+.step strong{display:block;font-size:13px}.step small{display:block;color:var(--muted);font-size:11px;margin-top:2px}
+.card-note{border-top:1px solid var(--line);padding-top:17px;font-size:11px;color:var(--muted)}
+section{padding:70px 0}.section-kicker{font-size:11px;font-weight:900;letter-spacing:.15em;text-transform:uppercase;color:var(--teal2);margin-bottom:12px}
+.section-title{font-size:clamp(30px,4vw,45px);line-height:1.08;letter-spacing:-.045em;margin:0 0 15px}
+.section-lead{color:var(--muted);max-width:760px;font-size:16px;margin:0}.center{text-align:center}.center .section-lead{margin:auto}
+.pain{background:var(--bg)}.pain-grid{display:grid;grid-template-columns:1.05fr 1fr;gap:40px;align-items:start;margin-top:30px}
+.pain-list{display:grid;gap:14px}.pain-item{display:grid;grid-template-columns:42px 1fr;gap:15px;padding:19px;background:#fff;border:1px solid var(--line);border-radius:15px}
+.pain-item b{width:42px;height:42px;border-radius:12px;background:var(--ice);color:var(--teal2);display:flex;align-items:center;justify-content:center;font-size:12px}
+.pain-item strong{font-size:14px}.pain-item p{margin:4px 0 0;color:var(--muted);font-size:12px}
+.statement{background:var(--blue);border-radius:25px;padding:30px;color:#fff;position:sticky;top:105px}
+.statement .quote{font-size:21px;line-height:1.35;letter-spacing:-.03em;font-weight:700;margin:0 0 22px}.statement p{color:#b9ccd2;font-size:13px;margin:0}
+.process{background:#fff}.weeks{display:grid;grid-template-columns:repeat(4,1fr);margin-top:35px;border:1px solid var(--line);border-radius:22px;overflow:hidden}
+.week{padding:24px 20px;min-height:205px;border-right:1px solid var(--line)}.week:last-child{border-right:0}
+.week .n{font-size:10px;letter-spacing:.12em;font-weight:900;color:var(--teal2)}.week h3{font-size:20px;margin:8px 0 7px}.week p{font-size:12px;color:var(--muted);margin:0 0 14px}
+.week .output{font-size:11px;font-weight:800;color:var(--text);border-top:1px solid var(--line);padding-top:12px}
+.week:nth-child(2),.week:nth-child(4){background:#f8fbfb}
+.deliver{background:var(--bg)}.deliver-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:14px;margin-top:40px}
+.deliver-card{padding:22px;border-radius:18px;background:#fff;border:1px solid var(--line);min-height:190px}
+.deliver-card .num{font-size:11px;font-weight:900;color:var(--teal2)}.deliver-card h3{font-size:17px;margin:8px 0}
+.deliver-card p{font-size:11px;color:var(--muted);margin:0 0 12px}.deliver-card ul{margin:0;padding:0;list-style:none}
+.deliver-card li{font-size:10px;padding:4px 0;color:#40545b}.deliver-card li::before{content:"✓";color:var(--teal);font-weight:900;margin-right:6px}
+.offers{background:#fff}.offer-grid{display:grid;grid-template-columns:1fr 1fr;gap:22px;margin-top:35px;align-items:stretch}
+.offer{background:#fff;border:1px solid var(--line);border-radius:25px;padding:28px;display:flex;flex-direction:column;box-shadow:0 12px 35px rgba(11,36,56,.06)}
+.offer.featured{border:2px solid var(--teal);box-shadow:var(--shadow);position:relative}
+.badge{position:absolute;top:-13px;left:25px;background:var(--teal);color:#fff;border-radius:999px;padding:7px 12px;font-size:10px;font-weight:900;text-transform:uppercase;letter-spacing:.05em}
+.offer-label{font-size:10px;text-transform:uppercase;letter-spacing:.13em;font-weight:900;color:var(--teal2)}
+.offer h3{font-size:25px;letter-spacing:-.035em;margin:9px 0 7px}.offer-desc{font-size:12px;color:var(--muted);min-height:52px;margin:0}
+.old-price{font-size:12px;color:#87969b;text-decoration:line-through;margin-top:17px;margin-bottom:-7px;font-weight:600}
+.price-row{display:flex;align-items:baseline;gap:7px;margin:17px 0 2px}.price{font-size:36px;letter-spacing:-.045em;font-weight:900}.price-unit{font-size:11px;color:var(--muted)}
+.installment{font-size:11px;color:var(--teal2);font-weight:800;margin-bottom:20px}
+.features{border-top:1px solid var(--line);margin:0;padding:10px 0 18px;list-style:none;flex:1}
+.features li{font-size:12px;padding:8px 0;display:flex;gap:9px}.features li::before{content:"✓";color:var(--teal);font-weight:900}
+.offer .btn{width:100%}.after{font-size:11px;color:var(--muted);text-align:center;margin:20px auto 0;max-width:700px}
+.comparison{background:var(--bg)}.compare{width:100%;border-collapse:collapse;margin-top:35px;background:#fff;border:1px solid var(--line);border-radius:20px;overflow:hidden}
+.compare th,.compare td{padding:15px 18px;border-bottom:1px solid var(--line);font-size:12px;text-align:left}
+.compare th{font-size:11px;text-transform:uppercase;letter-spacing:.08em;background:var(--blue);color:#fff}.compare tr:last-child td{border-bottom:0}
+.compare td:nth-child(2),.compare td:nth-child(3){text-align:center}.yes{color:var(--teal2);font-weight:900}.no{color:#87969b}
+.method{background:var(--blue);color:#fff}.method .section-lead{color:#b9ccd2}
+.method-grid{display:grid;grid-template-columns:repeat(8,1fr);gap:8px;margin-top:38px}
+.method-item{background:#102f44;border:1px solid #25485b;border-radius:14px;padding:14px 8px;text-align:center}
+.method-item b{display:block;color:#5ed8dc;font-size:25px;margin-bottom:5px}.method-item span{font-size:9px;font-weight:800;color:#d5e3e7}
+.faq{background:var(--bg)}.faq-grid{display:grid;grid-template-columns:1fr 1fr;gap:12px;margin-top:38px}
+details{background:#fff;border:1px solid var(--line);border-radius:15px;padding:18px 20px}summary{font-size:13px;font-weight:800;cursor:pointer}
+details p{font-size:11px;color:var(--muted);margin:12px 0 0}
+.final{background:linear-gradient(135deg,var(--blue),#174b5a);color:#fff;text-align:center;padding:70px 0}
+.final h2{font-size:clamp(30px,4vw,44px);line-height:1.05;letter-spacing:-.05em;max-width:820px;margin:0 auto 17px}
+.final p{max-width:650px;color:#c4d5da;font-size:14px;margin:0 auto 28px}
+footer{background:#07151f;color:#8fa6ae;padding:28px 0;font-size:10px}footer .foot{display:flex;justify-content:space-between;gap:20px;flex-wrap:wrap}footer strong{color:#fff}
+@media(max-width:900px){
+nav a:not(.nav-btn){display:none}.hero-grid,.pain-grid{grid-template-columns:1fr}.statement{position:static}
+.weeks{grid-template-columns:1fr 1fr}.week:nth-child(2){border-right:0}.week:nth-child(3){border-top:1px solid var(--line)}
+.method-grid{grid-template-columns:repeat(4,1fr)}.deliver-grid{grid-template-columns:1fr 1fr}
+}
+@media(max-width:620px){
+.top{padding-top:70px}header{height:70px}.logo{width:160px}.nav-btn{padding:10px 13px;font-size:11px}
+.hero{padding:30px 0 55px}.hero-grid{gap:35px}h1{font-size:43px}.hero-copy{font-size:15px}
+section{padding:52px 0}.weeks,.offer-grid,.faq-grid{grid-template-columns:1fr}
+.week{border-right:0!important;border-bottom:1px solid var(--line)}.week:last-child{border-bottom:0}
+.deliver-grid{grid-template-columns:1fr}.method-grid{grid-template-columns:1fr 1fr}
+.offer{padding:25px}.statement{padding:28px}.compare{display:block;overflow-x:auto;white-space:nowrap}
+}
+</style>
 </head>
 <body>
 
 <div class="top">
   <div class="wrap">
     <header>
-      <a class="logo" href="https://www.monitorenegocios.com.br"><img src="logo-monitore-branca.png" alt="Monitore Negócios Empresariais"></a>
+      <a class="logo" href="https://www.monitorenegocios.com.br">
+        <img src="logo-monitore-branca.png" alt="Monitore Negócios Empresariais">
+      </a>
       <nav>
-        <a href="#como-funciona">Como funciona</a>
+        <a href="#processo">Como funciona</a>
+        <a href="#entregas">O que você recebe</a>
         <a href="#ofertas">Investimento</a>
         <a href="#duvidas">Dúvidas</a>
         <a class="nav-btn" href="#ofertas">Quero começar</a>
@@ -163,30 +130,33 @@
     <div class="wrap hero-grid">
       <div>
         <div class="eyebrow">SPRINT DE GESTÃO · 4 SEMANAS</div>
-        <h1>Sua empresa não precisa trabalhar mais.<br>Precisa <em>ser melhor gerenciada.</em></h1>
-        <p class="hero-copy">Uma intervenção prática para identificar os principais gargalos da gestão, organizar prioridades, definir indicadores e colocar a empresa em uma rotina de acompanhamento.</p>
+        <h1>Em 4 semanas, <em>construa a estrutura de gestão</em> da sua empresa.</h1>
+        <p class="hero-copy">
+          O Sprint Gestão Monitore transforma os principais desafios do seu negócio em uma estrutura prática para gerir:
+          diagnóstico, prioridades, plano de ação, indicadores, ferramentas e rotina de gestão.
+        </p>
         <div class="hero-actions">
-          <a class="btn primary" href="#ofertas">Escolher meu Sprint</a>
-          <a class="btn ghost" href="#como-funciona">Entender o Sprint</a>
+          <a class="btn primary" href="#ofertas">Quero construir minha gestão</a>
+          <a class="btn ghost" href="#entregas">Ver o que vou receber</a>
         </div>
         <div class="hero-proof">
-          <span>Diagnóstico de maturidade</span>
-          <span>Plano de ação</span>
-          <span>Acompanhamento semanal</span>
+          <span>Entregáveis personalizados</span>
+          <span>4 semanas de construção</span>
+          <span>Gestão aplicada à sua realidade</span>
         </div>
       </div>
 
       <aside class="hero-card">
-        <div class="mini">O que acontece em 4 semanas</div>
-        <h2>Da percepção do problema à gestão em movimento.</h2>
-        <p>Você não entra para assistir a aulas. Entra para organizar e começar a transformar.</p>
+        <div class="mini">O que você terá ao final</div>
+        <h2>Uma estrutura de gestão construída para a sua empresa.</h2>
+        <p>Você não compra quatro reuniões. Compra uma entrega concreta, construída a partir da realidade do seu negócio.</p>
         <div class="timeline">
-          <div class="step"><div class="step-num">01</div><div><strong>Diagnosticar</strong><small>Entender onde a gestão está hoje.</small></div></div>
-          <div class="step"><div class="step-num">02</div><div><strong>Organizar</strong><small>Definir prioridades e plano de ação.</small></div></div>
-          <div class="step"><div class="step-num">03</div><div><strong>Implementar</strong><small>Colocar controles e indicadores em prática.</small></div></div>
-          <div class="step"><div class="step-num">04</div><div><strong>Acompanhar</strong><small>Medir evolução e corrigir a rota.</small></div></div>
+          <div class="step"><div class="step-num">01</div><div><strong>Diagnóstico</strong><small>Onde sua gestão está hoje.</small></div></div>
+          <div class="step"><div class="step-num">02</div><div><strong>Prioridades</strong><small>O que precisa ser tratado primeiro.</small></div></div>
+          <div class="step"><div class="step-num">03</div><div><strong>Estrutura</strong><small>Indicadores, ferramentas e plano.</small></div></div>
+          <div class="step"><div class="step-num">04</div><div><strong>Implantação</strong><small>Rotina para colocar a gestão em movimento.</small></div></div>
         </div>
-        <div class="card-note">Método MONITORE · Gestão prática · Online + presencial conforme a modalidade</div>
+        <div class="card-note">Método MONITORE · Entregáveis personalizados · Online + presencial conforme a modalidade</div>
       </aside>
     </div>
   </div>
@@ -194,7 +164,7 @@
 
 <section class="pain">
   <div class="wrap">
-    <div class="section-kicker">Talvez esse seja o seu momento</div>
+    <div class="section-kicker">Se isso acontece na sua empresa</div>
     <h2 class="section-title">O problema não é falta de esforço.<br>É falta de estrutura para gerir.</h2>
     <p class="section-lead">Quando a empresa cresce sem acompanhar a evolução da gestão, o empresário vira o centro de tudo e os mesmos problemas começam a se repetir.</p>
     <div class="pain-grid">
@@ -202,28 +172,97 @@
         <div class="pain-item"><b>01</b><div><strong>Você passa o dia apagando incêndios</strong><p>O urgente ocupa o espaço do que realmente precisa ser decidido.</p></div></div>
         <div class="pain-item"><b>02</b><div><strong>Tudo acaba chegando até você</strong><p>Decisões, problemas e responsabilidades ficam centralizados.</p></div></div>
         <div class="pain-item"><b>03</b><div><strong>Você tem dados, mas não tem clareza</strong><p>Informação espalhada não se transforma automaticamente em decisão.</p></div></div>
-        <div class="pain-item"><b>04</b><div><strong>Os problemas voltam a acontecer</strong><p>Sem processo, padrão e análise de causa, a solução vira improviso.</p></div></div>
+        <div class="pain-item"><b>04</b><div><strong>Os problemas voltam a acontecer</strong><p>Sem processo, padrão e análise, a solução vira improviso.</p></div></div>
       </div>
       <div class="statement">
-        <p class="quote">“O Sprint não promete resolver tudo em quatro semanas. Ele coloca a gestão no caminho certo para começar a resolver o que mais importa.”</p>
-        <p>É uma intervenção curta, objetiva e personalizada para transformar percepção em prioridade, prioridade em ação e ação em acompanhamento.</p>
+        <p class="quote">“Em quatro semanas, a Monitore ajuda você a transformar problemas dispersos em uma estrutura clara para gerir.”</p>
+        <p>O Sprint não promete resolver tudo. Ele constrói a base para que sua empresa saiba o que precisa fazer, em que ordem, com quais indicadores e como acompanhar a execução.</p>
       </div>
     </div>
   </div>
 </section>
 
-<section id="como-funciona" class="four">
+<section id="processo" class="process">
   <div class="wrap">
     <div class="center">
-      <div class="section-kicker">Como funciona</div>
-      <h2 class="section-title">Quatro semanas. Um processo prático.</h2>
-      <p class="section-lead">Cada semana tem uma função clara. A ideia é avançar sem criar mais complexidade para a empresa.</p>
+      <div class="section-kicker">O processo de construção</div>
+      <h2 class="section-title">Quatro semanas. Quatro entregas-chave.</h2>
+      <p class="section-lead">Cada semana existe para construir uma parte da estrutura de gestão da sua empresa.</p>
     </div>
     <div class="weeks">
-      <div class="week"><div class="n">SEMANA 01</div><h3>Diagnosticar</h3><p>Aplicamos o Diagnóstico de Maturidade Empresarial e identificamos os pontos que mais impactam a gestão.</p></div>
-      <div class="week"><div class="n">SEMANA 02</div><h3>Organizar</h3><p>Transformamos os principais problemas em prioridades, ações, responsáveis e prazos.</p></div>
-      <div class="week"><div class="n">SEMANA 03</div><h3>Implementar</h3><p>Começamos a colocar controles, ferramentas, indicadores e rotinas essenciais em funcionamento.</p></div>
-      <div class="week"><div class="n">SEMANA 04</div><h3>Acompanhar</h3><p>Avaliamos a evolução, ajustamos a rota e definimos os próximos passos.</p></div>
+      <div class="week">
+        <div class="n">SEMANA 01</div><h3>Diagnosticar</h3>
+        <p>Aplicamos o Diagnóstico de Maturidade Empresarial e analisamos os principais pontos da gestão.</p>
+        <div class="output">ENTREGA: Diagnóstico + Mapa de Gestão</div>
+      </div>
+      <div class="week">
+        <div class="n">SEMANA 02</div><h3>Priorizar</h3>
+        <p>Transformamos problemas e oportunidades em prioridades claras de atuação.</p>
+        <div class="output">ENTREGA: Matriz de Prioridades + Plano de Ação</div>
+      </div>
+      <div class="week">
+        <div class="n">SEMANA 03</div><h3>Estruturar</h3>
+        <p>Definimos os indicadores e as ferramentas necessárias para acompanhar a gestão.</p>
+        <div class="output">ENTREGA: Indicadores + Ferramentas de Gestão</div>
+      </div>
+      <div class="week">
+        <div class="n">SEMANA 04</div><h3>Implantar</h3>
+        <p>Organizamos a rotina de acompanhamento e consolidamos a estrutura construída.</p>
+        <div class="output">ENTREGA: Rotina de Gestão + Próximos Passos</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section id="entregas" class="deliver">
+  <div class="wrap">
+    <div class="center">
+      <div class="section-kicker">O que você recebe</div>
+      <h2 class="section-title">Não são aulas. São entregáveis para a sua empresa.</h2>
+      <p class="section-lead">Ao final do Sprint, você terá uma base concreta para organizar, acompanhar e tomar decisões na gestão.</p>
+    </div>
+
+    <div class="deliver-grid">
+      <div class="deliver-card">
+        <div class="num">01</div><h3>Diagnóstico de Maturidade</h3>
+        <p>Visão estruturada da situação atual da gestão.</p>
+        <ul><li>Pontos críticos</li><li>Gargalos</li><li>Oportunidades</li></ul>
+      </div>
+      <div class="deliver-card">
+        <div class="num">02</div><h3>Mapa de Gestão</h3>
+        <p>Visão consolidada do que precisa de atenção.</p>
+        <ul><li>Áreas prioritárias</li><li>Problemas centrais</li><li>Focos de melhoria</li></ul>
+      </div>
+      <div class="deliver-card">
+        <div class="num">03</div><h3>Matriz de Prioridades</h3>
+        <p>Clareza sobre o que deve ser atacado primeiro.</p>
+        <ul><li>Prioridade</li><li>Impacto</li><li>Sequenciamento</li></ul>
+      </div>
+      <div class="deliver-card">
+        <div class="num">04</div><h3>Plano de Ação</h3>
+        <p>As prioridades transformadas em execução.</p>
+        <ul><li>Ações</li><li>Responsáveis</li><li>Prazos</li></ul>
+      </div>
+      <div class="deliver-card">
+        <div class="num">05</div><h3>Painel de Indicadores</h3>
+        <p>Os indicadores que realmente precisam ser acompanhados.</p>
+        <ul><li>Indicadores prioritários</li><li>Periodicidade</li><li>Responsáveis</li></ul>
+      </div>
+      <div class="deliver-card">
+        <div class="num">06</div><h3>Ferramentas de Gestão</h3>
+        <p>Estruturas práticas para colocar a gestão em funcionamento.</p>
+        <ul><li>Controles</li><li>Modelos</li><li>Instrumentos de acompanhamento</li></ul>
+      </div>
+      <div class="deliver-card">
+        <div class="num">07</div><h3>Rotina de Gestão</h3>
+        <p>Uma forma definida de acompanhar e decidir.</p>
+        <ul><li>Reuniões</li><li>Frequências</li><li>Pautas e acompanhamento</li></ul>
+      </div>
+      <div class="deliver-card">
+        <div class="num">08</div><h3>Próximos Passos</h3>
+        <p>Clareza sobre o que deve acontecer depois do Sprint.</p>
+        <ul><li>Continuidade</li><li>Novas prioridades</li><li>Agenda de evolução</li></ul>
+      </div>
     </div>
   </div>
 </section>
@@ -232,68 +271,78 @@
   <div class="wrap">
     <div class="center">
       <div class="section-kicker">Escolha sua modalidade</div>
-      <h2 class="section-title">Duas formas de aprofundar o trabalho.</h2>
-      <p class="section-lead">O diagnóstico é o ponto de partida. A diferença está na profundidade da intervenção depois dele.</p>
+      <h2 class="section-title">Duas profundidades de entrega.</h2>
+      <p class="section-lead">Em ambas, a lógica é a mesma: construir uma estrutura de gestão para a empresa. A diferença está na profundidade da intervenção.</p>
     </div>
+
     <div class="offer-grid">
       <article class="offer">
-        <div class="offer-label">CONDIÇÃO ESPECIAL DE LANÇAMENTO</div>
+        <div class="offer-label">SPRINT DE GESTÃO</div>
         <h3>Sprint Essencial</h3>
-        <p class="offer-desc">Para empresários que precisam colocar a gestão em ordem e saber exatamente por onde começar.</p>
+        <p class="offer-desc">Para empresários que precisam organizar a gestão, definir prioridades e criar uma base objetiva para acompanhar o negócio.</p>
         <div class="old-price">De R$ 897</div>
         <div class="price-row"><span class="price">R$ 697</span><span class="price-unit">à vista</span></div>
         <div class="installment">ou 3x de R$ 232,33 sem acréscimo</div>
         <ul class="features">
           <li>Diagnóstico de Maturidade Empresarial</li>
-          <li>Reunião estratégica de diagnóstico</li>
-          <li>Mapa de prioridades</li>
-          <li>Plano de ação prioritário</li>
-          <li>Definição dos principais indicadores</li>
-          <li>4 encontros online</li>
-          <li>Acompanhamento semanal</li>
-          <li>Orientação estratégica personalizada</li>
+          <li>Mapa de Gestão</li>
+          <li>Matriz de Prioridades</li>
+          <li>Plano de Ação Prioritário</li>
+          <li>Definição dos indicadores prioritários</li>
+          <li>Estrutura básica de ferramentas de gestão</li>
+          <li>Rotina de acompanhamento</li>
+          <li>4 encontros online de construção</li>
         </ul>
         <a class="btn primary" href="https://mpago.li/1mZ7f51" target="_blank" rel="noopener">Quero o Sprint Essencial</a>
       </article>
 
       <article class="offer featured">
-        <div class="badge">Mais completo</div>
-        <div class="offer-label">CONDIÇÃO ESPECIAL DE LANÇAMENTO</div>
+        <div class="badge">MAIS COMPLETO</div>
+        <div class="offer-label">SPRINT DE GESTÃO</div>
         <h3>Sprint Estratégico</h3>
-        <p class="offer-desc">Para empresários que querem organizar a gestão e avançar também na estrutura dos processos e ferramentas.</p>
+        <p class="offer-desc">Para empresários que querem, além da organização da gestão, aprofundar processos, ferramentas e implantação.</p>
         <div class="old-price">De R$ 1.297</div>
         <div class="price-row"><span class="price">R$ 997</span><span class="price-unit">à vista</span></div>
         <div class="installment">ou 3x de R$ 332,33 sem acréscimo</div>
         <ul class="features">
           <li>Tudo do Sprint Essencial</li>
-          <li>Análise aprofundada de processos</li>
+          <li>Análise aprofundada de processos prioritários</li>
           <li>Construção ou ajuste de ferramentas</li>
-          <li>Estruturação dos indicadores prioritários</li>
-          <li>Rotina de gestão e acompanhamento</li>
-          <li>4 encontros online</li>
+          <li>Estruturação aprofundada dos indicadores</li>
+          <li>Rotina de gestão estruturada</li>
+          <li>4 encontros online de construção</li>
           <li>1 encontro presencial</li>
           <li>Orientação estratégica personalizada</li>
         </ul>
         <a class="btn primary" href="https://mpago.li/1xPkpGi" target="_blank" rel="noopener">Quero o Sprint Estratégico</a>
       </article>
     </div>
-    <p class="after"><strong>Não sabe qual escolher?</strong> A partir do diagnóstico, a Monitore orientará você sobre o formato mais adequado para a realidade da sua empresa.</p>
+
+    <p class="after"><strong>Importante:</strong> o Sprint é construído a partir da realidade da empresa. Os entregáveis são personalizados conforme os desafios e prioridades identificados no diagnóstico.</p>
   </div>
 </section>
 
-<section class="deliver">
+<section class="comparison">
   <div class="wrap">
     <div class="center">
-      <div class="section-kicker">O que você leva</div>
-      <h2 class="section-title">Clareza para decidir. Estrutura para agir.</h2>
-      <p class="section-lead">Ao final do Sprint, você terá uma visão objetiva do que precisa ser tratado primeiro e uma base para acompanhar a execução.</p>
+      <div class="section-kicker">Qual faz sentido para você?</div>
+      <h2 class="section-title">A diferença está na profundidade.</h2>
+      <p class="section-lead">O Essencial organiza a base. O Estratégico aprofunda a estrutura e a implantação.</p>
     </div>
-    <div class="deliver-grid">
-      <div class="deliver-card"><div class="num">01</div><h3>Mapa de Gestão</h3><p>Visão dos principais pontos críticos e oportunidades de melhoria.</p></div>
-      <div class="deliver-card"><div class="num">02</div><h3>Prioridades</h3><p>Foco nos problemas que realmente merecem atenção agora.</p></div>
-      <div class="deliver-card"><div class="num">03</div><h3>Plano de Ação</h3><p>Ações, responsáveis, prazos e critérios de acompanhamento.</p></div>
-      <div class="deliver-card"><div class="num">04</div><h3>Indicadores</h3><p>Uma base para transformar informação em decisão.</p></div>
-    </div>
+    <table class="compare">
+      <thead><tr><th>Entrega</th><th>Essencial</th><th>Estratégico</th></tr></thead>
+      <tbody>
+        <tr><td>Diagnóstico de Maturidade</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Mapa de Gestão</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Matriz de Prioridades</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Plano de Ação</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Indicadores prioritários</td><td class="yes">✓</td><td class="yes">✓</td></tr>
+        <tr><td>Ferramentas de Gestão</td><td class="yes">Base</td><td class="yes">Aprofundadas</td></tr>
+        <tr><td>Análise de processos</td><td class="no">—</td><td class="yes">✓</td></tr>
+        <tr><td>Rotina de Gestão</td><td class="yes">Base</td><td class="yes">Estruturada</td></tr>
+        <tr><td>Encontro presencial</td><td class="no">—</td><td class="yes">✓</td></tr>
+      </tbody>
+    </table>
   </div>
 </section>
 
@@ -301,8 +350,8 @@
   <div class="wrap">
     <div class="center">
       <div class="section-kicker">Método MONITORE</div>
-      <h2 class="section-title">Uma metodologia criada para transformar desafios em resultados.</h2>
-      <p class="section-lead">O Sprint usa o Método MONITORE como estrutura de condução da jornada.</p>
+      <h2 class="section-title">Uma metodologia para transformar desafios em resultados.</h2>
+      <p class="section-lead">O Sprint utiliza o Método MONITORE como estrutura de condução da construção da gestão.</p>
     </div>
     <div class="method-grid">
       <div class="method-item"><b>M</b><span>Mapeamento</span></div>
@@ -324,21 +373,21 @@
       <h2 class="section-title">Antes de começar</h2>
     </div>
     <div class="faq-grid">
-      <details><summary>O Sprint é um curso?</summary><p>Não. É uma jornada prática de gestão, com diagnóstico, encontros, definição de prioridades, plano de ação e acompanhamento.</p></details>
-      <details><summary>Os encontros são online?</summary><p>Sim. Os dois formatos incluem quatro encontros online. O Estratégico inclui também um encontro presencial.</p></details>
-      <details><summary>Preciso ter indicadores hoje?</summary><p>Não. O Sprint ajuda a identificar quais indicadores fazem sentido para a realidade da sua empresa.</p></details>
-      <details><summary>Qual a diferença entre as modalidades?</summary><p>O Essencial concentra-se em diagnóstico, prioridades, plano de ação e indicadores. O Estratégico acrescenta aprofundamento de processos, ferramentas e um encontro presencial.</p></details>
-      <details><summary>Como faço o pagamento?</summary><p>Você escolhe a modalidade e é direcionado ao checkout do Mercado Pago para concluir a compra.</p></details>
-      <details><summary>E depois das quatro semanas?</summary><p>Você terá clareza dos próximos passos. Se fizer sentido, a Monitore poderá apresentar uma proposta de continuidade, sem obrigação de contratação.</p></details>
+      <details><summary>O Sprint é um curso?</summary><p>Não. É um projeto curto de construção da gestão. Os encontros são utilizados para analisar, decidir, construir e validar os entregáveis da empresa.</p></details>
+      <details><summary>O que eu recebo ao final?</summary><p>Você recebe os entregáveis definidos para a modalidade escolhida, construídos a partir da realidade e das prioridades identificadas no diagnóstico.</p></details>
+      <details><summary>Os encontros são online?</summary><p>Sim. As duas modalidades incluem quatro encontros online. O Sprint Estratégico também inclui um encontro presencial.</p></details>
+      <details><summary>Preciso ter indicadores hoje?</summary><p>Não. O Sprint ajuda a identificar quais indicadores fazem sentido para a realidade da sua empresa e como acompanhá-los.</p></details>
+      <details><summary>Qual a diferença entre as modalidades?</summary><p>O Essencial concentra-se na estruturação da base de gestão. O Estratégico acrescenta aprofundamento de processos, ferramentas, indicadores e implantação, além do encontro presencial.</p></details>
+      <details><summary>E depois das quatro semanas?</summary><p>Você terá uma estrutura inicial de gestão e clareza sobre os próximos passos. Se houver necessidade de uma transformação mais ampla, a Monitore poderá apresentar uma proposta de continuidade, sem obrigação de contratação.</p></details>
     </div>
   </div>
 </section>
 
 <section class="final">
   <div class="wrap">
-    <h2>O próximo nível da sua empresa começa pela forma como você a gerencia.</h2>
-    <p>Escolha a modalidade mais adequada e dê o primeiro passo para transformar os principais desafios da gestão em prioridades e ações.</p>
-    <a class="btn primary" href="#ofertas">Quero começar meu Sprint</a>
+    <h2>Você não precisa de mais uma reunião. Precisa de uma gestão mais estruturada.</h2>
+    <p>Em quatro semanas, construa com a Monitore uma base de gestão personalizada para saber onde está, o que priorizar, o que acompanhar e como agir.</p>
+    <a class="btn primary" href="#ofertas">Quero construir minha gestão</a>
   </div>
 </section>
 
