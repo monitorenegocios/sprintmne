@@ -124,7 +124,7 @@ footer{text-align:center;padding:20px 0 17px;font-size:10px;color:#71839b}
 <script>
 /* Conexão direta com a API REST do Supabase.
    O diagnóstico não exige login do cliente. */
-const SUPABASE_URL="https://reunexorxwbiirkypveu.supabase.co/rest/v1/";
+const SUPABASE_URL="https://reunexorxwbiirkypveu.supabase.co";
 const SUPABASE_KEY="sb_publishable_1ucXcwRs0PsvEFWkLRsE1g_oIkKXlmg";
 const SUPABASE_TABLE_URL=SUPABASE_URL+"/rest/v1/sprint_diagnosticos";
 let envioEmAndamento=false;
@@ -193,7 +193,7 @@ async function send(){
  try{
   const response=await fetch(SUPABASE_TABLE_URL,{
    method:"POST",
-   headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal","Content-Profile":"public","Accept-Profile":"public"},
+   headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
    body:JSON.stringify(payload)
   });
   const responseText=await response.text();
