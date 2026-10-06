@@ -73,7 +73,7 @@ footer{text-align:center;padding:20px 0 17px;font-size:10px;color:#71839b}
 <input type="hidden" name="_cc" value="monitorenegocios@gmail.com">
 <input type="hidden" name="_template" value="box">
 <input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_next" value="https://monitorenegocios.com.br/diagnostico-agendamento.html">
+<input type="hidden" name="_next" value="https://sprint.monitorenegocios.com.br/cliente/mapa-gestao/">
 <input type="hidden" name="Resumo formatado do diagnóstico" id="email_summary"><div class="card" id="card">
   <section class="page active" data-step="1"><div class="intro"><h2>1. Sobre sua empresa</h2><p>Vamos começar com algumas informações básicas.</p></div><div class="section">
    <div class="grid">
@@ -121,12 +121,11 @@ footer{text-align:center;padding:20px 0 17px;font-size:10px;color:#71839b}
  <footer>Monitore Gestão de Negócios Empresariais &nbsp;·&nbsp; Transformamos desafios em resultados.</footer>
 </div></main></div>
 
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
-/* Conexão direta com a API REST do Supabase.
-   O diagnóstico não exige login do cliente. */
 const SUPABASE_URL="https://reunexorxwbiirkypveu.supabase.co";
-const SUPABASE_KEY="sb_publishable_1ucXcwRs0PsvEFWkLRsE1g_oIkKXlmg";
-const SUPABASE_TABLE_URL=SUPABASE_URL+"/rest/v1/sprint_diagnosticos";
+const SUPABASE_KEY="sb_publishable_1ucXCwRs0PsvEFWkLRsE1g_oIkKXlmg";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 let envioEmAndamento=false;
 const data={
 2:["A empresa possui objetivos e metas claramente definidos?","As prioridades da empresa estão claras para os responsáveis?","Existe uma rotina estruturada de acompanhamento da gestão?","As responsabilidades estão claramente definidas?","As decisões importantes são tomadas com base em informações confiáveis?","A liderança consegue sair da rotina operacional para atuar de forma estratégica?"],
@@ -172,44 +171,133 @@ function move(dir){
 async function send(){
  if(!valid() || envioEmAndamento)return;
  envioEmAndamento=true;
- const btn=document.getElementById("next");btn.disabled=true;btn.textContent="Salvando diagnóstico...";
+ const btn=document.getElementById("next");
+ btn.disabled=true;
+ btn.textContent="Salvando diagnóstico...";
+
  const form=document.getElementById("form");
- const fd=new FormData(form),obj={};fd.forEach((v,k)=>obj[k]=v);
- const respostas={gestao:{},excelencia_operacional:{},inteligencia_negocios:{},desenvolvimento_pessoas:{}};
- for(const [step,qs] of Object.entries(data)){
-  const key=names[step];
-  const destino={gestao:"gestao",operacional:"excelencia_operacional",dados:"inteligencia_negocios",pessoas:"desenvolvimento_pessoas"}[key];
-  qs.forEach((_,i)=>{const r=document.querySelector(`input[name="${key}_${i+1}"]:checked`);respostas[destino]["q"+(i+1)]=r?Number(r.value):null;});
- }
- const pontuacoes={
-  gestao:{percentual:score("gestao"),maturidade:score("gestao")/20},
-  excelencia_operacional:{percentual:score("operacional"),maturidade:score("operacional")/20},
-  inteligencia_negocios:{percentual:score("dados"),maturidade:score("dados")/20},
-  desenvolvimento_pessoas:{percentual:score("pessoas"),maturidade:score("pessoas")/20}
+ const fd=new FormData(form), obj={};
+ fd.forEach((v,k)=>obj[k]=v);
+
+ const respostas={
+   gestao:{},
+   excelencia_operacional:{},
+   inteligencia_negocios:{},
+   desenvolvimento_pessoas:{}
  };
- const visao_prioridades={maior_desafio:obj.desafio||"",o_que_mais_consume_tempo:obj.tempo||"",pilar_prioritario:obj.pilar||"",problema_30_dias:obj.problema||"",expectativa:obj.expectativa||"",organizacao:Number(obj.organizacao||0),impacto:Number(obj.impacto||0)};
- const accessToken=crypto.randomUUID();
- const payload={access_token:accessToken,empresa:obj.empresa,responsavel:obj.responsavel,cargo:obj.cargo,email:obj.email,whatsapp:obj.whatsapp,segmento:obj.segmento,colaboradores:obj.colaboradores,respostas,pontuacoes,visao_prioridades};
- try{
-  const response=await fetch(SUPABASE_TABLE_URL,{
-   method:"POST",
-   headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
-   body:JSON.stringify(payload)
-  });
-  const responseText=await response.text();
-  if(!response.ok){
-   console.error("Supabase HTTP",response.status,responseText);
-   throw new Error("HTTP "+response.status+" — "+responseText);
-  }
- }catch(error){
-  console.error("Supabase:",error);
-  alert("Não foi possível salvar o diagnóstico.\n\nDetalhe técnico: "+(error.message||"erro desconhecido"));
-  envioEmAndamento=false;btn.disabled=false;btn.textContent="Enviar diagnóstico";return;
+ for(const [step,qs] of Object.entries(data)){
+   const key=names[step];
+   const destino={
+     gestao:"gestao",
+     operacional:"excelencia_operacional",
+     dados:"inteligencia_negocios",
+     pessoas:"desenvolvimento_pessoas"
+   }[key];
+   qs.forEach((_,i)=>{
+     const r=document.querySelector(`input[name="${key}_${i+1}"]:checked`);
+     respostas[destino]["q"+(i+1)]=r?Number(r.value):null;
+   });
  }
+
+ const pontuacoes={
+   gestao:{percentual:score("gestao"),maturidade:score("gestao")/20},
+   excelencia_operacional:{percentual:score("operacional"),maturidade:score("operacional")/20},
+   inteligencia_negocios:{percentual:score("dados"),maturidade:score("dados")/20},
+   desenvolvimento_pessoas:{percentual:score("pessoas"),maturidade:score("pessoas")/20}
+ };
+
+ const visao_prioridades={
+   maior_desafio:obj.desafio||"",
+   o_que_mais_consume_tempo:obj.tempo||"",
+   pilar_prioritario:obj.pilar||"",
+   problema_30_dias:obj.problema||"",
+   expectativa:obj.expectativa||"",
+   organizacao:Number(obj.organizacao||0),
+   impacto:Number(obj.impacto||0)
+ };
+
+ const accessToken=crypto.randomUUID();
+
+ const {error}=await supabaseClient
+   .from("sprint_diagnosticos")
+   .insert({
+     access_token:accessToken,
+     empresa:obj.empresa,
+     responsavel:obj.responsavel,
+     cargo:obj.cargo,
+     email:obj.email,
+     whatsapp:obj.whatsapp,
+     segmento:obj.segmento,
+     colaboradores:obj.colaboradores,
+     respostas:respostas,
+     pontuacoes:pontuacoes,
+     visao_prioridades:visao_prioridades
+   });
+
+ if(error){
+   console.error("Supabase:",error);
+   alert(
+     "Não foi possível salvar o diagnóstico.\\n\\n"+
+     "Erro: "+(error.message||"erro desconhecido")
+   );
+   envioEmAndamento=false;
+   btn.disabled=false;
+   btn.textContent="Enviar diagnóstico";
+   return;
+ }
+
+ // O token já foi gerado antes do INSERT. Não precisamos fazer SELECT
+ // depois do INSERT; isso evita a necessidade de abrir uma política
+ // pública de leitura da tabela.
  localStorage.setItem("sprint_diagnostico_token",accessToken);
- const resumo="DIAGNÓSTICO DE MATURIDADE EMPRESARIAL\n\n"+"Empresa: "+obj.empresa+"\n"+"Responsável: "+obj.responsavel+"\n"+"Cargo/Função: "+obj.cargo+"\n"+"E-mail: "+obj.email+"\n"+"WhatsApp: "+obj.whatsapp+"\n"+"Segmento: "+obj.segmento+"\n"+"Colaboradores: "+obj.colaboradores+"\n\n"+"MATURIDADE DOS 4 PILARES\n"+"Gestão: "+pontuacoes.gestao.maturidade.toFixed(1)+"/5 ("+pontuacoes.gestao.percentual+"%)\n"+"Excelência Operacional: "+pontuacoes.excelencia_operacional.maturidade.toFixed(1)+"/5 ("+pontuacoes.excelencia_operacional.percentual+"%)\n"+"Inteligência de Negócios: "+pontuacoes.inteligencia_negocios.maturidade.toFixed(1)+"/5 ("+pontuacoes.inteligencia_negocios.percentual+"%)\n"+"Desenvolvimento de Pessoas: "+pontuacoes.desenvolvimento_pessoas.maturidade.toFixed(1)+"/5 ("+pontuacoes.desenvolvimento_pessoas.percentual+"%)\n\n"+"VISÃO E PRIORIDADES\n"+"Maior desafio: "+obj.desafio+"\n"+"O que mais consome tempo: "+obj.tempo+"\n"+"Pilar prioritário: "+obj.pilar+"\n"+"Problema para 30 dias: "+obj.problema+"\n"+"Expectativa: "+obj.expectativa+"\n"+"Organização: "+obj.organizacao+"/10\n"+"Impacto: "+obj.impacto+"/10";
- document.getElementById("email_summary").value=resumo;document.getElementById("email_subject").value="Diagnóstico de Maturidade Empresarial — "+obj.empresa;document.getElementById("email_replyto").value=obj.email;
+
+ const resumo =
+ "DIAGNÓSTICO DE MATURIDADE EMPRESARIAL\n\n"+
+ "Empresa: "+obj.empresa+"\n"+
+ "Responsável: "+obj.responsavel+"\n"+
+ "Cargo/Função: "+obj.cargo+"\n"+
+ "E-mail: "+obj.email+"\n"+
+ "WhatsApp: "+obj.whatsapp+"\n"+
+ "Segmento: "+obj.segmento+"\n"+
+ "Colaboradores: "+obj.colaboradores+"\n\n"+
+ "MATURIDADE DOS 4 PILARES\n"+
+ "Gestão: "+pontuacoes.gestao.maturidade.toFixed(1)+"/5 ("+pontuacoes.gestao.percentual+"%)\n"+
+ "Excelência Operacional: "+pontuacoes.excelencia_operacional.maturidade.toFixed(1)+"/5 ("+pontuacoes.excelencia_operacional.percentual+"%)\n"+
+ "Inteligência de Negócios: "+pontuacoes.inteligencia_negocios.maturidade.toFixed(1)+"/5 ("+pontuacoes.inteligencia_negocios.percentual+"%)\n"+
+ "Desenvolvimento de Pessoas: "+pontuacoes.desenvolvimento_pessoas.maturidade.toFixed(1)+"/5 ("+pontuacoes.desenvolvimento_pessoas.percentual+"%)\n\n"+
+ "VISÃO E PRIORIDADES\n"+
+ "Maior desafio: "+obj.desafio+"\n"+
+ "O que mais consome tempo: "+obj.tempo+"\n"+
+ "Pilar prioritário: "+obj.pilar+"\n"+
+ "Problema para 30 dias: "+obj.problema+"\n"+
+ "Expectativa: "+obj.expectativa+"\n"+
+ "Organização: "+obj.organizacao+"/10\n"+
+ "Impacto: "+obj.impacto+"/10";
+
+ document.getElementById("email_summary").value=resumo;
+ document.getElementById("email_subject").value="Diagnóstico de Maturidade Empresarial — "+obj.empresa;
+ document.getElementById("email_replyto").value=obj.email;
+
+ // Mantém o envio por e-mail já existente, mas agora o diagnóstico
+ // também fica persistido para alimentar o Mapa de Gestão.
+
+ // O diagnóstico já foi salvo no Supabase e o token foi armazenado.
+ // Envia o resumo por e-mail em um iframe oculto para não interromper
+ // o fluxo nem permitir que o FormSubmit redirecione para outra página.
+ let iframe=document.getElementById("formsubmit-frame");
+ if(!iframe){
+   iframe=document.createElement("iframe");
+   iframe.name="formsubmit-frame";
+   iframe.id="formsubmit-frame";
+   iframe.style.display="none";
+   document.body.appendChild(iframe);
+ }
+ form.target="formsubmit-frame";
  form.submit();
+
+ // O Mapa de Gestão lê o token salvo e busca no Supabase as respostas
+ // deste diagnóstico para montar o mapa personalizado.
+ window.location.href="https://sprint.monitorenegocios.com.br/cliente/mapa-gestao/";
 }
 build();move(0);
 </script>
