@@ -1,0 +1,60 @@
+create table if not exists public.sprint_rotinas_gestao (
+  id uuid primary key default gen_random_uuid(),
+  access_token text not null unique,
+  rotina jsonb not null default '{}'::jsonb,
+  created_at timestamptz not null default now(),
+  updated_at timestamptz not null default now()
+);
+
+alter table public.sprint_rotinas_gestao enable row level security;
+
+drop policy if exists "anon can insert sprint rotina" on public.sprint_rotinas_gestao;
+create policy "anon can insert sprint rotina"
+on public.sprint_rotinas_gestao
+for insert
+to anon, authenticated
+with check (true);
+
+create or replace function public.get_sprint_rotina(p_access_token text)
+returns table (
+  id uuid,
+  access_token text,
+  rotina jsonb,
+  created_at timestamptz,
+  updated_at timestamptz
+)
+language sql
+security definer
+set search_path = public
+as $$
+  select r.id, r.access_token, r.rotina, r.created_at, r.updated_at
+  from public.sprint_rotinas_gestao r
+  where r.access_token = p_access_token
+  limit 1;
+$$;
+
+create or replace function public.save_sprint_rotina(
+  p_access_token text,
+  p_rotina jsonb
+)
+returns void
+language plpgsql
+security definer
+set search_path = public
+as $$
+begin
+  insert into public.sprint_rotinas_gestao(access_token, rotina)
+  values(p_access_token, p_rotina)
+  on conflict(access_token) do update
+    set rotina = excluded.rotina,
+        updated_at = now();
+end;
+$$;
+
+revoke all on function public.get_sprint_rotina(text) from public;
+grant execute on function public.get_sprint_rotina(text) to anon, authenticated;
+
+revoke all on function public.save_sprint_rotina(text,jsonb) from public;
+grant execute on function public.save_sprint_rotina(text,jsonb) to anon, authenticated;
+
+notify pgrst, 'reload schema';
