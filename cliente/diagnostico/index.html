@@ -193,7 +193,7 @@ async function send(){
  try{
   const response=await fetch(SUPABASE_TABLE_URL,{
    method:"POST",
-   headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal"},
+   headers:{"apikey":SUPABASE_KEY,"Authorization":"Bearer "+SUPABASE_KEY,"Content-Type":"application/json","Prefer":"return=minimal","Content-Profile":"public","Accept-Profile":"public"},
    body:JSON.stringify(payload)
   });
   const responseText=await response.text();
