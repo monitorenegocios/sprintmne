@@ -1,65 +1,212 @@
-<!doctype html>
+<!DOCTYPE html>
 <html lang="pt-BR">
 <head>
-<meta charset="utf-8">
+<meta charset="UTF-8">
 <meta name="viewport" content="width=device-width,initial-scale=1">
-<title>Meu Sprint Gestão | Monitore</title>
+<title>Diagnóstico de Maturidade Empresarial | Monitore</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
-:root{--navy:#071b33;--blue:#0e5aa7;--cyan:#16a6b6;--bg:#f4f7fa;--text:#18283a;--muted:#718096;--line:#e3e9ef;--white:#fff;--green:#15946a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Montserrat,Arial,sans-serif}.app{min-height:100vh;display:flex}
-aside{position:fixed;inset:0 auto 0 0;width:250px;background:var(--navy);color:#fff;padding:28px 18px;display:flex;flex-direction:column}.logo{font-size:23px;font-weight:800;padding:0 12px 28px;border-bottom:1px solid #ffffff18}.logo span{color:#31c1ce}.sub{font-size:9px;letter-spacing:2px;color:#9eb0c5;margin-top:5px}.label{font-size:9px;letter-spacing:1.5px;color:#7890a9;margin:25px 12px 9px;text-transform:uppercase;font-weight:700}nav a{display:block;color:#c5d1de;padding:12px;border-radius:9px;font-size:12px;font-weight:600;text-decoration:none}nav a.active,nav a:hover{background:#ffffff12;color:#fff;border-left:3px solid var(--cyan)}.help{margin-top:auto;border-top:1px solid #ffffff18;padding:18px 12px;color:#9eb0c5;font-size:10px;line-height:1.6}.help strong{display:block;color:#fff}.help a{color:#4cc7d1}
-main{margin-left:250px;width:calc(100% - 250px)}header{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 40px}.crumb{font-size:11px;color:var(--muted)}.crumb strong{color:var(--text)}.profile{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700}.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-size:11px}
-.content{max-width:1220px;margin:auto;padding:36px 40px 55px}.hero{background:linear-gradient(135deg,#071b33,#0b3159 70%,#0e5aa7);color:#fff;border-radius:21px;padding:34px 38px;position:relative;overflow:hidden}.eyebrow{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#62d2da;font-weight:800}.hero h1{font-size:30px;margin:10px 0 8px;letter-spacing:-.6px}.hero p{font-size:12px;color:#c9d8e7;line-height:1.7;max-width:700px;margin:0}.pills{display:flex;gap:9px;margin-top:20px;flex-wrap:wrap}.pill{font-size:9px;font-weight:700;border-radius:20px;padding:8px 12px}.pill.cyan{background:#d9f7f8;color:#087c88}.pill.dark{background:#ffffff16;color:#fff}
-.head{display:flex;justify-content:space-between;align-items:end;margin:32px 0 15px}.head h2{margin:0;font-size:18px}.head p{margin:5px 0 0;font-size:10px;color:var(--muted)}.progressbox{text-align:right}.progressbox div{font-size:9px;color:var(--muted);margin-bottom:6px}.bar{width:210px;height:6px;background:#dfe7ed;border-radius:9px;overflow:hidden}.bar span{display:block;width:12.5%;height:100%;background:var(--cyan)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:19px;display:flex;gap:14px}.card.available{border-color:#a8dde1;box-shadow:0 7px 20px #16a6b610}.num{width:38px;height:38px;flex:0 0 38px;border-radius:10px;background:#eef3f7;color:#64778b;display:grid;place-items:center;font-size:10px;font-weight:800}.available .num{background:var(--cyan);color:#fff}.title{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.title h3{font-size:12px;margin:0}.tag{font-size:7px;font-weight:800;text-transform:uppercase;padding:4px 7px;border-radius:10px}.tag.ok{background:#e9f8f2;color:var(--green)}.tag.next{background:#f0f3f6;color:#7b8997}.card p{font-size:10px;line-height:1.55;color:var(--muted);margin:6px 0 0}.action{display:inline-block;margin-top:10px;color:var(--blue);font-size:9px;font-weight:800;cursor:pointer}
-.bottom{display:grid;grid-template-columns:1.4fr .6fr;gap:15px;margin-top:30px}.next,.info{background:#fff;border:1px solid var(--line);border-radius:17px;padding:25px}.next{background:#e8f8fa;border-color:#b8e6ea}.kicker{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#0c7f8b;font-weight:800}.next h2{font-size:17px;margin:7px 0}.next p{font-size:10px;line-height:1.65;color:var(--muted);max-width:620px}.btn{border:0;background:var(--navy);color:#fff;padding:12px 17px;border-radius:8px;font:800 10px Montserrat;cursor:pointer}.info h3{font-size:12px;margin:0 0 10px}.row{display:flex;justify-content:space-between;border-bottom:1px solid #eef1f4;padding:9px 0;font-size:9px}.row span{color:var(--muted)}footer{border-top:1px solid var(--line);margin-top:42px;padding-top:18px;display:flex;justify-content:space-between;color:#91a0af;font-size:8px}
-@media(max-width:850px){aside{display:none}main{margin:0;width:100%}header{padding:0 18px}.profile{display:none}.content{padding:24px 17px}.hero{padding:27px 24px}.hero h1{font-size:24px}.head{display:block}.progressbox{text-align:left;margin-top:15px}.bar{width:100%}.grid,.bottom{grid-template-columns:1fr}footer{display:block;line-height:2}}
+*{box-sizing:border-box}body{margin:0;font-family:Montserrat,Arial,sans-serif;color:#123766;background:#fff}
+:root{--blue:#174b98;--navy:#062b56;--text:#153867;--muted:#667993;--line:#d6e0eb;--soft:#eef5fb}
+.app{min-height:100vh;display:grid;grid-template-columns:304px 1fr}
+.sidebar{position:relative;min-height:100vh;overflow:hidden;padding:28px 24px;color:white;background:linear-gradient(180deg,rgba(3,35,70,.97),rgba(7,54,103,.94) 60%,rgba(3,26,53,.99)),url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85") center bottom/cover no-repeat}
+.sidebar:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,30,60,.1),rgba(2,25,50,.58));z-index:0}
+.sidebar>*{position:relative;z-index:1}
+.brand{background:transparent;border-radius:7px;padding:9px 10px;margin-bottom:28px}.brand img{display:block;width:100%}
+.tagline{font-size:12px;line-height:1.8;letter-spacing:3px;font-weight:700;text-transform:uppercase}.line{width:45px;height:2px;background:#b5cef0;margin:25px 0 27px}
+.steps{position:relative}.steps:before{content:"";position:absolute;left:16px;top:17px;bottom:17px;width:1px;background:rgba(255,255,255,.28)}
+.step{display:flex;gap:14px;margin-bottom:20px;position:relative}.dot{width:33px;height:33px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:#0b3a70;display:grid;place-items:center;flex:none;font-size:13px;font-weight:700;z-index:2}
+.step.active .dot{background:#fff;color:var(--blue);border-color:#fff}.step.done .dot{background:#9fc4f3;color:#0a3565;border-color:#9fc4f3}
+.step-title{font-size:13px;font-weight:700;margin-top:2px}.step-sub{font-size:11px;color:#bdd0e6;margin-top:5px}
+.side-bottom{position:absolute!important;left:24px;bottom:26px;font-size:11px;line-height:1.75;letter-spacing:2px;text-transform:uppercase;color:#b9cde4;font-weight:600}
+.main{padding:38px 43px 0}.container{max-width:1060px;margin:auto}
+.header{display:flex;justify-content:space-between;gap:30px}.kicker{font-size:12px;letter-spacing:1.8px;color:#607da4;font-weight:700;margin-bottom:7px}.header h1{font-size:29px;margin:0 0 9px;font-weight:800;line-height:1.2}.desc{font-size:12px;color:#61748f;line-height:1.65}.security{font-size:11px;line-height:1.45;text-align:right;color:#667993;white-space:nowrap}
+.progress-area{margin:23px 0 25px}.progress-label{display:flex;justify-content:space-between;font-size:12px;font-weight:700;margin-bottom:8px}.progress{height:9px;border-radius:99px;background:#dfe7f0;overflow:hidden}.bar{height:100%;width:14.28%;background:#2055a2;border-radius:99px;transition:.25s}
+.card{border:1px solid #e0e7ef;border-radius:10px;overflow:hidden;box-shadow:0 8px 25px rgba(13,48,86,.06)}.page{display:none}.page.active{display:block}
+.intro{padding:24px 27px;background:linear-gradient(110deg,#f0f6fb,#eaf2f9);border-bottom:1px solid #dde6ef}.intro h2{font-size:20px;margin:0 0 7px}.intro p{font-size:12px;color:#6b7d95;margin:0}
+.section{padding:27px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:20px 25px}.field label,.q-title{display:block;font-size:12px;font-weight:700;margin-bottom:8px}.req{color:#d52f3e}
+input,select,textarea{width:100%;font-family:Montserrat,Arial;border:1px solid #cbd7e5;border-radius:8px;padding:12px 13px;font-size:12px;color:#27466d;background:#fff;outline:none}input:focus,select:focus,textarea:focus{border-color:#3970b8;box-shadow:0 0 0 3px #3970b815}textarea{min-height:100px;resize:vertical}
+.employee{display:grid;grid-template-columns:repeat(6,1fr);gap:9px}.choice{position:relative}.choice input{position:absolute;opacity:0}.choice label{min-height:57px;border:1px solid #d0dbe8;border-radius:8px;display:flex;align-items:center;justify-content:center;text-align:center;font-size:10px;color:#4e6581;cursor:pointer;padding:8px}.choice input:checked+label{background:#edf4ff;border-color:#245aa5;color:#174b98;font-weight:700;box-shadow:inset 0 0 0 1px #245aa5}
+.scale{display:grid;grid-template-columns:repeat(5,1fr);gap:9px}.scale .choice label{min-height:65px}
+.notice{display:flex;align-items:center;gap:13px;background:#edf6ff;border:1px solid #d8e8f9;border-radius:9px;padding:15px 17px;margin-top:23px}.info{width:28px;height:28px;border-radius:50%;background:#19509b;color:#fff;display:grid;place-items:center;font-weight:800;flex:none}.notice strong{font-size:11px}.notice p{font-size:10px;color:#667993;margin:4px 0 0}.time{margin-left:auto;font-size:10px;line-height:1.6;white-space:nowrap;color:#667993}
+.navigation{display:flex;justify-content:space-between;align-items:center;padding:18px 27px;border-top:1px solid #edf1f5;background:#fbfcfe}.btn{border-radius:8px;padding:12px 20px;font:700 12px Montserrat;border:1px solid #cbd8e6;background:#fff;color:#245595;cursor:pointer}.next{background:#174b98;color:#fff;border-color:#174b98;min-width:172px}.next:hover{background:#123d7d}
+.q{margin-bottom:25px}.q:last-child{margin-bottom:0}.help{font-size:9px;color:#7b8ba0;margin-top:7px}
+.scorebox{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-bottom:18px}.score{border:1px solid #dce4ee;border-radius:9px;padding:14px;background:#fbfcfe}.score b{display:block;font-size:10px;margin-bottom:7px}.score span{font-size:24px;font-weight:800;color:#1a4e9b}
+.review{border:1px solid #dce4ee;border-radius:9px;padding:15px;margin-bottom:11px;background:#fbfcfe}.review h3{font-size:12px;margin:0 0 8px}.review p{font-size:10px;line-height:1.6;color:#677a93;margin:0}.consent{display:flex;gap:9px;font-size:10px;line-height:1.5;color:#65778f}.consent input{width:auto;margin-top:2px}
+.success{display:none;margin-top:20px;text-align:center;padding:55px 25px}.success.show{display:block}.check{width:58px;height:58px;border-radius:50%;background:#e7f6ef;color:#17815b;display:grid;place-items:center;margin:auto;font-size:28px;font-weight:800}.success h2{font-size:22px;margin:16px 0 8px}.success p{font-size:12px;color:#677a93;line-height:1.7}
+footer{text-align:center;padding:20px 0 17px;font-size:10px;color:#71839b}
+@media(max-width:900px){.app{grid-template-columns:1fr}.sidebar{display:none}.main{padding:25px 18px}.header{display:block}.security{text-align:left;margin-top:10px}.grid{grid-template-columns:1fr}.employee{grid-template-columns:repeat(3,1fr)}.scorebox{grid-template-columns:1fr 1fr}}
+@media(max-width:520px){.main{padding:15px 10px}.section{padding:20px}.intro{padding:19px}.employee,.scale{grid-template-columns:1fr 1fr}.scorebox{grid-template-columns:1fr}.header h1{font-size:24px}.time{white-space:normal}}
 </style>
 </head>
 <body>
 <div class="app">
-<aside>
-<div class="logo">MONITORE<span>.</span><div class="sub">Gestão Empresarial</div></div>
-<div class="label">Meu Sprint</div>
-<nav>
-<a class="active" href="#inicio">⌂ &nbsp; Visão geral</a>
-<a href="#entregaveis">▣ &nbsp; Entregáveis</a>
-<a href="#proximo">→ &nbsp; Próximo passo</a>
-<a href="#suporte">? &nbsp; Suporte</a>
-</nav>
-<div class="help" id="suporte"><strong>Precisa de ajuda?</strong>Fale com a equipe Monitore.<br><a href="mailto:comercial@monitorenegocios.com.br">comercial@monitorenegocios.com.br</a></div>
+<aside class="sidebar">
+ <div class="brand"><img src="logo-monitore-branca.png" alt="Monitore Gestão de Negócios Empresariais"></div>
+ <div class="tagline">Transformamos<br>desafios em<br>resultados</div><div class="line"></div>
+ <div class="steps">
+  <div class="step active"><div class="dot">1</div><div><div class="step-title">Sobre sua empresa</div><div class="step-sub">Informações iniciais</div></div></div>
+  <div class="step"><div class="dot">2</div><div><div class="step-title">Gestão</div><div class="step-sub">6 perguntas</div></div></div>
+  <div class="step"><div class="dot">3</div><div><div class="step-title">Excelência Operacional</div><div class="step-sub">6 perguntas</div></div></div>
+  <div class="step"><div class="dot">4</div><div><div class="step-title">Inteligência de Negócios</div><div class="step-sub">6 perguntas</div></div></div>
+  <div class="step"><div class="dot">5</div><div><div class="step-title">Desenvolvimento de Pessoas</div><div class="step-sub">6 perguntas</div></div></div>
+  <div class="step"><div class="dot">6</div><div><div class="step-title">Visão e Prioridades</div><div class="step-sub">5 perguntas</div></div></div>
+  <div class="step"><div class="dot">7</div><div><div class="step-title">Revisão e envio</div><div class="step-sub">Confirme suas respostas</div></div></div>
+ </div>
+ <div class="side-bottom">Empresas mais organizadas,<br>eficientes e competitivas.</div>
 </aside>
-<main>
-<header><div class="crumb">Monitore / <strong>Meu Sprint Gestão</strong></div><div class="profile">Cliente Sprint <span class="avatar">CS</span></div></header>
-<section class="content" id="inicio">
-<div class="hero"><div class="eyebrow">Sprint Gestão · Área do Cliente</div><h1>Seu Sprint começou.</h1><p>Em quatro semanas, vamos transformar as principais necessidades da sua empresa em uma estrutura de gestão mais clara, organizada e prática.</p><div class="pills"><span class="pill cyan">● Em andamento</span><span class="pill dark">Modalidade: Essencial</span></div></div>
-<div class="head" id="entregaveis"><div><h2>O que você vai receber</h2><p>Seu Sprint é construído etapa por etapa. Acompanhe aqui a evolução do projeto.</p></div><div class="progressbox"><div>Progresso &nbsp; <strong>1 de 8 entregáveis</strong></div><div class="bar"><span></span></div></div></div>
+<main class="main"><div class="container">
+ <header class="header">
+  <div><div class="kicker">SPRINT DE GESTÃO &nbsp;|&nbsp; MONITORE NEGÓCIOS EMPRESARIAIS</div>
+  <h1>Diagnóstico de Maturidade Empresarial</h1>
+  <div class="desc">Este diagnóstico avaliará o nível de maturidade da sua empresa em quatro pilares fundamentais da gestão.<br>Suas respostas nos ajudarão a identificar os principais pontos de atenção e a preparar a nossa primeira reunião.</div></div>
+  <div class="security">🔒 &nbsp;Seus dados estão seguros<br>e serão utilizados apenas<br>para o Sprint de Gestão.</div>
+ </header>
+ <div class="progress-area"><div class="progress-label"><span id="pt">Etapa 1 de 7 - <span style="color:#174b98">Sobre sua empresa</span></span><span id="pp">14%</span></div><div class="progress"><div class="bar" id="bar"></div></div></div>
+ <form id="form" action="https://formsubmit.co/comercial@monitorenegocios.com.br" method="POST" novalidate>
+<input type="hidden" name="_subject" value="Novo Diagnóstico de Maturidade Empresarial">
+<input type="hidden" name="_replyto" id="email_replyto">
+<input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_next" value="https://sprint.monitorenegocios.com.br/diagnostico-agendamento.html">
+<div class="card" id="card">
+<section class="page active" data-step="1"><div class="intro"><h2>1. Sobre sua empresa</h2><p>Vamos começar com algumas informações básicas.</p></div><div class="section">
 <div class="grid">
-<div class="card available"><div class="num">01</div><div><div class="title"><h3>Diagnóstico de Maturidade da Gestão</h3><span class="tag ok">Disponível</span></div><p>Identifique o estágio atual da gestão e os principais pontos que precisam de atenção.</p><a class="action" onclick="iniciarDiagnostico()">Começar diagnóstico →</a></div></div>
-<div class="card"><div class="num">02</div><div><div class="title"><h3>Mapa de Gestão</h3><span class="tag next">Próxima etapa</span></div><p>Visualização estruturada dos principais pontos, impactos e oportunidades.</p></div></div>
-<div class="card"><div class="num">03</div><div><div class="title"><h3>Matriz de Prioridades</h3><span class="tag next">Próxima etapa</span></div><p>Definição do que precisa ser tratado primeiro.</p></div></div>
-<div class="card"><div class="num">04</div><div><div class="title"><h3>Plano de Ação</h3><span class="tag next">Próxima etapa</span></div><p>Ações, responsáveis, prazos e critérios de acompanhamento.</p></div></div>
-<div class="card"><div class="num">05</div><div><div class="title"><h3>Painel de Indicadores</h3><span class="tag next">Próxima etapa</span></div><p>Definição dos indicadores essenciais para acompanhar o desempenho.</p></div></div>
-<div class="card"><div class="num">06</div><div><div class="title"><h3>Ferramentas de Gestão</h3><span class="tag next">Próxima etapa</span></div><p>Ferramentas adequadas à realidade do seu negócio.</p></div></div>
-<div class="card"><div class="num">07</div><div><div class="title"><h3>Rotina de Gestão</h3><span class="tag next">Próxima etapa</span></div><p>Estruturação das rotinas de acompanhamento.</p></div></div>
-<div class="card"><div class="num">08</div><div><div class="title"><h3>Relatório Final e Próximos Passos</h3><span class="tag next">Entrega final</span></div><p>Consolidação do trabalho e direcionamento para continuidade.</p></div></div>
+<div class="field"><label>1. Nome da empresa <span class="req">*</span></label><input required name="empresa" placeholder="Ex.: Empresa XYZ"></div>
+<div class="field"><label>2. Nome do responsável <span class="req">*</span></label><input required name="responsavel" placeholder="Seu nome completo"></div>
+<div class="field"><label>3. Cargo/função <span class="req">*</span></label><input required name="cargo" placeholder="Ex.: Diretor, Sócio, Gestor, etc."></div>
+<div class="field"><label>4. E-mail <span class="req">*</span></label><input required type="email" name="email" placeholder="seuemail@empresa.com.br"></div>
+<div class="field"><label>5. WhatsApp <span class="req">*</span></label><input required type="tel" name="whatsapp" placeholder="(00) 00000-0000"></div>
+<div class="field"><label>6. Segmento da empresa <span class="req">*</span></label><select required name="segmento"><option value="">Selecione o segmento</option><option>Comércio</option><option>Indústria</option><option>Serviços</option><option>Construção</option><option>Tecnologia</option><option>Saúde</option><option>Educação</option><option>Alimentação</option><option>Agronegócio</option><option>Outro</option></select></div>
 </div>
-<div class="bottom" id="proximo">
-<div class="next"><div class="kicker">Seu próximo passo</div><h2>Comece pelo Diagnóstico</h2><p>O diagnóstico é o ponto de partida do Sprint. Suas respostas vão orientar as próximas entregas.</p><button class="btn" onclick="iniciarDiagnostico()">Iniciar diagnóstico →</button></div>
-<div class="info"><h3>Dados do seu Sprint</h3><div class="row"><span>Modalidade</span><strong>Essencial</strong></div><div class="row"><span>Duração</span><strong>4 semanas</strong></div><div class="row"><span>Status</span><strong>Em andamento</strong></div><div class="row"><span>Entregáveis</span><strong>8 etapas</strong></div></div>
-</div>
-<footer><span>© 2026 Monitore Negócios Empresariais</span><span>Transformamos desafios em resultados.</span></footer>
-</section>
-</main>
-</div>
+<div class="field" style="margin-top:20px"><label>7. Número aproximado de colaboradores <span class="req">*</span></label><div class="employee">
+<div class="choice"><input required type="radio" name="colaboradores" value="Até 5" id="e1"><label for="e1">◯ &nbsp;Até 5</label></div>
+<div class="choice"><input type="radio" name="colaboradores" value="6 a 10" id="e2"><label for="e2">◯ &nbsp;6 a 10</label></div>
+<div class="choice"><input type="radio" name="colaboradores" value="11 a 20" id="e3"><label for="e3">◯ &nbsp;11 a 20</label></div>
+<div class="choice"><input type="radio" name="colaboradores" value="21 a 50" id="e4"><label for="e4">◯ &nbsp;21 a 50</label></div>
+<div class="choice"><input type="radio" name="colaboradores" value="51 a 100" id="e5"><label for="e5">◯ &nbsp;51 a 100</label></div>
+<div class="choice"><input type="radio" name="colaboradores" value="Mais de 100" id="e6"><label for="e6">◯ &nbsp;Mais de 100</label></div>
+</div></div>
+<div class="notice"><div class="info">i</div><div><strong>Próxima etapa: Gestão</strong><p>Na próxima etapa, vamos avaliar como sua empresa direciona, organiza e toma decisões.</p></div><div class="time">◷ &nbsp;Tempo estimado total: 8 a 10 minutos<br>Você pode avançar e voltar entre as etapas.</div></div>
+</div></section>
+<section class="page" data-step="2"><div class="intro"><h2>2. Gestão</h2><p>Avalie como sua empresa direciona, organiza e toma decisões.</p></div><div class="section" id="q2"></div></section>
+<section class="page" data-step="3"><div class="intro"><h2>3. Excelência Operacional</h2><p>Avalie processos, padronização, eficiência e melhoria contínua.</p></div><div class="section" id="q3"></div></section>
+<section class="page" data-step="4"><div class="intro"><h2>4. Inteligência de Negócios</h2><p>Avalie como dados e indicadores apoiam as decisões.</p></div><div class="section" id="q4"></div></section>
+<section class="page" data-step="5"><div class="intro"><h2>5. Desenvolvimento de Pessoas</h2><p>Avalie liderança, desempenho e desenvolvimento das pessoas.</p></div><div class="section" id="q5"></div></section>
+<section class="page" data-step="6"><div class="intro"><h2>6. Visão e Prioridades</h2><p>Agora queremos entender sua percepção sobre os desafios e o que precisa mudar primeiro.</p></div><div class="section">
+<div class="field" style="margin-bottom:18px"><label>25. Qual é hoje o maior desafio da sua empresa? <span class="req">*</span></label><textarea required name="desafio" placeholder="Descreva o principal desafio..."></textarea></div>
+<div class="field" style="margin-bottom:18px"><label>26. O que mais consome seu tempo como empresário ou gestor? <span class="req">*</span></label><textarea required name="tempo" placeholder="Ex.: apagar incêndios, equipe, clientes, financeiro..."></textarea></div>
+<div class="field" style="margin-bottom:18px"><label>27. Qual pilar você acredita que mais precisa evoluir? <span class="req">*</span></label><select required name="pilar"><option value="">Selecione</option><option>Gestão</option><option>Excelência Operacional</option><option>Inteligência de Negócios</option><option>Desenvolvimento de Pessoas</option><option>Não sei</option></select></div>
+<div class="field" style="margin-bottom:18px"><label>28. Se pudesse resolver apenas UM problema nos próximos 30 dias, qual seria? <span class="req">*</span></label><textarea required name="problema" placeholder="Seja específico..."></textarea></div>
+<div class="field"><label>29. O que você espera transformar ao final do Sprint? <span class="req">*</span></label><textarea required name="expectativa" placeholder="O que faria este Sprint valer a pena para você?"></textarea></div>
+<div class="grid" style="margin-top:20px"><div class="field"><label>30. Como você avalia hoje a organização da sua empresa? <span class="req">*</span></label><select required name="organizacao"><option value="">Selecione de 0 a 10</option></select></div><div class="field"><label>31. Quanto a falta de organização impacta hoje os resultados? <span class="req">*</span></label><select required name="impacto"><option value="">Selecione de 0 a 10</option></select></div></div>
+</div></section>
+<section class="page" data-step="7"><div class="intro"><h2>7. Revisão e envio</h2><p>Confira suas respostas antes de enviar o Diagnóstico de Maturidade Empresarial.</p></div><div class="section">
+<div class="scorebox" id="scores"></div><div class="review"><h3>Informações da empresa</h3><p id="rc"></p></div><div class="review"><h3>Visão e prioridades</h3><p id="ro"></p></div>
+<label class="consent"><input required type="checkbox" name="consentimento"><span>Concordo com o uso das informações para a preparação e execução do Sprint de Gestão. <span class="req">*</span></span></label>
+</div></section>
+<div class="navigation"><button type="button" class="btn" id="back" onclick="move(-1)">← Voltar</button><button type="button" class="btn next" id="next" onclick="move(1)">Próxima etapa →</button></div>
+</div></form>
+<div class="card success" id="success"><div class="check">✓</div><h2>Diagnóstico recebido!</h2><p>Obrigado por concluir seu <strong>Diagnóstico de Maturidade Empresarial</strong>. Suas respostas foram organizadas e estão prontas para a análise da Monitore.</p><p style="margin-top:12px"><strong>Próximo passo:</strong> você receberá as orientações para a reunião estratégica.</p></div>
+<footer>Monitore Gestão de Negócios Empresariais &nbsp;·&nbsp; Transformamos desafios em resultados.</footer>
+</div></main></div>
 <script>
-function iniciarDiagnostico(){
-  // SUBSTITUIR pela URL real do formulário de diagnóstico.
-  window.location.href = "diagnostico/";
+const data={
+2:["A empresa possui objetivos e metas claramente definidos?","As prioridades da empresa estão claras para os responsáveis?","Existe uma rotina estruturada de acompanhamento da gestão?","As responsabilidades estão claramente definidas?","As decisões importantes são tomadas com base em informações confiáveis?","A liderança consegue sair da rotina operacional para atuar de forma estratégica?"],
+3:["Os principais processos da empresa estão definidos?","As atividades são executadas de forma padronizada?","Os problemas são analisados buscando suas causas?","Existem indicadores para acompanhar a eficiência dos processos?","A empresa possui uma rotina de melhoria contínua?","Existe controle sobre desperdícios, retrabalho, perdas e falhas?"],
+4:["A empresa acompanha regularmente seus principais indicadores?","Os gestores conseguem acessar as informações necessárias para tomar decisões?","Existe acompanhamento sistemático dos resultados financeiros?","A empresa conhece seus principais custos, receitas e margens?","Os dados de clientes e vendas são utilizados para orientar decisões?","A empresa consegue identificar tendências, problemas e oportunidades a partir dos seus dados?"],
+5:["As pessoas sabem claramente o que se espera delas?","Os líderes acompanham o desempenho de suas equipes?","Existe uma rotina de feedback?","Os colaboradores recebem capacitação adequada às suas funções?","As pessoas são estimuladas a propor melhorias e resolver problemas?","A empresa possui pessoas preparadas para assumir responsabilidades maiores?"]
+};
+const names={2:"gestao",3:"operacional",4:"dados",5:"pessoas"};
+const titles={1:"Sobre sua empresa",2:"Gestão",3:"Excelência Operacional",4:"Inteligência de Negócios",5:"Desenvolvimento de Pessoas",6:"Visão e Prioridades",7:"Revisão e envio"};
+const scale=["1 — Não existe","2 — Existe pouco / limitado","3 — Parcial","4 — Estruturado","5 — Estruturado e acompanhado"];
+let current=1;
+function build(){
+for(const [step,qs] of Object.entries(data)){
+const key=names[step],el=document.getElementById("q"+step);
+el.innerHTML=qs.map((q,i)=>`<div class="q"><div class="q-title">${i+1}. ${q} <span class="req">*</span></div><div class="scale">${scale.map((s,n)=>`<div class="choice"><input required type="radio" name="${key}_${i+1}" value="${n+1}" id="${key}_${i+1}_${n}"><label for="${key}_${i+1}_${n}">${s}</label></div>`).join("")}</div><div class="help">1 = menor nível de estruturação &nbsp;|&nbsp; 5 = maior nível de estruturação</div></div>`).join("");
 }
+for(const n of ["organizacao","impacto"]){const s=document.querySelector(`[name="${n}"]`);for(let i=0;i<=10;i++){const o=document.createElement("option");o.value=i;o.textContent=i;s.appendChild(o)}}
+}
+function valid(){
+const page=document.querySelector(`.page[data-step="${current}"]`);
+for(const x of page.querySelectorAll("input,select,textarea"))if(x.required&&!x.checkValidity()){x.reportValidity();return false}return true;
+}
+function score(key){let step=Object.keys(names).find(k=>names[k]===key),t=0;data[step].forEach((_,i)=>{const r=document.querySelector(`input[name="${key}_${i+1}"]:checked`);t+=r?+r.value:0});return Math.round(t/30*100)}
+function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
+function review(){
+const ns={gestao:"Gestão",operacional:"Excelência Operacional",dados:"Inteligência de Negócios",pessoas:"Desenvolvimento de Pessoas"};
+document.getElementById("scores").innerHTML=Object.entries(ns).map(([k,v])=>`<div class="score"><b>${v}</b><span>${score(k)}%</span></div>`).join("");
+const g=n=>document.querySelector(`[name="${n}"]`)?.value||"";
+document.getElementById("rc").innerHTML=`<strong>${esc(g("empresa"))}</strong> · ${esc(g("responsavel"))}<br>${esc(g("cargo"))} · ${esc(g("email"))} · ${esc(g("whatsapp"))}<br>${esc(g("segmento"))} · ${esc(document.querySelector('[name="colaboradores"]:checked')?.value||"")}`;
+document.getElementById("ro").innerHTML=`<strong>Maior desafio:</strong> ${esc(g("desafio"))}<br><strong>O que mais consome tempo:</strong> ${esc(g("tempo"))}<br><strong>Pilar prioritário:</strong> ${esc(g("pilar"))}<br><strong>Problema para 30 dias:</strong> ${esc(g("problema"))}<br><strong>Expectativa:</strong> ${esc(g("expectativa"))}`;
+}
+function move(dir){
+if(dir>0&&!valid())return;
+if(current===7&&dir>0){send();return}
+current=Math.max(1,Math.min(7,current+dir));
+document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",+p.dataset.step===current));
+document.querySelectorAll(".step").forEach((s,i)=>{s.classList.toggle("active",i+1===current);s.classList.toggle("done",i+1<current)});
+const pct=Math.round(current/7*100);document.getElementById("bar").style.width=pct+"%";document.getElementById("pp").textContent=pct+"%";
+document.getElementById("pt").innerHTML=`Etapa ${current} de 7 - <span style="color:#174b98">${titles[current]}</span>`;
+document.getElementById("back").style.visibility=current===1?"hidden":"visible";document.getElementById("next").textContent=current===7?"Enviar diagnóstico":"Próxima etapa →";
+if(current===7)review();window.scrollTo({top:0,behavior:"smooth"});
+}
+function send(){
+if(!valid())return;
+const get=n=>document.querySelector(`[name="${n}"]`)?.value||"";
+const escText=s=>String(s??"").replace(/
+?
+/g," ").trim();
+const scores={gestao:score("gestao"),excelencia_operacional:score("operacional"),inteligencia_negocios:score("dados"),desenvolvimento_pessoas:score("pessoas")};
+const perguntas={
+"Gestão":["A empresa possui objetivos e metas claramente definidos?","As prioridades da empresa estão claras para os responsáveis?","Existe uma rotina estruturada de acompanhamento da gestão?","As responsabilidades estão claramente definidas?","As decisões importantes são tomadas com base em informações confiáveis?","A liderança consegue sair da rotina operacional para atuar de forma estratégica?"],
+"Excelência Operacional":["Os principais processos da empresa estão definidos?","As atividades são executadas de forma padronizada?","Os problemas são analisados buscando suas causas?","Existem indicadores para acompanhar a eficiência dos processos?","A empresa possui uma rotina de melhoria contínua?","Existe controle sobre desperdícios, retrabalho, perdas e falhas?"],
+"Inteligência de Negócios":["A empresa acompanha regularmente seus principais indicadores?","Os gestores conseguem acessar as informações necessárias para tomar decisões?","Existe acompanhamento sistemático dos resultados financeiros?","A empresa conhece seus principais custos, receitas e margens?","Os dados de clientes e vendas são utilizados para orientar decisões?","A empresa consegue identificar tendências, problemas e oportunidades a partir dos seus dados?"],
+"Desenvolvimento de Pessoas":["As pessoas sabem claramente o que se espera delas?","Os líderes acompanham o desempenho de suas equipes?","Existe uma rotina de feedback?","Os colaboradores recebem capacitação adequada às suas funções?","As pessoas são estimuladas a propor melhorias e resolver problemas?","A empresa possui pessoas preparadas para assumir responsabilidades maiores?"]};
+const nomes={gestao:"Gestão",operacional:"Excelência Operacional",dados:"Inteligência de Negócios",pessoas:"Desenvolvimento de Pessoas"};
+const respostas=[];
+Object.entries(perguntas).forEach(([pilar,qs])=>{
+const key=Object.keys(nomes).find(k=>nomes[k]===pilar);respostas.push("\n"+pilar.toUpperCase());
+qs.forEach((q,i)=>{const r=document.querySelector(`input[name="${key}_${i+1}"]:checked`);respostas.push(`${i+1}. ${q}\nResposta: ${r?scale[+r.value-1]:""}`);});
+});
+const resumo=`DIAGNÓSTICO DE MATURIDADE EMPRESARIAL
+
+DADOS DA EMPRESA
+Empresa: ${escText(get("empresa"))}
+Responsável: ${escText(get("responsavel"))}
+Cargo/Função: ${escText(get("cargo"))}
+E-mail: ${escText(get("email"))}
+WhatsApp: ${escText(get("whatsapp"))}
+Segmento: ${escText(get("segmento"))}
+Colaboradores: ${escText(document.querySelector('[name="colaboradores"]:checked')?.value||"")}
+
+RESULTADO DO DIAGNÓSTICO
+Gestão: ${scores.gestao}%
+Excelência Operacional: ${scores.excelencia_operacional}%
+Inteligência de Negócios: ${scores.inteligencia_negocios}%
+Desenvolvimento de Pessoas: ${scores.desenvolvimento_pessoas}%
+
+QUESTÕES AVALIADAS E RESPOSTAS
+${respostas.join("\n")}
+
+VISÃO E PRIORIDADES
+Maior desafio: ${escText(get("desafio"))}
+O que mais consome tempo: ${escText(get("tempo"))}
+Pilar prioritário: ${escText(get("pilar"))}
+Problema para os próximos 30 dias: ${escText(get("problema"))}
+Expectativa: ${escText(get("expectativa"))}
+Organização atual: ${escText(get("organizacao"))}/10
+Impacto da falta de organização: ${escText(get("impacto"))}/10
+
+Consentimento: Sim`;
+const mailForm=document.createElement("form");mailForm.method="POST";mailForm.action="https://formsubmit.co/comercial@monitorenegocios.com.br";mailForm.style.display="none";
+const add=(name,value)=>{const input=document.createElement("input");input.type="hidden";input.name=name;input.value=value;mailForm.appendChild(input)};
+add("_subject","Diagnóstico de Maturidade Empresarial — "+escText(get("empresa")));add("_replyto",get("email"));add("_template","table");add("_captcha","false");add("_next","https://sprint.monitorenegocios.com.br/diagnostico-agendamento.html");add("Diagnóstico completo — questões e respostas",resumo);
+document.body.appendChild(mailForm);mailForm.submit();
+}
+build();move(0);
 </script>
 </body>
 </html>
