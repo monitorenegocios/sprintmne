@@ -14,7 +14,7 @@
 .sidebar{position:relative;min-height:100vh;overflow:hidden;padding:28px 24px;color:white;background:linear-gradient(180deg,rgba(3,35,70,.97),rgba(7,54,103,.94) 60%,rgba(3,26,53,.99)),url("https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=900&q=85") center bottom/cover no-repeat}
 .sidebar:after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,30,60,.1),rgba(2,25,50,.58));z-index:0}
 .sidebar>*{position:relative;z-index:1}
-.brand{background:transparent;border-radius:7px;padding:9px 10px;margin-bottom:28px}.brand img{display:block;width:100%}
+.brand{background:transparent;border-radius:0;padding:0;margin-bottom:28px}.brand img{display:block;width:100%;max-width:250px}
 .tagline{font-size:12px;line-height:1.8;letter-spacing:3px;font-weight:700;text-transform:uppercase}.line{width:45px;height:2px;background:#b5cef0;margin:25px 0 27px}
 .steps{position:relative}.steps:before{content:"";position:absolute;left:16px;top:17px;bottom:17px;width:1px;background:rgba(255,255,255,.28)}
 .step{display:flex;gap:14px;margin-bottom:20px;position:relative}.dot{width:33px;height:33px;border-radius:50%;border:1px solid rgba(255,255,255,.7);background:#0b3a70;display:grid;place-items:center;flex:none;font-size:13px;font-weight:700;z-index:2}
@@ -57,6 +57,7 @@ footer{text-align:center;padding:20px 0 17px;font-size:10px;color:#71839b}
  </div>
  <div class="side-bottom">Empresas mais organizadas,<br>eficientes e competitivas.</div>
 </aside>
+
 <main class="main"><div class="container">
  <header class="header">
   <div><div class="kicker">SPRINT DE GESTÃO &nbsp;|&nbsp; MONITORE NEGÓCIOS EMPRESARIAIS</div>
@@ -65,53 +66,66 @@ footer{text-align:center;padding:20px 0 17px;font-size:10px;color:#71839b}
   <div class="security">🔒 &nbsp;Seus dados estão seguros<br>e serão utilizados apenas<br>para o Sprint de Gestão.</div>
  </header>
  <div class="progress-area"><div class="progress-label"><span id="pt">Etapa 1 de 7 - <span style="color:#174b98">Sobre sua empresa</span></span><span id="pp">14%</span></div><div class="progress"><div class="bar" id="bar"></div></div></div>
+
  <form id="form" action="https://formsubmit.co/comercial@monitorenegocios.com.br" method="POST" novalidate>
-<input type="hidden" name="_subject" value="Novo Diagnóstico de Maturidade Empresarial">
+<input type="hidden" name="_subject" id="email_subject" value="Novo Diagnóstico de Maturidade Empresarial">
 <input type="hidden" name="_replyto" id="email_replyto">
-<input type="hidden" name="_template" value="table"><input type="hidden" name="_captcha" value="false">
-<input type="hidden" name="_next" value="https://sprint.monitorenegocios.com.br/diagnostico-agendamento.html">
-<div class="card" id="card">
-<section class="page active" data-step="1"><div class="intro"><h2>1. Sobre sua empresa</h2><p>Vamos começar com algumas informações básicas.</p></div><div class="section">
-<div class="grid">
-<div class="field"><label>1. Nome da empresa <span class="req">*</span></label><input required name="empresa" placeholder="Ex.: Empresa XYZ"></div>
-<div class="field"><label>2. Nome do responsável <span class="req">*</span></label><input required name="responsavel" placeholder="Seu nome completo"></div>
-<div class="field"><label>3. Cargo/função <span class="req">*</span></label><input required name="cargo" placeholder="Ex.: Diretor, Sócio, Gestor, etc."></div>
-<div class="field"><label>4. E-mail <span class="req">*</span></label><input required type="email" name="email" placeholder="seuemail@empresa.com.br"></div>
-<div class="field"><label>5. WhatsApp <span class="req">*</span></label><input required type="tel" name="whatsapp" placeholder="(00) 00000-0000"></div>
-<div class="field"><label>6. Segmento da empresa <span class="req">*</span></label><select required name="segmento"><option value="">Selecione o segmento</option><option>Comércio</option><option>Indústria</option><option>Serviços</option><option>Construção</option><option>Tecnologia</option><option>Saúde</option><option>Educação</option><option>Alimentação</option><option>Agronegócio</option><option>Outro</option></select></div>
-</div>
-<div class="field" style="margin-top:20px"><label>7. Número aproximado de colaboradores <span class="req">*</span></label><div class="employee">
-<div class="choice"><input required type="radio" name="colaboradores" value="Até 5" id="e1"><label for="e1">◯ &nbsp;Até 5</label></div>
-<div class="choice"><input type="radio" name="colaboradores" value="6 a 10" id="e2"><label for="e2">◯ &nbsp;6 a 10</label></div>
-<div class="choice"><input type="radio" name="colaboradores" value="11 a 20" id="e3"><label for="e3">◯ &nbsp;11 a 20</label></div>
-<div class="choice"><input type="radio" name="colaboradores" value="21 a 50" id="e4"><label for="e4">◯ &nbsp;21 a 50</label></div>
-<div class="choice"><input type="radio" name="colaboradores" value="51 a 100" id="e5"><label for="e5">◯ &nbsp;51 a 100</label></div>
-<div class="choice"><input type="radio" name="colaboradores" value="Mais de 100" id="e6"><label for="e6">◯ &nbsp;Mais de 100</label></div>
-</div></div>
-<div class="notice"><div class="info">i</div><div><strong>Próxima etapa: Gestão</strong><p>Na próxima etapa, vamos avaliar como sua empresa direciona, organiza e toma decisões.</p></div><div class="time">◷ &nbsp;Tempo estimado total: 8 a 10 minutos<br>Você pode avançar e voltar entre as etapas.</div></div>
-</div></section>
-<section class="page" data-step="2"><div class="intro"><h2>2. Gestão</h2><p>Avalie como sua empresa direciona, organiza e toma decisões.</p></div><div class="section" id="q2"></div></section>
-<section class="page" data-step="3"><div class="intro"><h2>3. Excelência Operacional</h2><p>Avalie processos, padronização, eficiência e melhoria contínua.</p></div><div class="section" id="q3"></div></section>
-<section class="page" data-step="4"><div class="intro"><h2>4. Inteligência de Negócios</h2><p>Avalie como dados e indicadores apoiam as decisões.</p></div><div class="section" id="q4"></div></section>
-<section class="page" data-step="5"><div class="intro"><h2>5. Desenvolvimento de Pessoas</h2><p>Avalie liderança, desempenho e desenvolvimento das pessoas.</p></div><div class="section" id="q5"></div></section>
-<section class="page" data-step="6"><div class="intro"><h2>6. Visão e Prioridades</h2><p>Agora queremos entender sua percepção sobre os desafios e o que precisa mudar primeiro.</p></div><div class="section">
-<div class="field" style="margin-bottom:18px"><label>25. Qual é hoje o maior desafio da sua empresa? <span class="req">*</span></label><textarea required name="desafio" placeholder="Descreva o principal desafio..."></textarea></div>
-<div class="field" style="margin-bottom:18px"><label>26. O que mais consome seu tempo como empresário ou gestor? <span class="req">*</span></label><textarea required name="tempo" placeholder="Ex.: apagar incêndios, equipe, clientes, financeiro..."></textarea></div>
-<div class="field" style="margin-bottom:18px"><label>27. Qual pilar você acredita que mais precisa evoluir? <span class="req">*</span></label><select required name="pilar"><option value="">Selecione</option><option>Gestão</option><option>Excelência Operacional</option><option>Inteligência de Negócios</option><option>Desenvolvimento de Pessoas</option><option>Não sei</option></select></div>
-<div class="field" style="margin-bottom:18px"><label>28. Se pudesse resolver apenas UM problema nos próximos 30 dias, qual seria? <span class="req">*</span></label><textarea required name="problema" placeholder="Seja específico..."></textarea></div>
-<div class="field"><label>29. O que você espera transformar ao final do Sprint? <span class="req">*</span></label><textarea required name="expectativa" placeholder="O que faria este Sprint valer a pena para você?"></textarea></div>
-<div class="grid" style="margin-top:20px"><div class="field"><label>30. Como você avalia hoje a organização da sua empresa? <span class="req">*</span></label><select required name="organizacao"><option value="">Selecione de 0 a 10</option></select></div><div class="field"><label>31. Quanto a falta de organização impacta hoje os resultados? <span class="req">*</span></label><select required name="impacto"><option value="">Selecione de 0 a 10</option></select></div></div>
-</div></section>
-<section class="page" data-step="7"><div class="intro"><h2>7. Revisão e envio</h2><p>Confira suas respostas antes de enviar o Diagnóstico de Maturidade Empresarial.</p></div><div class="section">
-<div class="scorebox" id="scores"></div><div class="review"><h3>Informações da empresa</h3><p id="rc"></p></div><div class="review"><h3>Visão e prioridades</h3><p id="ro"></p></div>
-<label class="consent"><input required type="checkbox" name="consentimento"><span>Concordo com o uso das informações para a preparação e execução do Sprint de Gestão. <span class="req">*</span></span></label>
-</div></section>
-<div class="navigation"><button type="button" class="btn" id="back" onclick="move(-1)">← Voltar</button><button type="button" class="btn next" id="next" onclick="move(1)">Próxima etapa →</button></div>
-</div></form>
-<div class="card success" id="success"><div class="check">✓</div><h2>Diagnóstico recebido!</h2><p>Obrigado por concluir seu <strong>Diagnóstico de Maturidade Empresarial</strong>. Suas respostas foram organizadas e estão prontas para a análise da Monitore.</p><p style="margin-top:12px"><strong>Próximo passo:</strong> você receberá as orientações para a reunião estratégica.</p></div>
-<footer>Monitore Gestão de Negócios Empresariais &nbsp;·&nbsp; Transformamos desafios em resultados.</footer>
+<input type="hidden" name="_template" value="box">
+<input type="hidden" name="_captcha" value="false">
+<input type="hidden" name="_next" value="https://monitorenegocios.com.br/diagnostico-agendamento.html">
+<input type="hidden" name="Resumo formatado do diagnóstico" id="email_summary"><div class="card" id="card">
+  <section class="page active" data-step="1"><div class="intro"><h2>1. Sobre sua empresa</h2><p>Vamos começar com algumas informações básicas.</p></div><div class="section">
+   <div class="grid">
+    <div class="field"><label>1. Nome da empresa <span class="req">*</span></label><input required name="empresa" placeholder="Ex.: Empresa XYZ"></div>
+    <div class="field"><label>2. Nome do responsável <span class="req">*</span></label><input required name="responsavel" placeholder="Seu nome completo"></div>
+    <div class="field"><label>3. Cargo/função <span class="req">*</span></label><input required name="cargo" placeholder="Ex.: Diretor, Sócio, Gestor, etc."></div>
+    <div class="field"><label>4. E-mail <span class="req">*</span></label><input required type="email" name="email" placeholder="seuemail@empresa.com.br"></div>
+    <div class="field"><label>5. WhatsApp <span class="req">*</span></label><input required type="tel" name="whatsapp" placeholder="(00) 00000-0000"></div>
+    <div class="field"><label>6. Segmento da empresa <span class="req">*</span></label><select required name="segmento"><option value="">Selecione o segmento</option><option>Comércio</option><option>Indústria</option><option>Serviços</option><option>Construção</option><option>Tecnologia</option><option>Saúde</option><option>Educação</option><option>Alimentação</option><option>Agronegócio</option><option>Outro</option></select></div>
+   </div>
+   <div class="field" style="margin-top:20px"><label>7. Número aproximado de colaboradores <span class="req">*</span></label><div class="employee">
+    <div class="choice"><input required type="radio" name="colaboradores" value="Até 5" id="e1"><label for="e1">◯ &nbsp;Até 5</label></div>
+    <div class="choice"><input type="radio" name="colaboradores" value="6 a 10" id="e2"><label for="e2">◯ &nbsp;6 a 10</label></div>
+    <div class="choice"><input type="radio" name="colaboradores" value="11 a 20" id="e3"><label for="e3">◯ &nbsp;11 a 20</label></div>
+    <div class="choice"><input type="radio" name="colaboradores" value="21 a 50" id="e4"><label for="e4">◯ &nbsp;21 a 50</label></div>
+    <div class="choice"><input type="radio" name="colaboradores" value="51 a 100" id="e5"><label for="e5">◯ &nbsp;51 a 100</label></div>
+    <div class="choice"><input type="radio" name="colaboradores" value="Mais de 100" id="e6"><label for="e6">◯ &nbsp;Mais de 100</label></div>
+   </div></div>
+   <div class="notice"><div class="info">i</div><div><strong>Próxima etapa: Gestão</strong><p>Na próxima etapa, vamos avaliar como sua empresa direciona, organiza e toma decisões.</p></div><div class="time">◷ &nbsp;Tempo estimado total: 8 a 10 minutos<br>Você pode avançar e voltar entre as etapas.</div></div>
+  </div></section>
+
+  <section class="page" data-step="2"><div class="intro"><h2>2. Gestão</h2><p>Avalie como sua empresa direciona, organiza e toma decisões.</p></div><div class="section" id="q2"></div></section>
+  <section class="page" data-step="3"><div class="intro"><h2>3. Excelência Operacional</h2><p>Avalie processos, padronização, eficiência e melhoria contínua.</p></div><div class="section" id="q3"></div></section>
+  <section class="page" data-step="4"><div class="intro"><h2>4. Inteligência de Negócios</h2><p>Avalie como dados e indicadores apoiam as decisões.</p></div><div class="section" id="q4"></div></section>
+  <section class="page" data-step="5"><div class="intro"><h2>5. Desenvolvimento de Pessoas</h2><p>Avalie liderança, desempenho e desenvolvimento das pessoas.</p></div><div class="section" id="q5"></div></section>
+
+  <section class="page" data-step="6"><div class="intro"><h2>6. Visão e Prioridades</h2><p>Agora queremos entender sua percepção sobre os desafios e o que precisa mudar primeiro.</p></div><div class="section">
+   <div class="field" style="margin-bottom:18px"><label>25. Qual é hoje o maior desafio da sua empresa? <span class="req">*</span></label><textarea required name="desafio" placeholder="Descreva o principal desafio..."></textarea></div>
+   <div class="field" style="margin-bottom:18px"><label>26. O que mais consome seu tempo como empresário ou gestor? <span class="req">*</span></label><textarea required name="tempo" placeholder="Ex.: apagar incêndios, equipe, clientes, financeiro..."></textarea></div>
+   <div class="field" style="margin-bottom:18px"><label>27. Qual pilar você acredita que mais precisa evoluir? <span class="req">*</span></label><select required name="pilar"><option value="">Selecione</option><option>Gestão</option><option>Excelência Operacional</option><option>Inteligência de Negócios</option><option>Desenvolvimento de Pessoas</option><option>Não sei</option></select></div>
+   <div class="field" style="margin-bottom:18px"><label>28. Se pudesse resolver apenas UM problema nos próximos 30 dias, qual seria? <span class="req">*</span></label><textarea required name="problema" placeholder="Seja específico..."></textarea></div>
+   <div class="field"><label>29. O que você espera transformar ao final do Sprint? <span class="req">*</span></label><textarea required name="expectativa" placeholder="O que faria este Sprint valer a pena para você?"></textarea></div>
+   <div class="grid" style="margin-top:20px"><div class="field"><label>30. Como você avalia hoje a organização da sua empresa? <span class="req">*</span></label><select required name="organizacao"><option value="">Selecione de 0 a 10</option></select></div><div class="field"><label>31. Quanto a falta de organização impacta hoje os resultados? <span class="req">*</span></label><select required name="impacto"><option value="">Selecione de 0 a 10</option></select></div></div>
+  </div></section>
+
+  <section class="page" data-step="7"><div class="intro"><h2>7. Revisão e envio</h2><p>Confira suas respostas antes de enviar o Diagnóstico de Maturidade Empresarial.</p></div><div class="section">
+   <div class="scorebox" id="scores"></div><div class="review"><h3>Informações da empresa</h3><p id="rc"></p></div><div class="review"><h3>Visão e prioridades</h3><p id="ro"></p></div>
+   <label class="consent"><input required type="checkbox" name="consentimento"><span>Concordo com o uso das informações para a preparação e execução do Sprint de Gestão. <span class="req">*</span></span></label>
+  </div></section>
+
+  <div class="navigation"><button type="button" class="btn" id="back" onclick="move(-1)">← Voltar</button><button type="button" class="btn next" id="next" onclick="move(1)">Próxima etapa →</button></div>
+ </div></form>
+
+ <div class="card success" id="success"><div class="check">✓</div><h2>Diagnóstico recebido!</h2><p>Obrigado por concluir seu <strong>Diagnóstico de Maturidade Empresarial</strong>. Suas respostas foram organizadas e estão prontas para a análise da Monitore.</p><p style="margin-top:12px"><strong>Próximo passo:</strong> você receberá as orientações para a reunião estratégica.</p></div>
+ <footer>Monitore Gestão de Negócios Empresariais &nbsp;·&nbsp; Transformamos desafios em resultados.</footer>
 </div></main></div>
+
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
+const SUPABASE_URL="https://sayeyuyampbsmhhdukzv.supabase.co";
+const SUPABASE_KEY="sb_publishable_ehw8AIkVTSk6iI2Rh9nJ1w_2S6Au_GA";
+const supabaseClient=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+let envioEmAndamento=false;
 const data={
 2:["A empresa possui objetivos e metas claramente definidos?","As prioridades da empresa estão claras para os responsáveis?","Existe uma rotina estruturada de acompanhamento da gestão?","As responsabilidades estão claramente definidas?","As decisões importantes são tomadas com base em informações confiáveis?","A liderança consegue sair da rotina operacional para atuar de forma estratégica?"],
 3:["Os principais processos da empresa estão definidos?","As atividades são executadas de forma padronizada?","Os problemas são analisados buscando suas causas?","Existem indicadores para acompanhar a eficiência dos processos?","A empresa possui uma rotina de melhoria contínua?","Existe controle sobre desperdícios, retrabalho, perdas e falhas?"],
@@ -123,88 +137,146 @@ const titles={1:"Sobre sua empresa",2:"Gestão",3:"Excelência Operacional",4:"I
 const scale=["1 — Não existe","2 — Existe pouco / limitado","3 — Parcial","4 — Estruturado","5 — Estruturado e acompanhado"];
 let current=1;
 function build(){
-for(const [step,qs] of Object.entries(data)){
-const key=names[step],el=document.getElementById("q"+step);
-el.innerHTML=qs.map((q,i)=>`<div class="q"><div class="q-title">${i+1}. ${q} <span class="req">*</span></div><div class="scale">${scale.map((s,n)=>`<div class="choice"><input required type="radio" name="${key}_${i+1}" value="${n+1}" id="${key}_${i+1}_${n}"><label for="${key}_${i+1}_${n}">${s}</label></div>`).join("")}</div><div class="help">1 = menor nível de estruturação &nbsp;|&nbsp; 5 = maior nível de estruturação</div></div>`).join("");
-}
-for(const n of ["organizacao","impacto"]){const s=document.querySelector(`[name="${n}"]`);for(let i=0;i<=10;i++){const o=document.createElement("option");o.value=i;o.textContent=i;s.appendChild(o)}}
+ for(const [step,qs] of Object.entries(data)){
+  const key=names[step],el=document.getElementById("q"+step);
+  el.innerHTML=qs.map((q,i)=>`<div class="q"><div class="q-title">${i+1}. ${q} <span class="req">*</span></div><div class="scale">${scale.map((s,n)=>`<div class="choice"><input required type="radio" name="${key}_${i+1}" value="${n+1}" id="${key}_${i+1}_${n}"><label for="${key}_${i+1}_${n}">${s}</label></div>`).join("")}</div><div class="help">1 = menor nível de estruturação &nbsp;|&nbsp; 5 = maior nível de estruturação</div></div>`).join("");
+ }
+ for(const n of ["organizacao","impacto"]){const s=document.querySelector(`[name="${n}"]`);for(let i=0;i<=10;i++){const o=document.createElement("option");o.value=i;o.textContent=i;s.appendChild(o)}}
 }
 function valid(){
-const page=document.querySelector(`.page[data-step="${current}"]`);
-for(const x of page.querySelectorAll("input,select,textarea"))if(x.required&&!x.checkValidity()){x.reportValidity();return false}return true;
+ const page=document.querySelector(`.page[data-step="${current}"]`);
+ for(const x of page.querySelectorAll("input,select,textarea"))if(x.required&&!x.checkValidity()){x.reportValidity();return false}return true;
 }
-function score(key){let step=Object.keys(names).find(k=>names[k]===key),t=0;data[step].forEach((_,i)=>{const r=document.querySelector(`input[name="${key}_${i+1}"]:checked`);t+=r?+r.value:0});return Math.round(t/30*100)}
+function score(key){let t=0;data[Object.keys(names).find(k=>names[k]===key)].forEach((_,i)=>{const r=document.querySelector(`input[name="${key}_${i+1}"]:checked`);t+=r?+r.value:0});return Math.round(t/30*100)}
 function esc(s){return String(s).replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]))}
 function review(){
-const ns={gestao:"Gestão",operacional:"Excelência Operacional",dados:"Inteligência de Negócios",pessoas:"Desenvolvimento de Pessoas"};
-document.getElementById("scores").innerHTML=Object.entries(ns).map(([k,v])=>`<div class="score"><b>${v}</b><span>${score(k)}%</span></div>`).join("");
-const g=n=>document.querySelector(`[name="${n}"]`)?.value||"";
-document.getElementById("rc").innerHTML=`<strong>${esc(g("empresa"))}</strong> · ${esc(g("responsavel"))}<br>${esc(g("cargo"))} · ${esc(g("email"))} · ${esc(g("whatsapp"))}<br>${esc(g("segmento"))} · ${esc(document.querySelector('[name="colaboradores"]:checked')?.value||"")}`;
-document.getElementById("ro").innerHTML=`<strong>Maior desafio:</strong> ${esc(g("desafio"))}<br><strong>O que mais consome tempo:</strong> ${esc(g("tempo"))}<br><strong>Pilar prioritário:</strong> ${esc(g("pilar"))}<br><strong>Problema para 30 dias:</strong> ${esc(g("problema"))}<br><strong>Expectativa:</strong> ${esc(g("expectativa"))}`;
+ const ns={gestao:"Gestão",operacional:"Excelência Operacional",dados:"Inteligência de Negócios",pessoas:"Desenvolvimento de Pessoas"};
+ document.getElementById("scores").innerHTML=Object.entries(ns).map(([k,v])=>`<div class="score"><b>${v}</b><span>${score(k)}%</span></div>`).join("");
+ const g=n=>document.querySelector(`[name="${n}"]`)?.value||"";
+ document.getElementById("rc").innerHTML=`<strong>${esc(g("empresa"))}</strong> · ${esc(g("responsavel"))}<br>${esc(g("cargo"))} · ${esc(g("email"))} · ${esc(g("whatsapp"))}<br>${esc(g("segmento"))} · ${esc(document.querySelector('[name="colaboradores"]:checked')?.value||"")}`;
+ document.getElementById("ro").innerHTML=`<strong>Maior desafio:</strong> ${esc(g("desafio"))}<br><strong>O que mais consome tempo:</strong> ${esc(g("tempo"))}<br><strong>Pilar prioritário:</strong> ${esc(g("pilar"))}<br><strong>Problema para 30 dias:</strong> ${esc(g("problema"))}<br><strong>Expectativa:</strong> ${esc(g("expectativa"))}`;
 }
 function move(dir){
-if(dir>0&&!valid())return;
-if(current===7&&dir>0){send();return}
-current=Math.max(1,Math.min(7,current+dir));
-document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",+p.dataset.step===current));
-document.querySelectorAll(".step").forEach((s,i)=>{s.classList.toggle("active",i+1===current);s.classList.toggle("done",i+1<current)});
-const pct=Math.round(current/7*100);document.getElementById("bar").style.width=pct+"%";document.getElementById("pp").textContent=pct+"%";
-document.getElementById("pt").innerHTML=`Etapa ${current} de 7 - <span style="color:#174b98">${titles[current]}</span>`;
-document.getElementById("back").style.visibility=current===1?"hidden":"visible";document.getElementById("next").textContent=current===7?"Enviar diagnóstico":"Próxima etapa →";
-if(current===7)review();window.scrollTo({top:0,behavior:"smooth"});
+ if(dir>0&&!valid())return;
+ if(current===7&&dir>0){send();return}
+ current=Math.max(1,Math.min(7,current+dir));
+ document.querySelectorAll(".page").forEach(p=>p.classList.toggle("active",+p.dataset.step===current));
+ document.querySelectorAll(".step").forEach((s,i)=>{s.classList.toggle("active",i+1===current);s.classList.toggle("done",i+1<current)});
+ const pct=Math.round(current/7*100);document.getElementById("bar").style.width=pct+"%";document.getElementById("pp").textContent=pct+"%";
+ document.getElementById("pt").innerHTML=`Etapa ${current} de 7 - <span style="color:#174b98">${titles[current]}</span>`;
+ document.getElementById("back").style.visibility=current===1?"hidden":"visible";document.getElementById("next").textContent=current===7?"Enviar diagnóstico":"Próxima etapa →";
+ if(current===7)review();window.scrollTo({top:0,behavior:"smooth"});
 }
-function send(){
-if(!valid())return;
-const get=n=>document.querySelector(`[name="${n}"]`)?.value||"";
-const escText=s=>String(s??"").replace(/
-?
-/g," ").trim();
-const scores={gestao:score("gestao"),excelencia_operacional:score("operacional"),inteligencia_negocios:score("dados"),desenvolvimento_pessoas:score("pessoas")};
-const perguntas={
-"Gestão":["A empresa possui objetivos e metas claramente definidos?","As prioridades da empresa estão claras para os responsáveis?","Existe uma rotina estruturada de acompanhamento da gestão?","As responsabilidades estão claramente definidas?","As decisões importantes são tomadas com base em informações confiáveis?","A liderança consegue sair da rotina operacional para atuar de forma estratégica?"],
-"Excelência Operacional":["Os principais processos da empresa estão definidos?","As atividades são executadas de forma padronizada?","Os problemas são analisados buscando suas causas?","Existem indicadores para acompanhar a eficiência dos processos?","A empresa possui uma rotina de melhoria contínua?","Existe controle sobre desperdícios, retrabalho, perdas e falhas?"],
-"Inteligência de Negócios":["A empresa acompanha regularmente seus principais indicadores?","Os gestores conseguem acessar as informações necessárias para tomar decisões?","Existe acompanhamento sistemático dos resultados financeiros?","A empresa conhece seus principais custos, receitas e margens?","Os dados de clientes e vendas são utilizados para orientar decisões?","A empresa consegue identificar tendências, problemas e oportunidades a partir dos seus dados?"],
-"Desenvolvimento de Pessoas":["As pessoas sabem claramente o que se espera delas?","Os líderes acompanham o desempenho de suas equipes?","Existe uma rotina de feedback?","Os colaboradores recebem capacitação adequada às suas funções?","As pessoas são estimuladas a propor melhorias e resolver problemas?","A empresa possui pessoas preparadas para assumir responsabilidades maiores?"]};
-const nomes={gestao:"Gestão",operacional:"Excelência Operacional",dados:"Inteligência de Negócios",pessoas:"Desenvolvimento de Pessoas"};
-const respostas=[];
-Object.entries(perguntas).forEach(([pilar,qs])=>{
-const key=Object.keys(nomes).find(k=>nomes[k]===pilar);respostas.push("\n"+pilar.toUpperCase());
-qs.forEach((q,i)=>{const r=document.querySelector(`input[name="${key}_${i+1}"]:checked`);respostas.push(`${i+1}. ${q}\nResposta: ${r?scale[+r.value-1]:""}`);});
-});
-const resumo=`DIAGNÓSTICO DE MATURIDADE EMPRESARIAL
+async function send(){
+ if(!valid() || envioEmAndamento)return;
+ envioEmAndamento=true;
+ const btn=document.getElementById("next");
+ btn.disabled=true;
+ btn.textContent="Salvando diagnóstico...";
 
-DADOS DA EMPRESA
-Empresa: ${escText(get("empresa"))}
-Responsável: ${escText(get("responsavel"))}
-Cargo/Função: ${escText(get("cargo"))}
-E-mail: ${escText(get("email"))}
-WhatsApp: ${escText(get("whatsapp"))}
-Segmento: ${escText(get("segmento"))}
-Colaboradores: ${escText(document.querySelector('[name="colaboradores"]:checked')?.value||"")}
+ const form=document.getElementById("form");
+ const fd=new FormData(form), obj={};
+ fd.forEach((v,k)=>obj[k]=v);
 
-RESULTADO DO DIAGNÓSTICO
-Gestão: ${scores.gestao}%
-Excelência Operacional: ${scores.excelencia_operacional}%
-Inteligência de Negócios: ${scores.inteligencia_negocios}%
-Desenvolvimento de Pessoas: ${scores.desenvolvimento_pessoas}%
+ const respostas={
+   gestao:{},
+   excelencia_operacional:{},
+   inteligencia_negocios:{},
+   desenvolvimento_pessoas:{}
+ };
+ for(const [step,qs] of Object.entries(data)){
+   const key=names[step];
+   const destino={
+     gestao:"gestao",
+     operacional:"excelencia_operacional",
+     dados:"inteligencia_negocios",
+     pessoas:"desenvolvimento_pessoas"
+   }[key];
+   qs.forEach((_,i)=>{
+     const r=document.querySelector(`input[name="${key}_${i+1}"]:checked`);
+     respostas[destino]["q"+(i+1)]=r?Number(r.value):null;
+   });
+ }
 
-QUESTÕES AVALIADAS E RESPOSTAS
-${respostas.join("\n")}
+ const pontuacoes={
+   gestao:{percentual:score("gestao"),maturidade:score("gestao")/20},
+   excelencia_operacional:{percentual:score("operacional"),maturidade:score("operacional")/20},
+   inteligencia_negocios:{percentual:score("dados"),maturidade:score("dados")/20},
+   desenvolvimento_pessoas:{percentual:score("pessoas"),maturidade:score("pessoas")/20}
+ };
 
-VISÃO E PRIORIDADES
-Maior desafio: ${escText(get("desafio"))}
-O que mais consome tempo: ${escText(get("tempo"))}
-Pilar prioritário: ${escText(get("pilar"))}
-Problema para os próximos 30 dias: ${escText(get("problema"))}
-Expectativa: ${escText(get("expectativa"))}
-Organização atual: ${escText(get("organizacao"))}/10
-Impacto da falta de organização: ${escText(get("impacto"))}/10
+ const visao_prioridades={
+   maior_desafio:obj.desafio||"",
+   o_que_mais_consume_tempo:obj.tempo||"",
+   pilar_prioritario:obj.pilar||"",
+   problema_30_dias:obj.problema||"",
+   expectativa:obj.expectativa||"",
+   organizacao:Number(obj.organizacao||0),
+   impacto:Number(obj.impacto||0)
+ };
 
-Consentimento: Sim`;
-const mailForm=document.createElement("form");mailForm.method="POST";mailForm.action="https://formsubmit.co/comercial@monitorenegocios.com.br";mailForm.style.display="none";
-const add=(name,value)=>{const input=document.createElement("input");input.type="hidden";input.name=name;input.value=value;mailForm.appendChild(input)};
-add("_subject","Diagnóstico de Maturidade Empresarial — "+escText(get("empresa")));add("_replyto",get("email"));add("_template","table");add("_captcha","false");add("_next","https://sprint.monitorenegocios.com.br/diagnostico-agendamento.html");add("Diagnóstico completo — questões e respostas",resumo);
-document.body.appendChild(mailForm);mailForm.submit();
+ const accessToken=crypto.randomUUID();
+
+ const {data:registro,error}=await supabaseClient
+   .from("sprint_diagnosticos")
+   .insert({
+     access_token:accessToken,
+     empresa:obj.empresa,
+     responsavel:obj.responsavel,
+     cargo:obj.cargo,
+     email:obj.email,
+     whatsapp:obj.whatsapp,
+     segmento:obj.segmento,
+     colaboradores:obj.colaboradores,
+     respostas:respostas,
+     pontuacoes:pontuacoes,
+     visao_prioridades:visao_prioridades
+   })
+   .select("id,access_token")
+   .single();
+
+ if(error){
+   console.error("Supabase:",error);
+   alert("Não foi possível salvar o diagnóstico. Verifique a conexão com a Área do Cliente e tente novamente.");
+   envioEmAndamento=false;
+   btn.disabled=false;
+   btn.textContent="Enviar diagnóstico";
+   return;
+ }
+
+ localStorage.setItem("sprint_diagnostico_token",registro.access_token);
+ localStorage.setItem("sprint_diagnostico_id",registro.id);
+
+ const resumo =
+ "DIAGNÓSTICO DE MATURIDADE EMPRESARIAL\n\n"+
+ "Empresa: "+obj.empresa+"\n"+
+ "Responsável: "+obj.responsavel+"\n"+
+ "Cargo/Função: "+obj.cargo+"\n"+
+ "E-mail: "+obj.email+"\n"+
+ "WhatsApp: "+obj.whatsapp+"\n"+
+ "Segmento: "+obj.segmento+"\n"+
+ "Colaboradores: "+obj.colaboradores+"\n\n"+
+ "MATURIDADE DOS 4 PILARES\n"+
+ "Gestão: "+pontuacoes.gestao.maturidade.toFixed(1)+"/5 ("+pontuacoes.gestao.percentual+"%)\n"+
+ "Excelência Operacional: "+pontuacoes.excelencia_operacional.maturidade.toFixed(1)+"/5 ("+pontuacoes.excelencia_operacional.percentual+"%)\n"+
+ "Inteligência de Negócios: "+pontuacoes.inteligencia_negocios.maturidade.toFixed(1)+"/5 ("+pontuacoes.inteligencia_negocios.percentual+"%)\n"+
+ "Desenvolvimento de Pessoas: "+pontuacoes.desenvolvimento_pessoas.maturidade.toFixed(1)+"/5 ("+pontuacoes.desenvolvimento_pessoas.percentual+"%)\n\n"+
+ "VISÃO E PRIORIDADES\n"+
+ "Maior desafio: "+obj.desafio+"\n"+
+ "O que mais consome tempo: "+obj.tempo+"\n"+
+ "Pilar prioritário: "+obj.pilar+"\n"+
+ "Problema para 30 dias: "+obj.problema+"\n"+
+ "Expectativa: "+obj.expectativa+"\n"+
+ "Organização: "+obj.organizacao+"/10\n"+
+ "Impacto: "+obj.impacto+"/10";
+
+ document.getElementById("email_summary").value=resumo;
+ document.getElementById("email_subject").value="Diagnóstico de Maturidade Empresarial — "+obj.empresa;
+ document.getElementById("email_replyto").value=obj.email;
+
+ // Mantém o envio por e-mail já existente, mas agora o diagnóstico
+ // também fica persistido para alimentar o Mapa de Gestão.
+ form.submit();
 }
 build();move(0);
 </script>
