@@ -17,6 +17,28 @@ main{margin-left:250px;width:calc(100% - 250px)}header{height:70px;background:#f
 .grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:19px;display:flex;gap:14px}.card.available{border-color:#a8dde1;box-shadow:0 7px 20px #16a6b610}.num{width:38px;height:38px;flex:0 0 38px;border-radius:10px;background:#eef3f7;color:#64778b;display:grid;place-items:center;font-size:10px;font-weight:800}.available .num{background:var(--cyan);color:#fff}.title{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.title h3{font-size:12px;margin:0}.tag{font-size:7px;font-weight:800;text-transform:uppercase;padding:4px 7px;border-radius:10px}.tag.ok{background:#e9f8f2;color:var(--green)}.tag.next{background:#f0f3f6;color:#7b8997}.card p{font-size:10px;line-height:1.55;color:var(--muted);margin:6px 0 0}.action{display:inline-block;margin-top:10px;color:var(--blue);font-size:9px;font-weight:800;cursor:pointer}
 .bottom{display:grid;grid-template-columns:1.4fr .6fr;gap:15px;margin-top:30px}.next,.info{background:#fff;border:1px solid var(--line);border-radius:17px;padding:25px}.next{background:#e8f8fa;border-color:#b8e6ea}.kicker{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#0c7f8b;font-weight:800}.next h2{font-size:17px;margin:7px 0}.next p{font-size:10px;line-height:1.65;color:var(--muted);max-width:620px}.btn{border:0;background:var(--navy);color:#fff;padding:12px 17px;border-radius:8px;font:800 10px Montserrat;cursor:pointer}.info h3{font-size:12px;margin:0 0 10px}.row{display:flex;justify-content:space-between;border-bottom:1px solid #eef1f4;padding:9px 0;font-size:9px}.row span{color:var(--muted)}footer{border-top:1px solid var(--line);margin-top:42px;padding-top:18px;display:flex;justify-content:space-between;color:#91a0af;font-size:8px}
 @media(max-width:850px){aside{display:none}main{margin:0;width:100%}header{padding:0 18px}.profile{display:none}.content{padding:24px 17px}.hero{padding:27px 24px}.hero h1{font-size:24px}.head{display:block}.progressbox{text-align:left;margin-top:15px}.bar{width:100%}.grid,.bottom{grid-template-columns:1fr}footer{display:block;line-height:2}}
+
+.support-overlay{position:fixed;inset:0;background:rgba(5,20,33,.62);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
+.support-overlay.show{display:flex}
+.support-modal{width:min(620px,100%);background:#fff;border-radius:16px;box-shadow:0 25px 70px rgba(0,0,0,.25);overflow:hidden}
+.support-head{background:#071b2c;color:#fff;padding:24px 26px;display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
+.support-head h2{margin:0 0 6px;font-size:19px}
+.support-head p{margin:0;color:#b8c8d4;font-size:11px;line-height:1.5}
+.support-close{border:0;background:transparent;color:#fff;font-size:25px;cursor:pointer;line-height:1}
+.support-body{padding:24px 26px}
+.support-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.support-field{margin-bottom:15px}
+.support-field.full{grid-column:1/-1}
+.support-field label{display:block;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#667786;margin-bottom:7px}
+.support-field input,.support-field select,.support-field textarea{width:100%;border:1px solid #dce5ea;border-radius:8px;padding:11px 12px;font-family:inherit;font-size:12px;color:#263b4b;background:#fff;outline:none}
+.support-field input:focus,.support-field select:focus,.support-field textarea:focus{border-color:#31c1ce;box-shadow:0 0 0 3px rgba(49,193,206,.10)}
+.support-field textarea{min-height:125px;resize:vertical}
+.support-actions{display:flex;justify-content:flex-end;gap:10px;align-items:center;margin-top:5px}
+.support-cancel{border:1px solid #d8e1e6;background:#fff;color:#536673;padding:11px 17px;border-radius:8px;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer}
+.support-send{border:0;background:#31c1ce;color:#062033;padding:12px 20px;border-radius:8px;font-family:inherit;font-size:11px;font-weight:800;cursor:pointer}
+.support-note{font-size:10px;color:#8a98a2;margin-top:12px;line-height:1.5}
+@media(max-width:650px){.support-grid{grid-template-columns:1fr}.support-field.full{grid-column:auto}.support-body{padding:20px}.support-head{padding:20px}}
+
 </style>
 </head>
 <body>
@@ -28,7 +50,7 @@ main{margin-left:250px;width:calc(100% - 250px)}header{height:70px;background:#f
 <a class="active" href="#inicio">⌂ &nbsp; Visão geral</a>
 <a href="#entregaveis">▣ &nbsp; Entregáveis</a>
 <a href="#proximo">→ &nbsp; Próximo passo</a>
-<a href="mailto:comercial@monitorenegocios.com.br?subject=Suporte%20-%20Sprint%20Gest%C3%A3o">? &nbsp; Suporte</a>
+<a href="#suporte" onclick="abrirSuporte(event)">? &nbsp; Suporte</a>
 </nav>
 <div class="help" id="suporte"><strong>Precisa de ajuda?</strong>Fale com a equipe Monitore.<br><a href="mailto:comercial@monitorenegocios.com.br">comercial@monitorenegocios.com.br</a></div>
 </aside>
@@ -60,6 +82,76 @@ function iniciarDiagnostico(){
   // SUBSTITUIR pela URL real do formulário de diagnóstico.
   window.location.href = "diagnostico/";
 }
+</script>
+
+<div class="support-overlay" id="supportOverlay" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
+  <div class="support-modal">
+    <div class="support-head">
+      <div>
+        <h2 id="supportTitle">Suporte ao Sprint</h2>
+        <p>Envie sua solicitação diretamente para a equipe administrativa da Monitore.</p>
+      </div>
+      <button class="support-close" type="button" onclick="fecharSuporte()" aria-label="Fechar">×</button>
+    </div>
+    <div class="support-body">
+      <form action="https://formsubmit.co/administrativo@monitorenegocios.com.br" method="POST">
+        <input type="hidden" name="_subject" value="[Sprint Gestão] Solicitação de suporte">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://sprint.monitorenegocios.com.br/areadocliente/">
+        <div class="support-grid">
+          <div class="support-field">
+            <label for="supportName">Nome</label>
+            <input id="supportName" name="Nome" type="text" placeholder="Seu nome" required>
+          </div>
+          <div class="support-field">
+            <label for="supportEmail">E-mail</label>
+            <input id="supportEmail" name="E-mail" type="email" placeholder="seu@email.com" required>
+          </div>
+          <div class="support-field">
+            <label for="supportType">Tipo de solicitação</label>
+            <select id="supportType" name="Tipo de solicitação" required>
+              <option value="">Selecione</option>
+              <option>Dúvida sobre o Sprint</option>
+              <option>Dúvida sobre um entregável</option>
+              <option>Problema técnico</option>
+              <option>Agendamento</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="support-field">
+            <label for="supportSubject">Assunto</label>
+            <input id="supportSubject" name="Assunto" type="text" placeholder="Como podemos ajudar?" required>
+          </div>
+          <div class="support-field full">
+            <label for="supportMessage">Mensagem</label>
+            <textarea id="supportMessage" name="Mensagem" placeholder="Descreva sua solicitação..." required></textarea>
+          </div>
+        </div>
+        <div class="support-actions">
+          <button type="button" class="support-cancel" onclick="fecharSuporte()">Cancelar</button>
+          <button type="submit" class="support-send">Enviar solicitação</button>
+        </div>
+        <div class="support-note">Sua mensagem será encaminhada para administrativo@monitorenegocios.com.br.</div>
+      </form>
+    </div>
+  </div>
+</div>
+
+<script>
+function abrirSuporte(event){
+  if(event) event.preventDefault();
+  document.getElementById('supportOverlay').classList.add('show');
+  document.body.style.overflow='hidden';
+}
+function fecharSuporte(){
+  document.getElementById('supportOverlay').classList.remove('show');
+  document.body.style.overflow='';
+}
+document.addEventListener('keydown',function(e){if(e.key==='Escape')fecharSuporte();});
+document.getElementById('supportOverlay').addEventListener('click',function(e){
+  if(e.target===this)fecharSuporte();
+});
 </script>
 </body>
 </html>
