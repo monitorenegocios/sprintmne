@@ -27,7 +27,7 @@ let token="",diagnostico=null,prioridades=[],acoes=[];
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
 function findPriority(key){return prioridades.find(x=>x.pilar===key)||{};}
 function render(){
- const ordered=[...prioridades].sort((a,b)=>Number(a.ordem)-Number(b.ordem);
+ const ordered=[...prioridades].sort((a,b)=>Number(a.ordem)-Number(b.ordem));
  const top=ordered.slice(0,4);
  document.getElementById("app").innerHTML=`
  <div class="top"><div><div class="eyebrow">Sprint de Gestão · Etapa 04</div><h1>Plano de Ação</h1><div class="subtitle">Agora vamos transformar as prioridades definidas em ações concretas. O objetivo não é criar uma lista enorme de tarefas, mas definir o que precisa ser feito, por quem e até quando.</div></div><div class="status"><span>Status</span><strong id="saveStatus">Em construção</strong></div></div>
