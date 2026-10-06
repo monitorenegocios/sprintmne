@@ -1,0 +1,331 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ferramentas | Sprint de Gestão | Monitore</title>
+<script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*{box-sizing:border-box}
+body{margin:0;font-family:Montserrat,Arial,sans-serif;background:#f4f7fa;color:#17324d}
+.sidebar{position:fixed;left:0;top:0;bottom:0;width:250px;background:#0b2d4d;color:#fff;padding:28px 18px}
+.logo img{width:170px;max-width:100%;display:block;margin:0 auto 8px}
+.logo .sub{text-align:center;font-size:11px;opacity:.75;margin-bottom:30px}
+.nav a{display:block;color:#dbe8f2;text-decoration:none;padding:11px 13px;border-radius:8px;font-size:12px;margin-bottom:5px}
+.nav a:hover,.nav a.active{background:#164d75;color:#fff}
+.main{margin-left:250px;padding:38px;max-width:1250px}
+.top{margin-bottom:25px}
+.kicker{font-size:11px;font-weight:700;letter-spacing:1.5px;text-transform:uppercase;color:#2b8291;margin-bottom:8px}
+h1{font-size:28px;margin:0 0 10px}
+.subtitle{font-size:14px;line-height:1.7;color:#607080;max-width:850px}
+.company{display:none;background:#e8f3f5;border-left:4px solid #2b8291;padding:14px 18px;border-radius:8px;margin:20px 0;font-size:13px}
+.notice{background:#fff;border:1px solid #dce5ec;border-radius:12px;padding:18px 20px;margin:20px 0;line-height:1.7;font-size:13px}
+.card{background:#fff;border:1px solid #dde6ed;border-radius:14px;padding:22px;margin:18px 0;box-shadow:0 3px 12px rgba(16,42,67,.04)}
+.card-head{display:flex;justify-content:space-between;gap:20px;align-items:flex-start;margin-bottom:18px}
+.pillar{font-size:11px;font-weight:700;text-transform:uppercase;letter-spacing:1px;color:#2b8291}
+.priority{font-size:12px;background:#eef3f6;border-radius:20px;padding:7px 10px;white-space:nowrap}
+h2{font-size:18px;margin:6px 0}
+.grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+label{display:block;font-size:11px;font-weight:700;color:#526577;margin-bottom:7px}
+input,textarea,select{width:100%;border:1px solid #ccd8e1;border-radius:8px;padding:11px 12px;font-family:inherit;font-size:13px;color:#17324d;background:#fff}
+textarea{min-height:90px;resize:vertical}
+.full{grid-column:1/-1}
+.helper{font-size:11px;color:#7a8996;margin-top:5px;line-height:1.5}
+.actions{display:flex;justify-content:space-between;align-items:center;gap:15px;margin:28px 0 45px}
+button,.next{border:0;border-radius:9px;background:#0b2d4d;color:#fff;padding:13px 20px;font-family:inherit;font-weight:700;cursor:pointer;text-decoration:none;font-size:13px}
+button:hover,.next:hover{background:#164d75}
+.status{font-size:12px;color:#557080}
+.error{display:none;background:#fff0f0;border:1px solid #efb8b8;color:#9a2d2d;border-radius:10px;padding:14px;margin:20px 0;font-size:13px}
+.success{display:none;background:#edf8f3;border:1px solid #b9dfcf;color:#176044;border-radius:10px;padding:14px;margin:20px 0;font-size:13px}
+.loading{text-align:center;padding:60px;color:#647687}
+@media(max-width:850px){
+.sidebar{position:relative;width:100%;height:auto;padding:18px}
+.nav{display:flex;flex-wrap:wrap;gap:4px}
+.nav a{margin:0}
+.main{margin-left:0;padding:22px 16px}
+.grid{grid-template-columns:1fr}
+.full{grid-column:auto}
+.card-head{flex-direction:column}
+}
+</style>
+</head>
+<body>
+
+<aside class="sidebar">
+  <div class="logo">
+    <img src="../diagnostico/logo-monitore-branca.png" alt="Monitore Negócios Empresariais">
+    <div class="sub">Gestão Empresarial</div>
+  </div>
+  <nav class="nav">
+    <a href="../">Início</a>
+    <a href="../diagnostico/">01. Diagnóstico</a>
+    <a href="../mapa-gestao/">02. Mapa de Gestão</a>
+    <a href="../matriz/">03. Matriz de Prioridades</a>
+    <a href="../plano/">04. Plano de Ação</a>
+    <a href="../indicadores/">05. Indicadores</a>
+    <a class="active" href="./">06. Ferramentas</a>
+    <a href="../rotina/">07. Rotina de Gestão</a>
+    <a href="../relatorio/">08. Relatório Final</a>
+  </nav>
+</aside>
+
+<main class="main">
+  <div class="top">
+    <div class="kicker">Sprint de Gestão</div>
+    <h1>Ferramentas de Gestão</h1>
+    <div class="subtitle">
+      Agora vamos transformar o Plano de Ação em instrumentos simples para apoiar a execução.
+      A ideia não é criar burocracia, mas deixar cada prioridade mais fácil de acompanhar e executar.
+    </div>
+  </div>
+
+  <div id="company" class="company"></div>
+
+  <div class="notice">
+    <strong>Como usar esta etapa?</strong><br>
+    Para cada prioridade, escolha uma ferramenta que ajude a organizar ou acompanhar a execução.
+    Pode ser um checklist, procedimento, rotina, quadro de acompanhamento, formulário ou outro instrumento.
+    <br><br>
+    <strong>Regra:</strong> a ferramenta precisa ser útil para a rotina. Se não ajudar alguém a executar, acompanhar ou decidir melhor, ela provavelmente não precisa existir.
+  </div>
+
+  <div id="loading" class="loading">Carregando Ferramentas...</div>
+  <div id="error" class="error"></div>
+  <div id="success" class="success">Ferramentas salvas com sucesso.</div>
+
+  <div id="cards"></div>
+
+  <div class="actions">
+    <span class="status" id="status">Preencha as ferramentas necessárias para as prioridades do Sprint.</span>
+    <div style="display:flex;gap:10px;flex-wrap:wrap">
+      <a class="next" href="../indicadores/" id="backBtn">← Indicadores</a>
+      <button id="saveBtn">Salvar Ferramentas</button>
+      <a class="next" href="../rotina/" id="nextBtn" style="display:none">Próxima etapa → Rotina de Gestão</a>
+    </div>
+  </div>
+</main>
+
+<script>
+const SUPABASE_URL="https://reunexorxwbiirkypveu.supabase.co";
+const SUPABASE_KEY="sb_publishable_1ucXcwRs0PsvEFWkLRsE1g_oIkKXlmg";
+const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
+
+const params=new URLSearchParams(window.location.search);
+const fromUrl=params.get("token");
+if(fromUrl) localStorage.setItem("sprint_diagnostico_token",fromUrl);
+const token=fromUrl||localStorage.getItem("sprint_diagnostico_token");
+
+const $=id=>document.getElementById(id);
+let priorities=[];
+let saved=[];
+
+function showError(msg){
+  $("loading").style.display="none";
+  $("error").style.display="block";
+  $("error").textContent=msg;
+}
+function esc(v){
+  return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));
+}
+function priorityLabel(i){return "Prioridade "+(i+1);}
+
+async function loadData(){
+  if(!token){showError("Não encontramos o acesso deste Sprint. Abra esta etapa a partir do Plano de Ação.");return;}
+
+  const timeout=new Promise((_,rej)=>setTimeout(()=>rej(new Error("Tempo limite de carregamento excedido.")),15000));
+
+  try{
+    const work=(async()=>{
+      const [diagRes,matrixRes,planRes,toolsRes]=await Promise.all([
+        sb.rpc("get_sprint_diagnostico",{p_access_token:token}),
+        sb.rpc("get_sprint_matriz",{p_access_token:token}),
+        sb.rpc("get_sprint_plano",{p_access_token:token}),
+        sb.rpc("get_sprint_ferramentas",{p_access_token:token})
+      ]);
+
+      if(diagRes.error) throw diagRes.error;
+      if(matrixRes.error) throw matrixRes.error;
+      if(planRes.error) throw planRes.error;
+      if(toolsRes.error) throw toolsRes.error;
+
+      const d=Array.isArray(diagRes.data)?diagRes.data[0]:diagRes.data;
+      const m=Array.isArray(matrixRes.data)?matrixRes.data[0]:matrixRes.data;
+      const p=Array.isArray(planRes.data)?planRes.data[0]:planRes.data;
+      const t=Array.isArray(toolsRes.data)?toolsRes.data[0]:toolsRes.data;
+
+      if(!d) throw new Error("Diagnóstico não encontrado.");
+      if(!m) throw new Error("Matriz de Prioridades ainda não foi preenchida.");
+      if(!p) throw new Error("Plano de Ação ainda não foi preenchido.");
+
+      if(d.empresa){
+        $("company").style.display="block";
+        $("company").innerHTML="<strong>"+esc(d.empresa)+"</strong> · "+esc(d.segmento||"")+" · Responsável: "+esc(d.responsavel||"");
+      }
+
+      const matrix=Array.isArray(m.prioridades)?m.prioridades:[];
+      const actions=Array.isArray(p.acoes)?p.acoes:[];
+      saved=t && Array.isArray(t.ferramentas)?t.ferramentas:[];
+
+      priorities=matrix
+        .map((x,idx)=>({...x,originalIndex:idx}))
+        .sort((a,b)=>(Number(a.ordem||999)-Number(b.ordem||999)))
+        .slice(0,4);
+
+      render(actions);
+    })();
+
+    await Promise.race([work,timeout]);
+  }catch(e){
+    console.error(e);
+    showError("Não foi possível carregar as Ferramentas. "+(e.message||"Verifique se as etapas anteriores foram salvas."));
+  }
+}
+
+function findSaved(originalIndex){
+  return saved.find(x=>Number(x.originalIndex)===Number(originalIndex))||{};
+}
+
+function render(actions){
+  $("loading").style.display="none";
+  const container=$("cards");
+  container.innerHTML="";
+
+  priorities.forEach((pr,i)=>{
+    const action=actions.find(x=>Number(x.originalIndex)===Number(pr.originalIndex))||actions[i]||{};
+    const old=findSaved(pr.originalIndex);
+
+    const card=document.createElement("section");
+    card.className="card";
+    card.innerHTML=`
+      <div class="card-head">
+        <div>
+          <div class="pillar">${esc(pr.pilar||pr.pillar||"Prioridade")}</div>
+          <h2>${esc(action.objetivo||pr.pilar||"Prioridade")}</h2>
+          <div class="helper">Use esta ferramenta para apoiar a ação: ${esc(action.acao||"definida no Plano de Ação")}</div>
+        </div>
+        <div class="priority">${priorityLabel(i)}</div>
+      </div>
+
+      <div class="grid">
+        <div>
+          <label>Ferramenta de gestão</label>
+          <select data-field="tipo">
+            <option value="">Selecione</option>
+            <option>Checklist</option>
+            <option>Procedimento / POP</option>
+            <option>Fluxograma</option>
+            <option>Formulário</option>
+            <option>Planilha de acompanhamento</option>
+            <option>Quadro de gestão</option>
+            <option>Roteiro de reunião</option>
+            <option>Outro</option>
+          </select>
+          <div class="helper">Escolha o instrumento que melhor apoia a execução.</div>
+        </div>
+
+        <div>
+          <label>Nome da ferramenta</label>
+          <input data-field="nome" placeholder="Ex.: Checklist de abertura">
+        </div>
+
+        <div class="full">
+          <label>Para que ela será utilizada?</label>
+          <textarea data-field="finalidade" placeholder="Descreva de forma simples o que a ferramenta ajudará a fazer, controlar ou decidir."></textarea>
+        </div>
+
+        <div>
+          <label>Quem utilizará?</label>
+          <input data-field="usuario" placeholder="Ex.: Supervisor da operação">
+        </div>
+
+        <div>
+          <label>Quando será utilizada?</label>
+          <input data-field="frequencia" placeholder="Ex.: Diariamente, antes do início do turno">
+        </div>
+
+        <div class="full">
+          <label>Como será utilizada na prática?</label>
+          <textarea data-field="modo" placeholder="Descreva os principais passos ou orientações de uso."></textarea>
+        </div>
+
+        <div class="full">
+          <label>Observações / conteúdo inicial</label>
+          <textarea data-field="observacoes" placeholder="Inclua campos, itens de checklist, informações importantes ou outras orientações."></textarea>
+        </div>
+      </div>
+    `;
+
+    const map={
+      tipo:old.tipo||"",
+      nome:old.nome||"",
+      finalidade:old.finalidade||"",
+      usuario:old.usuario||action.responsavel||"",
+      frequencia:old.frequencia||"",
+      modo:old.modo||"",
+      observacoes:old.observacoes||""
+    };
+    Object.entries(map).forEach(([k,v])=>{
+      const el=card.querySelector(`[data-field="${k}"]`);
+      if(el) el.value=v;
+    });
+    container.appendChild(card);
+  });
+
+  $("status").textContent=priorities.length+" prioridade(s) pronta(s) para estruturar.";
+}
+
+function collect(){
+  return [...document.querySelectorAll(".card")].map((card,i)=>{
+    const get=f=>card.querySelector(`[data-field="${f}"]`)?.value?.trim()||"";
+    return {
+      originalIndex:priorities[i].originalIndex,
+      ordem:priorities[i].ordem,
+      pilar:priorities[i].pilar||priorities[i].pillar||"",
+      tipo:get("tipo"),
+      nome:get("nome"),
+      finalidade:get("finalidade"),
+      usuario:get("usuario"),
+      frequencia:get("frequencia"),
+      modo:get("modo"),
+      observacoes:get("observacoes")
+    };
+  });
+}
+
+$("saveBtn").addEventListener("click",async()=>{
+  if(!token){showError("Token de acesso não encontrado.");return;}
+  $("saveBtn").disabled=true;
+  $("saveBtn").textContent="Salvando...";
+  $("success").style.display="none";
+  try{
+    const ferramentas=collect();
+    const {error}=await sb.rpc("save_sprint_ferramentas",{
+      p_access_token:token,
+      p_ferramentas:ferramentas
+    });
+    if(error) throw error;
+    $("success").style.display="block";
+    $("status").textContent="Salvo com sucesso. Você pode avançar para a Rotina de Gestão.";
+    $("nextBtn").style.display="inline-block";
+  }catch(e){
+    console.error(e);
+    showError("Não foi possível salvar as Ferramentas. "+(e.message||"Verifique a conexão com o Supabase."));
+  }finally{
+    $("saveBtn").disabled=false;
+    $("saveBtn").textContent="Salvar Ferramentas";
+  }
+});
+
+$("nextBtn").addEventListener("click",e=>{
+  e.currentTarget.href="../rotina/?token="+encodeURIComponent(token);
+});
+
+$("backBtn").addEventListener("click",e=>{
+  e.currentTarget.href="../indicadores/?token="+encodeURIComponent(token);
+});
+
+loadData();
+</script>
+</body>
+</html>
