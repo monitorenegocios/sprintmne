@@ -218,6 +218,36 @@ async function send(){
 
  const accessToken=crypto.randomUUID();
 
+ // 1) Testa primeiro se o navegador consegue alcançar o projeto Supabase.
+ try{
+   const teste=await fetch(SUPABASE_URL+"/rest/v1/",{
+     method:"GET",
+     headers:{
+       "apikey":SUPABASE_KEY,
+       "Authorization":"Bearer "+SUPABASE_KEY
+     },
+     cache:"no-store"
+   });
+   const testeTexto=await teste.text();
+   console.log("Teste de conexão Supabase:",teste.status,testeTexto);
+
+   if(!teste.ok){
+     throw new Error("HTTP "+teste.status+" — "+(testeTexto||"sem resposta do servidor"));
+   }
+ }catch(e){
+   console.error("Falha de conexão com Supabase:",e);
+   alert(
+     "A conexão com a Área do Cliente não conseguiu alcançar o Supabase.\n\n"+
+     "Detalhe técnico: "+(e.message||e.name||"erro desconhecido")+"\n\n"+
+     "Isto é diferente de erro de senha/login: o diagnóstico ainda nem chegou ao banco."
+   );
+   envioEmAndamento=false;
+   btn.disabled=false;
+   btn.textContent="Enviar diagnóstico";
+   return;
+ }
+
+ // 2) Se a conexão respondeu, grava o diagnóstico.
  const {error}=await supabaseClient
    .from("sprint_diagnosticos")
    .insert({
@@ -235,10 +265,13 @@ async function send(){
    });
 
  if(error){
-   console.error("Supabase:",error);
+   console.error("Supabase INSERT:",error);
    alert(
-     "Não foi possível salvar o diagnóstico.\\n\\n"+
-     "Erro: "+(error.message||"erro desconhecido")
+     "A conexão com o Supabase funcionou, mas o banco recusou o salvamento.\n\n"+
+     "Código: "+(error.code||"sem código")+"\n"+
+     "Mensagem: "+(error.message||"erro desconhecido")+"\n"+
+     "Detalhes: "+(error.details||"não informado")+"\n"+
+     "Sugestão: "+(error.hint||"não informado")
    );
    envioEmAndamento=false;
    btn.disabled=false;
