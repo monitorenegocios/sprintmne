@@ -70,6 +70,7 @@ footer{text-align:center;padding:20px 0 17px;font-size:10px;color:#71839b}
  <form id="form" action="https://formsubmit.co/comercial@monitorenegocios.com.br" method="POST" novalidate>
 <input type="hidden" name="_subject" id="email_subject" value="Novo Diagnóstico de Maturidade Empresarial">
 <input type="hidden" name="_replyto" id="email_replyto">
+<input type="hidden" name="_cc" value="monitorenegocios@gmail.com">
 <input type="hidden" name="_template" value="box">
 <input type="hidden" name="_captcha" value="false">
 <input type="hidden" name="_next" value="https://monitorenegocios.com.br/diagnostico-agendamento.html">
@@ -217,7 +218,7 @@ async function send(){
 
  const accessToken=crypto.randomUUID();
 
- const {data:registro,error}=await supabaseClient
+ const {error}=await supabaseClient
    .from("sprint_diagnosticos")
    .insert({
      access_token:accessToken,
@@ -231,21 +232,24 @@ async function send(){
      respostas:respostas,
      pontuacoes:pontuacoes,
      visao_prioridades:visao_prioridades
-   })
-   .select("id,access_token")
-   .single();
+   });
 
  if(error){
    console.error("Supabase:",error);
-   alert("Não foi possível salvar o diagnóstico. Verifique a conexão com a Área do Cliente e tente novamente.");
+   alert(
+     "Não foi possível salvar o diagnóstico.\\n\\n"+
+     "Erro: "+(error.message||"erro desconhecido")
+   );
    envioEmAndamento=false;
    btn.disabled=false;
    btn.textContent="Enviar diagnóstico";
    return;
  }
 
- localStorage.setItem("sprint_diagnostico_token",registro.access_token);
- localStorage.setItem("sprint_diagnostico_id",registro.id);
+ // O token já foi gerado antes do INSERT. Não precisamos fazer SELECT
+ // depois do INSERT; isso evita a necessidade de abrir uma política
+ // pública de leitura da tabela.
+ localStorage.setItem("sprint_diagnostico_token",accessToken);
 
  const resumo =
  "DIAGNÓSTICO DE MATURIDADE EMPRESARIAL\n\n"+
