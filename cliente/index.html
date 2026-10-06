@@ -9,149 +9,185 @@
 <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 <style>
 :root{--navy:#071b33;--blue:#0e5aa7;--cyan:#16a6b6;--bg:#f4f7fa;--text:#18283a;--muted:#718096;--line:#e3e9ef;--white:#fff;--green:#15946a}
-*{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Montserrat,Arial,sans-serif}.app{min-height:100vh;display:flex}
-aside{position:fixed;inset:0 auto 0 0;width:250px;background:var(--navy);color:#fff;padding:28px 18px;display:flex;flex-direction:column}.logo{font-size:23px;font-weight:800;padding:0 12px 28px;border-bottom:1px solid #ffffff18}.logo span{color:#31c1ce}.sub{font-size:9px;letter-spacing:2px;color:#9eb0c5;margin-top:5px}.label{font-size:9px;letter-spacing:1.5px;color:#7890a9;margin:25px 12px 9px;text-transform:uppercase;font-weight:700}nav a{display:block;color:#c5d1de;padding:12px;border-radius:9px;font-size:12px;font-weight:600;text-decoration:none}nav a.active,nav a:hover{background:#ffffff12;color:#fff;border-left:3px solid var(--cyan)}.help{margin-top:auto;border-top:1px solid #ffffff18;padding:18px 12px;color:#9eb0c5;font-size:10px;line-height:1.6}.help strong{display:block;color:#fff}.help a{color:#4cc7d1}
-main{margin-left:250px;width:calc(100% - 250px)}header{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 40px}.crumb{font-size:11px;color:var(--muted)}.crumb strong{color:var(--text)}.profile{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700}.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-size:11px}
-.content{max-width:1220px;margin:auto;padding:36px 40px 55px}.hero{background:linear-gradient(135deg,#071b33,#0b3159 70%,#0e5aa7);color:#fff;border-radius:21px;padding:34px 38px;position:relative;overflow:hidden}.eyebrow{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#62d2da;font-weight:800}.hero h1{font-size:30px;margin:10px 0 8px;letter-spacing:-.6px}.hero p{font-size:12px;color:#c9d8e7;line-height:1.7;max-width:700px;margin:0}.pills{display:flex;gap:9px;margin-top:20px;flex-wrap:wrap}.pill{font-size:9px;font-weight:700;border-radius:20px;padding:8px 12px}.pill.cyan{background:#d9f7f8;color:#087c88}.pill.dark{background:#ffffff16;color:#fff}
-.head{display:flex;justify-content:space-between;align-items:end;margin:32px 0 15px}.head h2{margin:0;font-size:18px}.head p{margin:5px 0 0;font-size:10px;color:var(--muted)}.progressbox{text-align:right}.progressbox div{font-size:9px;color:var(--muted);margin-bottom:6px}.bar{width:210px;height:6px;background:#dfe7ed;border-radius:9px;overflow:hidden}.bar span{display:block;width:12.5%;height:100%;background:var(--cyan)}
-.grid{display:grid;grid-template-columns:1fr 1fr;gap:13px}.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:19px;display:flex;gap:14px}.card.available{border-color:#a8dde1;box-shadow:0 7px 20px #16a6b610}.num{width:38px;height:38px;flex:0 0 38px;border-radius:10px;background:#eef3f7;color:#64778b;display:grid;place-items:center;font-size:10px;font-weight:800}.available .num{background:var(--cyan);color:#fff}.title{display:flex;gap:7px;align-items:center;flex-wrap:wrap}.title h3{font-size:12px;margin:0}.tag{font-size:7px;font-weight:800;text-transform:uppercase;padding:4px 7px;border-radius:10px}.tag.ok{background:#e9f8f2;color:var(--green)}.tag.next{background:#f0f3f6;color:#7b8997}.card p{font-size:10px;line-height:1.55;color:var(--muted);margin:6px 0 0}.action{display:inline-block;margin-top:10px;color:var(--blue);font-size:9px;font-weight:800;cursor:pointer}
-.bottom{display:grid;grid-template-columns:1.4fr .6fr;gap:15px;margin-top:30px}.next,.info{background:#fff;border:1px solid var(--line);border-radius:17px;padding:25px}.next{background:#e8f8fa;border-color:#b8e6ea}.kicker{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#0c7f8b;font-weight:800}.next h2{font-size:17px;margin:7px 0}.next p{font-size:10px;line-height:1.65;color:var(--muted);max-width:620px}.btn{border:0;background:var(--navy);color:#fff;padding:12px 17px;border-radius:8px;font:800 10px Montserrat;cursor:pointer}.info h3{font-size:12px;margin:0 0 10px}.row{display:flex;justify-content:space-between;border-bottom:1px solid #eef1f4;padding:9px 0;font-size:9px}.row span{color:var(--muted)}footer{border-top:1px solid var(--line);margin-top:42px;padding-top:18px;display:flex;justify-content:space-between;color:#91a0af;font-size:8px}
-@media(max-width:850px){aside{display:none}main{margin:0;width:100%}header{padding:0 18px}.profile{display:none}.content{padding:24px 17px}.hero{padding:27px 24px}.hero h1{font-size:24px}.head{display:block}.progressbox{text-align:left;margin-top:15px}.bar{width:100%}.grid,.bottom{grid-template-columns:1fr}footer{display:block;line-height:2}}
-
-.support-overlay{position:fixed;inset:0;background:rgba(5,20,33,.62);display:none;align-items:center;justify-content:center;padding:20px;z-index:100}
-.support-overlay.show{display:flex}
-.support-modal{width:min(620px,100%);background:#fff;border-radius:16px;box-shadow:0 25px 70px rgba(0,0,0,.25);overflow:hidden}
-.support-head{background:#071b2c;color:#fff;padding:24px 26px;display:flex;justify-content:space-between;gap:20px;align-items:flex-start}
-.support-head h2{margin:0 0 6px;font-size:19px}
-.support-head p{margin:0;color:#b8c8d4;font-size:11px;line-height:1.5}
-.support-close{border:0;background:transparent;color:#fff;font-size:25px;cursor:pointer;line-height:1}
-.support-body{padding:24px 26px}
-.support-grid{display:grid;grid-template-columns:1fr 1fr;gap:15px}
-.support-field{margin-bottom:15px}
-.support-field.full{grid-column:1/-1}
-.support-field label{display:block;font-size:10px;font-weight:800;letter-spacing:.8px;text-transform:uppercase;color:#667786;margin-bottom:7px}
-.support-field input,.support-field select,.support-field textarea{width:100%;border:1px solid #dce5ea;border-radius:8px;padding:11px 12px;font-family:inherit;font-size:12px;color:#263b4b;background:#fff;outline:none}
-.support-field input:focus,.support-field select:focus,.support-field textarea:focus{border-color:#31c1ce;box-shadow:0 0 0 3px rgba(49,193,206,.10)}
-.support-field textarea{min-height:125px;resize:vertical}
-.support-actions{display:flex;justify-content:flex-end;gap:10px;align-items:center;margin-top:5px}
-.support-cancel{border:1px solid #d8e1e6;background:#fff;color:#536673;padding:11px 17px;border-radius:8px;font-family:inherit;font-size:11px;font-weight:700;cursor:pointer}
-.support-send{border:0;background:#31c1ce;color:#062033;padding:12px 20px;border-radius:8px;font-family:inherit;font-size:11px;font-weight:800;cursor:pointer}
-.support-note{font-size:10px;color:#8a98a2;margin-top:12px;line-height:1.5}
-@media(max-width:650px){.support-grid{grid-template-columns:1fr}.support-field.full{grid-column:auto}.support-body{padding:20px}.support-head{padding:20px}}
-
+*{box-sizing:border-box}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--text);font-family:Montserrat,Arial,sans-serif}
+.app{min-height:100vh;display:flex}
+aside{position:fixed;inset:0 auto 0 0;width:250px;background:var(--navy);color:#fff;padding:28px 18px;display:flex;flex-direction:column}
+.logo{padding:0 12px 28px;border-bottom:1px solid #ffffff18}
+.logo img{display:block;width:178px;height:auto;max-width:100%}
+.sub{font-size:9px;letter-spacing:2px;color:#9eb0c5;margin-top:5px}
+.label{font-size:9px;letter-spacing:1.5px;color:#7890a9;margin:25px 12px 9px;text-transform:uppercase;font-weight:700}
+nav a{display:block;color:#c5d1de;padding:12px;border-radius:9px;font-size:12px;font-weight:600;text-decoration:none}
+nav a.active,nav a:hover{background:#ffffff12;color:#fff;border-left:3px solid var(--cyan)}
+.help{margin-top:auto;border-top:1px solid #ffffff18;padding:18px 12px;color:#9eb0c5;font-size:10px;line-height:1.6}
+.help strong{display:block;color:#fff}
+.help a{color:#4cc7d1}
+main{margin-left:250px;width:calc(100% - 250px)}
+header{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 40px}
+.crumb{font-size:11px;color:var(--muted)}
+.crumb strong{color:var(--text)}
+.profile{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700}
+.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-size:11px}
+.content{max-width:1220px;margin:auto;padding:36px 40px 55px}
+.hero{background:linear-gradient(135deg,#071b33,#0b3159 70%,#0e5aa7);color:#fff;border-radius:21px;padding:38px 40px;position:relative;overflow:hidden}
+.eyebrow{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#62d2da;font-weight:800}
+.hero h1{font-size:30px;margin:10px 0 8px;letter-spacing:-.6px}
+.hero p{font-size:12px;color:#c9d8e7;line-height:1.8;max-width:780px;margin:0}
+.pills{display:flex;gap:9px;margin-top:20px;flex-wrap:wrap}
+.pill{font-size:9px;font-weight:700;border-radius:20px;padding:8px 12px}
+.pill.cyan{background:#d9f7f8;color:#087c88}
+.pill.dark{background:#ffffff16;color:#fff}
+.section{margin-top:34px}
+.section-head{margin-bottom:16px}
+.section-head h2{margin:0;font-size:19px}
+.section-head p{margin:6px 0 0;font-size:10px;color:var(--muted);line-height:1.6}
+.explain{background:#fff;border:1px solid var(--line);border-radius:17px;padding:25px}
+.explain h3{font-size:16px;margin:0 0 8px}
+.explain p{font-size:11px;line-height:1.8;color:#5f7182;margin:0 0 12px}
+.quote{border-left:4px solid var(--cyan);background:#eef9fa;padding:15px 17px;border-radius:0 10px 10px 0;font-size:12px;line-height:1.7;font-weight:700;color:#17455a}
+.beforeafter{display:grid;grid-template-columns:1fr 1fr;gap:15px}
+.ba{background:#fff;border:1px solid var(--line);border-radius:15px;padding:21px}
+.ba h3{font-size:13px;margin:0 0 12px}
+.ba ul{margin:0;padding-left:18px;color:var(--muted);font-size:10px;line-height:1.9}
+.ba.after{border-color:#b8e6ea;background:#f7fcfc}
+.ba.after h3{color:#087c88}
+.deliverables{display:grid;grid-template-columns:1fr 1fr;gap:13px}
+.card{background:#fff;border:1px solid var(--line);border-radius:14px;padding:19px;display:flex;gap:14px;min-height:125px}
+.num{width:38px;height:38px;flex:0 0 38px;border-radius:10px;background:#eef3f7;color:#64778b;display:grid;place-items:center;font-size:10px;font-weight:800}
+.card.active{border-color:#a8dde1;box-shadow:0 7px 20px #16a6b610}
+.card.active .num{background:var(--cyan);color:#fff}
+.title{display:flex;gap:7px;align-items:center;flex-wrap:wrap}
+.title h3{font-size:12px;margin:0}
+.tag{font-size:7px;font-weight:800;text-transform:uppercase;padding:4px 7px;border-radius:10px}
+.tag.start{background:#e9f8f2;color:var(--green)}
+.tag.step{background:#f0f3f6;color:#7b8997}
+.card p{font-size:10px;line-height:1.55;color:var(--muted);margin:6px 0 0}
+.action{display:inline-block;margin-top:10px;color:var(--blue);font-size:9px;font-weight:800;cursor:pointer;text-decoration:none}
+.flow{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}
+.flow-item{background:#fff;border:1px solid var(--line);border-radius:13px;padding:17px}
+.flow-item strong{display:block;font-size:11px;margin-bottom:5px}
+.flow-item span{font-size:9px;line-height:1.5;color:var(--muted)}
+.next{margin-top:28px;background:#e8f8fa;border:1px solid #b8e6ea;border-radius:17px;padding:25px;display:flex;justify-content:space-between;gap:20px;align-items:center}
+.next .kicker{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#0c7f8b;font-weight:800}
+.next h2{font-size:17px;margin:7px 0}
+.next p{font-size:10px;line-height:1.65;color:var(--muted);margin:0;max-width:700px}
+.btn{border:0;background:var(--navy);color:#fff;padding:12px 17px;border-radius:8px;font:800 10px Montserrat;cursor:pointer;white-space:nowrap}
+.info{background:#fff;border:1px solid var(--line);border-radius:17px;padding:22px;margin-top:15px}
+.info h3{font-size:12px;margin:0 0 10px}
+.info p{font-size:10px;line-height:1.7;color:var(--muted);margin:0}
+footer{border-top:1px solid var(--line);margin-top:42px;padding-top:18px;display:flex;justify-content:space-between;color:#91a0af;font-size:8px}
+@media(max-width:850px){
+aside{display:none}main{margin:0;width:100%}header{padding:0 18px}.profile{display:none}.content{padding:24px 17px}.hero{padding:27px 24px}.hero h1{font-size:24px}
+.beforeafter,.deliverables,.flow{grid-template-columns:1fr}.next{display:block}.next .btn{margin-top:16px}
+footer{display:block;line-height:2}
+}
 </style>
 </head>
 <body>
 <div class="app">
 <aside>
-<div class="logo">MONITORE<span>.</span><div class="sub">Gestão Empresarial</div></div>
+<div class="logo"><img src="diagnostico/logo-monitore-branca.png" alt="Monitore Negócios Empresariais"><div class="sub">Gestão Empresarial</div></div>
 <div class="label">Meu Sprint</div>
 <nav>
 <a class="active" href="#inicio">⌂ &nbsp; Visão geral</a>
-<a href="#entregaveis">▣ &nbsp; Entregáveis</a>
-<a href="#proximo">→ &nbsp; Próximo passo</a>
-<a href="#suporte" onclick="abrirSuporte(event)">? &nbsp; Suporte</a>
+<a href="#o-que-e">▣ &nbsp; O que é o Sprint</a>
+<a href="#entregaveis">✓ &nbsp; Entregáveis</a>
+<a href="#como-funciona">→ &nbsp; Como funciona</a>
+<a href="#suporte">? &nbsp; Suporte</a>
 </nav>
 <div class="help" id="suporte"><strong>Precisa de ajuda?</strong>Fale com a equipe Monitore.<br><a href="mailto:comercial@monitorenegocios.com.br">comercial@monitorenegocios.com.br</a></div>
 </aside>
+
 <main>
 <header><div class="crumb">Monitore / <strong>Meu Sprint Gestão</strong></div><div class="profile">Cliente Sprint <span class="avatar">CS</span></div></header>
+
 <section class="content" id="inicio">
-<div class="hero"><div class="eyebrow">Sprint Gestão · Área do Cliente</div><h1>Seu Sprint começou.</h1><p>Em quatro semanas, vamos transformar as principais necessidades da sua empresa em uma estrutura de gestão mais clara, organizada e prática.</p><div class="pills"><span class="pill cyan">● Em andamento</span><span class="pill dark">Modalidade: Essencial</span></div></div>
-<div class="head" id="entregaveis"><div><h2>O que você vai receber</h2><p>Seu Sprint é construído etapa por etapa. Acompanhe aqui a evolução do projeto.</p></div><div class="progressbox"><div>Progresso &nbsp; <strong>1 de 8 entregáveis</strong></div><div class="bar"><span></span></div></div></div>
-<div class="grid">
-<div class="card available"><div class="num">01</div><div><div class="title"><h3>Diagnóstico de Maturidade da Gestão</h3><span class="tag ok">Disponível</span></div><p>Identifique o estágio atual da gestão e os principais pontos que precisam de atenção.</p><a class="action" onclick="iniciarDiagnostico()">Começar diagnóstico →</a></div></div>
-<div class="card"><div class="num">02</div><div><div class="title"><h3>Mapa de Gestão</h3><span class="tag next">Próxima etapa</span></div><p>Visualização estruturada dos principais pontos, impactos e oportunidades.</p></div></div>
-<div class="card"><div class="num">03</div><div><div class="title"><h3>Matriz de Prioridades</h3><span class="tag next">Próxima etapa</span></div><p>Definição do que precisa ser tratado primeiro.</p></div></div>
-<div class="card"><div class="num">04</div><div><div class="title"><h3>Plano de Ação</h3><span class="tag next">Próxima etapa</span></div><p>Ações, responsáveis, prazos e critérios de acompanhamento.</p></div></div>
-<div class="card"><div class="num">05</div><div><div class="title"><h3>Painel de Indicadores</h3><span class="tag next">Próxima etapa</span></div><p>Definição dos indicadores essenciais para acompanhar o desempenho.</p></div></div>
-<div class="card"><div class="num">06</div><div><div class="title"><h3>Ferramentas de Gestão</h3><span class="tag next">Próxima etapa</span></div><p>Ferramentas adequadas à realidade do seu negócio.</p></div></div>
-<div class="card"><div class="num">07</div><div><div class="title"><h3>Rotina de Gestão</h3><span class="tag next">Próxima etapa</span></div><p>Estruturação das rotinas de acompanhamento.</p></div></div>
-<div class="card"><div class="num">08</div><div><div class="title"><h3>Relatório Final e Próximos Passos</h3><span class="tag next">Entrega final</span></div><p>Consolidação do trabalho e direcionamento para continuidade.</p></div></div>
+
+<div class="hero">
+<div class="eyebrow">Sprint Gestão · Área do Cliente</div>
+<h1>Vamos estruturar a gestão da sua empresa.</h1>
+<p>Durante quatro semanas, vamos transformar os principais desafios identificados na sua empresa em uma estrutura de gestão clara, priorizada e prática — com plano de ação, indicadores, ferramentas e rotina para dar continuidade.</p>
+<div class="pills"><span class="pill cyan">● Projeto em andamento</span><span class="pill dark">4 semanas</span><span class="pill dark">Estrutura personalizada</span></div>
 </div>
-<div class="bottom" id="proximo">
-<div class="next"><div class="kicker">Seu próximo passo</div><h2>Comece pelo Diagnóstico</h2><p>O diagnóstico é o ponto de partida do Sprint. Suas respostas vão orientar as próximas entregas.</p><button class="btn" onclick="iniciarDiagnostico()">Iniciar diagnóstico →</button></div>
-<div class="info"><h3>Dados do seu Sprint</h3><div class="row"><span>Modalidade</span><strong>Essencial</strong></div><div class="row"><span>Duração</span><strong>4 semanas</strong></div><div class="row"><span>Status</span><strong>Em andamento</strong></div><div class="row"><span>Entregáveis</span><strong>8 etapas</strong></div></div>
+
+<section class="section" id="o-que-e">
+<div class="section-head"><h2>Antes de começar: o que você está construindo aqui?</h2><p>O Sprint não é apenas um diagnóstico e não é um curso.</p></div>
+<div class="explain">
+<h3>O Sprint de Gestão é um projeto de estruturação da gestão.</h3>
+<p>Ao longo das etapas, você vai analisar a situação atual da empresa, identificar os principais pontos de atenção, decidir o que precisa ser tratado primeiro e transformar essas prioridades em uma forma organizada de executar e acompanhar.</p>
+<div class="quote">Ao final, você terá uma estrutura de gestão construída para a realidade da sua empresa — e não apenas uma lista de recomendações.</div>
 </div>
+</section>
+
+<section class="section">
+<div class="beforeafter">
+<div class="ba">
+<h3>Antes do Sprint</h3>
+<ul>
+<li>Problemas e prioridades misturados.</li>
+<li>Decisões muito dependentes do dono ou da liderança.</li>
+<li>Pouca clareza sobre o que acompanhar.</li>
+<li>Ações sem responsável ou prazo definido.</li>
+<li>Processos e rotinas pouco estruturados.</li>
+</ul>
+</div>
+<div class="ba after">
+<h3>Depois do Sprint</h3>
+<ul>
+<li>Principais pontos de atenção identificados.</li>
+<li>Prioridades definidas.</li>
+<li>Plano de ação estruturado.</li>
+<li>Indicadores e metas definidos.</li>
+<li>Ferramentas e rotina de gestão organizadas.</li>
+</ul>
+</div>
+</div>
+</section>
+
+<section class="section" id="entregaveis">
+<div class="section-head"><h2>O que você vai receber</h2><p>O Sprint é construído etapa por etapa. Cada etapa responde a uma pergunta de gestão.</p></div>
+<div class="deliverables">
+<div class="card active"><div class="num">01</div><div><div class="title"><h3>Diagnóstico de Maturidade da Gestão</h3><span class="tag start">Comece aqui</span></div><p><strong>Como estamos hoje?</strong><br>Identificação do estágio atual da gestão e dos principais pontos de atenção.</p><a class="action" onclick="iniciarDiagnostico()">Começar diagnóstico →</a></div></div>
+<div class="card"><div class="num">02</div><div><div class="title"><h3>Mapa de Gestão</h3><span class="tag step">Etapa 2</span></div><p><strong>Onde estão os principais pontos de atenção?</strong><br>Organização dos achados do diagnóstico.</p></div></div>
+<div class="card"><div class="num">03</div><div><div class="title"><h3>Matriz de Prioridades</h3><span class="tag step">Etapa 3</span></div><p><strong>O que devemos resolver primeiro?</strong><br>Priorização considerando impacto, urgência e esforço.</p></div></div>
+<div class="card"><div class="num">04</div><div><div class="title"><h3>Plano de Ação</h3><span class="tag step">Etapa 4</span></div><p><strong>O que vamos fazer?</strong><br>Ações, responsáveis, prazos, indicadores e metas.</p></div></div>
+<div class="card"><div class="num">05</div><div><div class="title"><h3>Indicadores</h3><span class="tag step">Etapa 5</span></div><p><strong>Como vamos saber se melhorou?</strong><br>Definição do que medir, como medir e qual resultado buscar.</p></div></div>
+<div class="card"><div class="num">06</div><div><div class="title"><h3>Ferramentas de Gestão</h3><span class="tag step">Etapa 6</span></div><p><strong>Como vamos apoiar a execução?</strong><br>Definição dos instrumentos necessários para a rotina.</p></div></div>
+<div class="card"><div class="num">07</div><div><div class="title"><h3>Rotina de Gestão</h3><span class="tag step">Etapa 7</span></div><p><strong>Como vamos manter?</strong><br>Definição da rotina de acompanhamento e tomada de decisão.</p></div></div>
+<div class="card"><div class="num">08</div><div><div class="title"><h3>Relatório Final</h3><span class="tag step">Entrega final</span></div><p><strong>O que construímos?</strong><br>Consolidação da estrutura criada e dos próximos passos.</p></div></div>
+</div>
+</section>
+
+<section class="section" id="como-funciona">
+<div class="section-head"><h2>Como o Sprint funciona</h2><p>Quatro semanas para transformar diagnóstico em estrutura de gestão.</p></div>
+<div class="flow">
+<div class="flow-item"><strong>01 · Diagnosticar</strong><span>Entender a situação atual e os principais desafios.</span></div>
+<div class="flow-item"><strong>02 · Priorizar</strong><span>Decidir onde concentrar esforço primeiro.</span></div>
+<div class="flow-item"><strong>03 · Estruturar</strong><span>Construir plano, indicadores e ferramentas.</span></div>
+<div class="flow-item"><strong>04 · Implantar</strong><span>Definir a rotina para acompanhar e manter.</span></div>
+</div>
+</section>
+
+<div class="next">
+<div><div class="kicker">Seu primeiro passo</div><h2>Comece pelo Diagnóstico</h2><p>Suas respostas vão orientar todas as próximas etapas do Sprint. Não existem respostas certas ou erradas. Precisamos entender a realidade da sua empresa.</p></div>
+<button class="btn" onclick="iniciarDiagnostico()">Iniciar diagnóstico →</button>
+</div>
+
+<div class="info">
+<h3>Importante</h3>
+<p>O Sprint é construído com base nas informações fornecidas pela empresa. Quanto mais fiel for o diagnóstico da realidade atual, mais úteis serão as prioridades, ações, indicadores e ferramentas definidos nas etapas seguintes.</p>
+</div>
+
 <footer><span>© 2026 Monitore Negócios Empresariais</span><span>Transformamos desafios em resultados.</span></footer>
 </section>
 </main>
 </div>
+
 <script>
 function iniciarDiagnostico(){
-  // SUBSTITUIR pela URL real do formulário de diagnóstico.
-  window.location.href = "diagnostico/";
+  window.location.href="diagnostico/";
 }
-</script>
-
-<div class="support-overlay" id="supportOverlay" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
-  <div class="support-modal">
-    <div class="support-head">
-      <div>
-        <h2 id="supportTitle">Suporte ao Sprint</h2>
-        <p>Envie sua solicitação diretamente para a equipe administrativa da Monitore.</p>
-      </div>
-      <button class="support-close" type="button" onclick="fecharSuporte()" aria-label="Fechar">×</button>
-    </div>
-    <div class="support-body">
-      <form action="https://formsubmit.co/administrativo@monitorenegocios.com.br" method="POST">
-        <input type="hidden" name="_subject" value="[Sprint Gestão] Solicitação de suporte">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://sprint.monitorenegocios.com.br/areadocliente/">
-        <div class="support-grid">
-          <div class="support-field">
-            <label for="supportName">Nome</label>
-            <input id="supportName" name="Nome" type="text" placeholder="Seu nome" required>
-          </div>
-          <div class="support-field">
-            <label for="supportEmail">E-mail</label>
-            <input id="supportEmail" name="E-mail" type="email" placeholder="seu@email.com" required>
-          </div>
-          <div class="support-field">
-            <label for="supportType">Tipo de solicitação</label>
-            <select id="supportType" name="Tipo de solicitação" required>
-              <option value="">Selecione</option>
-              <option>Dúvida sobre o Sprint</option>
-              <option>Dúvida sobre um entregável</option>
-              <option>Problema técnico</option>
-              <option>Agendamento</option>
-              <option>Outro</option>
-            </select>
-          </div>
-          <div class="support-field">
-            <label for="supportSubject">Assunto</label>
-            <input id="supportSubject" name="Assunto" type="text" placeholder="Como podemos ajudar?" required>
-          </div>
-          <div class="support-field full">
-            <label for="supportMessage">Mensagem</label>
-            <textarea id="supportMessage" name="Mensagem" placeholder="Descreva sua solicitação..." required></textarea>
-          </div>
-        </div>
-        <div class="support-actions">
-          <button type="button" class="support-cancel" onclick="fecharSuporte()">Cancelar</button>
-          <button type="submit" class="support-send">Enviar solicitação</button>
-        </div>
-        <div class="support-note">Sua mensagem será encaminhada para administrativo@monitorenegocios.com.br.</div>
-      </form>
-    </div>
-  </div>
-</div>
-
-<script>
-function abrirSuporte(event){
-  if(event) event.preventDefault();
-  document.getElementById('supportOverlay').classList.add('show');
-  document.body.style.overflow='hidden';
-}
-function fecharSuporte(){
-  document.getElementById('supportOverlay').classList.remove('show');
-  document.body.style.overflow='';
-}
-document.addEventListener('keydown',function(e){if(e.key==='Escape')fecharSuporte();});
-document.getElementById('supportOverlay').addEventListener('click',function(e){
-  if(e.target===this)fecharSuporte();
-});
 </script>
 </body>
 </html>
