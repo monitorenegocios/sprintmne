@@ -10,7 +10,7 @@
 <style>
 :root{--navy:#071b33;--blue:#0e5aa7;--cyan:#16a6b6;--bg:#f4f7fa;--text:#18283a;--muted:#718096;--line:#e3e9ef;--white:#fff;--green:#15946a}
 *{box-sizing:border-box}body{margin:0;background:var(--bg);color:var(--text);font-family:Montserrat,Arial,sans-serif}.app{min-height:100vh;display:flex}
-aside{position:fixed;inset:0 auto 0 0;width:250px;background:var(--navy);color:#fff;padding:28px 18px;display:flex;flex-direction:column}.logo{padding:0 12px 28px;border-bottom:1px solid #ffffff18}.logo img{display:block;width:178px;height:auto;max-width:100%}.sub{font-size:9px;letter-spacing:2px;color:#9eb0c5;margin-top:5px}.label{font-size:9px;letter-spacing:1.5px;color:#7890a9;margin:25px 12px 9px;text-transform:uppercase;font-weight:700}nav a{display:block;color:#c5d1de;padding:12px;border-radius:9px;font-size:12px;font-weight:600;text-decoration:none}nav a.active,nav a:hover{background:#ffffff12;color:#fff;border-left:3px solid var(--cyan)}.help{margin-top:auto;border-top:1px solid #ffffff18;padding:18px 12px;color:#9eb0c5;font-size:10px;line-height:1.6}.help strong{display:block;color:#fff}.help a{color:#4cc7d1}
+aside{position:fixed;inset:0 auto 0 0;width:250px;background:var(--navy);color:#fff;padding:28px 18px;display:flex;flex-direction:column}.logo{font-size:23px;font-weight:800;padding:0 12px 28px;border-bottom:1px solid #ffffff18}.logo span{color:#31c1ce}.sub{font-size:9px;letter-spacing:2px;color:#9eb0c5;margin-top:5px}.label{font-size:9px;letter-spacing:1.5px;color:#7890a9;margin:25px 12px 9px;text-transform:uppercase;font-weight:700}nav a{display:block;color:#c5d1de;padding:12px;border-radius:9px;font-size:12px;font-weight:600;text-decoration:none}nav a.active,nav a:hover{background:#ffffff12;color:#fff;border-left:3px solid var(--cyan)}.help{margin-top:auto;border-top:1px solid #ffffff18;padding:18px 12px;color:#9eb0c5;font-size:10px;line-height:1.6}.help strong{display:block;color:#fff}.help a{color:#4cc7d1}
 main{margin-left:250px;width:calc(100% - 250px)}header{height:70px;background:#fff;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;padding:0 40px}.crumb{font-size:11px;color:var(--muted)}.crumb strong{color:var(--text)}.profile{display:flex;align-items:center;gap:10px;font-size:11px;font-weight:700}.avatar{width:36px;height:36px;border-radius:50%;display:grid;place-items:center;background:var(--navy);color:#fff;font-size:11px}
 .content{max-width:1220px;margin:auto;padding:36px 40px 55px}.hero{background:linear-gradient(135deg,#071b33,#0b3159 70%,#0e5aa7);color:#fff;border-radius:21px;padding:34px 38px;position:relative;overflow:hidden}.eyebrow{font-size:9px;letter-spacing:2px;text-transform:uppercase;color:#62d2da;font-weight:800}.hero h1{font-size:30px;margin:10px 0 8px;letter-spacing:-.6px}.hero p{font-size:12px;color:#c9d8e7;line-height:1.7;max-width:700px;margin:0}.pills{display:flex;gap:9px;margin-top:20px;flex-wrap:wrap}.pill{font-size:9px;font-weight:700;border-radius:20px;padding:8px 12px}.pill.cyan{background:#d9f7f8;color:#087c88}.pill.dark{background:#ffffff16;color:#fff}
 .head{display:flex;justify-content:space-between;align-items:end;margin:32px 0 15px}.head h2{margin:0;font-size:18px}.head p{margin:5px 0 0;font-size:10px;color:var(--muted)}.progressbox{text-align:right}.progressbox div{font-size:9px;color:var(--muted);margin-bottom:6px}.bar{width:210px;height:6px;background:#dfe7ed;border-radius:9px;overflow:hidden}.bar span{display:block;width:12.5%;height:100%;background:var(--cyan)}
@@ -22,13 +22,13 @@ main{margin-left:250px;width:calc(100% - 250px)}header{height:70px;background:#f
 <body>
 <div class="app">
 <aside>
-<div class="logo"><img src="diagnostico/logo-monitore-branca.png" alt="Monitore Negócios Empresariais"><div class="sub">Gestão Empresarial</div></div>
+<div class="logo">MONITORE<span>.</span><div class="sub">Gestão Empresarial</div></div>
 <div class="label">Meu Sprint</div>
 <nav>
 <a class="active" href="#inicio">⌂ &nbsp; Visão geral</a>
 <a href="#entregaveis">▣ &nbsp; Entregáveis</a>
 <a href="#proximo">→ &nbsp; Próximo passo</a>
-<a href="#suporte">? &nbsp; Suporte</a>
+<a href="mailto:comercial@monitorenegocios.com.br?subject=Suporte%20-%20Sprint%20Gest%C3%A3o">? &nbsp; Suporte</a>
 </nav>
 <div class="help" id="suporte"><strong>Precisa de ajuda?</strong>Fale com a equipe Monitore.<br><a href="mailto:comercial@monitorenegocios.com.br">comercial@monitorenegocios.com.br</a></div>
 </aside>
