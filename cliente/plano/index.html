@@ -41,6 +41,28 @@ function render(){
 }
 function capture(){const p=this.dataset.pilar;let a=acoes.find(x=>x.pilar===p);if(!a){a={pilar:p};acoes.push(a);}a[this.dataset.field]=this.value;}
 async function save(){document.querySelectorAll("[data-field]").forEach(el=>{const p=el.dataset.pilar;let a=acoes.find(x=>x.pilar===p);if(!a){a={pilar:p};acoes.push(a);}a[el.dataset.field]=el.value;});const btn=document.getElementById("saveBtn");btn.disabled=true;document.getElementById("saveStatus").textContent="Salvando...";const {error}=await sb.rpc("save_sprint_plano",{p_access_token:token,p_acoes:acoes});if(error){console.error(error);document.getElementById("saveStatus").textContent="Erro ao salvar";document.getElementById("savedMsg").textContent="Não foi possível salvar o plano. Verifique se o SQL da Etapa 04 foi executado no Supabase.";btn.disabled=false;return;}document.getElementById("saveStatus").textContent="Plano salvo";document.getElementById("savedMsg").textContent="Plano de Ação salvo com sucesso.";btn.textContent="Plano Salvo ✓";}
-async function load(){const params=new URLSearchParams(window.location.search);const fromUrl=params.get("token");if(fromUrl){localStorage.setItem("sprint_diagnostico_token",fromUrl);}token=fromUrl||localStorage.getItem("sprint_diagnostico_token");if(!token){document.getElementById("app").innerHTML='<div class="card empty">Diagnóstico ainda não localizado.<br><br>Conclua o diagnóstico primeiro.</div>';return;}const d=await sb.rpc("get_sprint_diagnostico",{p_access_token:token});if(d.error||!d.data?.length){document.getElementById("app").innerHTML='<div class="card empty error">Não foi possível carregar o diagnóstico desta empresa.</div>';return;}diagnostico=d.data[0];const m=await sb.rpc("get_sprint_matriz",{p_access_token:token});if(m.error||!m.data?.length){document.getElementById("app").innerHTML='<div class="card empty error">A Matriz de Prioridades ainda não foi salva. Volte à Matriz, conclua as avaliações e clique em “Salvar Matriz”.</div>';return;}try{prioridades=m.data[0].prioridades||[];}catch(e){prioridades=[];}const p=await sb.rpc("get_sprint_plano",{p_access_token:token});if(!p.error&&p.data?.length){acoes=p.data[0].acoes||[];}render();}
+async function load(){
+ try{
+  const params=new URLSearchParams(window.location.search);
+  const fromUrl=params.get("token");
+  if(fromUrl){localStorage.setItem("sprint_diagnostico_token",fromUrl);}
+  token=fromUrl||localStorage.getItem("sprint_diagnostico_token");
+  if(!token){document.getElementById("app").innerHTML='<div class="card empty">Diagnóstico ainda não localizado.<br><br>Conclua o diagnóstico primeiro.</div>';return;}
+  const timeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error("Tempo limite de conexão com o Supabase.")),15000));
+  const d=await Promise.race([sb.rpc("get_sprint_diagnostico",{p_access_token:token}),timeout]);
+  if(d.error||!d.data?.length){throw new Error(d.error?.message||"Diagnóstico não encontrado para este token.");}
+  diagnostico=d.data[0];
+  const m=await Promise.race([sb.rpc("get_sprint_matriz",{p_access_token:token}),timeout]);
+  if(m.error||!m.data?.length){document.getElementById("app").innerHTML='<div class="card empty error">A Matriz de Prioridades ainda não foi salva. Volte à Matriz, conclua as avaliações e clique em “Salvar Matriz”.</div>';return;}
+  prioridades=Array.isArray(m.data[0].prioridades)?m.data[0].prioridades:[];
+  if(!prioridades.length){document.getElementById("app").innerHTML='<div class="card empty error">A Matriz foi encontrada, mas não contém prioridades salvas. Volte à Matriz e clique em “Salvar Matriz”.</div>';return;}
+  const p=await Promise.race([sb.rpc("get_sprint_plano",{p_access_token:token}),timeout]);
+  if(!p.error&&p.data?.length){acoes=Array.isArray(p.data[0].acoes)?p.data[0].acoes:[];}
+  render();
+ }catch(err){
+  console.error("Erro ao carregar Plano de Ação:",err);
+  document.getElementById("app").innerHTML='<div class="card empty error"><strong>Não foi possível carregar o Plano de Ação.</strong><br><br>'+esc(err.message||"Erro de conexão")+'<br><br>Atualize a página. Se o problema continuar, envie esta tela para a Monitore.</div>';
+ }
+}
 load();
 </script></body></html>
