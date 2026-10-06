@@ -14,7 +14,7 @@
 <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
 <script>
 const SUPABASE_URL="https://reunexorxwbiirkypveu.supabase.co";
-const SUPABASE_KEY="sb_publishable_1ucXCwRs0PsvEFWkLRsE1g_oIkKXlmg";
+const SUPABASE_KEY="sb_publishable_1ucXcwRs0PsvEFWkLRsE1g_oIkKXlmg";
 const sb=window.supabase.createClient(SUPABASE_URL,SUPABASE_KEY);
 const defs=[{key:"gestao",name:"Gestão",desc:"Direcionamento, organização, liderança e tomada de decisão.",num:"01"},{key:"excelencia_operacional",name:"Excelência Operacional",desc:"Processos, padronização, eficiência e melhoria contínua.",num:"02"},{key:"inteligencia_negocios",name:"Inteligência de Negócios",desc:"Indicadores, informações, custos, resultados e decisões orientadas por dados.",num:"03"},{key:"desenvolvimento_pessoas",name:"Desenvolvimento de Pessoas",desc:"Clareza de papéis, liderança, feedback, capacitação e desenvolvimento.",num:"04"}];
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
