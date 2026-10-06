@@ -83,6 +83,26 @@ aside{display:none}main{margin:0;width:100%}header{padding:0 18px}.profile{displ
 footer{display:block;line-height:2}
 }
 </style>
+
+<style>
+.support-overlay{display:none;position:fixed;inset:0;background:rgba(7,27,51,.62);z-index:1000;align-items:center;justify-content:center;padding:20px}
+.support-modal{width:min(680px,100%);background:#fff;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.25);overflow:hidden}
+.support-head{background:#071b33;color:#fff;padding:22px 25px;display:flex;justify-content:space-between;align-items:flex-start;gap:15px}
+.support-head h2{font-size:18px;margin:0 0 5px}.support-head p{font-size:10px;color:#c9d8e7;margin:0;line-height:1.6}
+.support-close{border:0;background:#ffffff18;color:#fff;width:32px;height:32px;border-radius:50%;font-size:18px;cursor:pointer}
+.support-body{padding:24px 25px}
+.support-grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}
+.support-field.full{grid-column:1/-1}.support-field label{display:block;font-size:10px;font-weight:800;color:#526577;margin-bottom:6px}
+.support-field input,.support-field select,.support-field textarea{width:100%;border:1px solid #ccd8e1;border-radius:8px;padding:11px 12px;font-family:Montserrat,Arial,sans-serif;font-size:11px;color:#18283a;background:#fff}
+.support-field textarea{min-height:110px;resize:vertical}
+.support-actions{display:flex;justify-content:flex-end;gap:10px;margin-top:18px}
+.support-cancel{border:1px solid #d8e1e6;background:#fff;color:#536673;padding:11px 17px;border-radius:8px;font-family:inherit;font-size:10px;font-weight:700;cursor:pointer}
+.support-send{border:0;background:#16a6b6;color:#062033;padding:12px 20px;border-radius:8px;font-family:inherit;font-size:10px;font-weight:800;cursor:pointer}
+.support-note{font-size:9px;color:#8a98a2;margin-top:10px;line-height:1.5}
+.support-result{display:none;margin-top:14px;padding:12px;border-radius:8px;font-size:10px;line-height:1.5}
+.support-result.ok{background:#e9f8f2;color:#176044}.support-result.err{background:#fff0f0;color:#9a2d2d}
+@media(max-width:650px){.support-grid{grid-template-columns:1fr}.support-field.full{grid-column:auto}.support-body{padding:20px}.support-head{padding:20px}}
+</style>
 </head>
 <body>
 <div class="app">
@@ -94,9 +114,9 @@ footer{display:block;line-height:2}
 <a href="#o-que-e">▣ &nbsp; O que é o Sprint</a>
 <a href="#entregaveis">✓ &nbsp; Entregáveis</a>
 <a href="#como-funciona">→ &nbsp; Como funciona</a>
-<a href="#suporte">? &nbsp; Suporte</a>
+<a href="#suporte" onclick="abrirSuporte(event)">? &nbsp; Suporte</a>
 </nav>
-<div class="help" id="suporte"><strong>Precisa de ajuda?</strong>Fale com a equipe Monitore.<br><a href="mailto:comercial@monitorenegocios.com.br">comercial@monitorenegocios.com.br</a></div>
+<div class="help" id="suporte"><strong>Precisa de ajuda?</strong>Fale com a equipe Monitore.<br><a href="javascript:void(0)" onclick="abrirSuporte(event)">Abrir formulário de suporte →</a></div>
 </aside>
 
 <main>
@@ -188,6 +208,80 @@ footer{display:block;line-height:2}
 function iniciarDiagnostico(){
   window.location.href="diagnostico/";
 }
+
+function abrirSuporte(event){
+  if(event) event.preventDefault();
+  const overlay=document.getElementById("supportOverlay");
+  overlay.style.display="flex";
+  document.body.style.overflow="hidden";
+  setTimeout(()=>document.getElementById("supportNome")?.focus(),100);
+}
+function fecharSuporte(){
+  document.getElementById("supportOverlay").style.display="none";
+  document.body.style.overflow="";
+}
+document.getElementById("supportOverlay")?.addEventListener("click",function(e){
+  if(e.target===this) fecharSuporte();
+});
+document.addEventListener("keydown",function(e){
+  if(e.key==="Escape") fecharSuporte();
+});
 </script>
+
+<div class="support-overlay" id="supportOverlay" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
+  <div class="support-modal">
+    <div class="support-head">
+      <div>
+        <h2 id="supportTitle">Fale com a Monitore</h2>
+        <p>Envie sua dúvida, dificuldade ou solicitação. Nossa equipe entrará em contato.</p>
+      </div>
+      <button class="support-close" onclick="fecharSuporte()" aria-label="Fechar">×</button>
+    </div>
+    <div class="support-body">
+      <form id="supportForm" action="https://formsubmit.co/administrativo@monitorenegocios.com.br" method="POST">
+        <input type="hidden" name="_subject" value="Suporte | Sprint de Gestão | Monitore">
+        <input type="hidden" name="_cc" value="monitorenegocios@gmail.com">
+        <input type="hidden" name="_captcha" value="false">
+        <input type="hidden" name="_template" value="table">
+        <input type="hidden" name="_next" value="https://sprint.monitorenegocios.com.br/cliente/">
+        <div class="support-grid">
+          <div class="support-field">
+            <label for="supportNome">Nome</label>
+            <input id="supportNome" name="Nome" required placeholder="Seu nome">
+          </div>
+          <div class="support-field">
+            <label for="supportEmail">E-mail</label>
+            <input id="supportEmail" name="E-mail" type="email" required placeholder="seu@email.com">
+          </div>
+          <div class="support-field">
+            <label for="supportWhats">WhatsApp</label>
+            <input id="supportWhats" name="WhatsApp" placeholder="(99) 99999-9999">
+          </div>
+          <div class="support-field">
+            <label for="supportAssunto">Assunto</label>
+            <select id="supportAssunto" name="Assunto" required>
+              <option value="">Selecione</option>
+              <option>Dúvida sobre o Sprint</option>
+              <option>Problema em uma etapa</option>
+              <option>Acesso / Login</option>
+              <option>Agendamento / Mentoria</option>
+              <option>Outro</option>
+            </select>
+          </div>
+          <div class="support-field full">
+            <label for="supportMensagem">Como podemos ajudar?</label>
+            <textarea id="supportMensagem" name="Mensagem" required placeholder="Descreva sua dúvida ou o que aconteceu."></textarea>
+          </div>
+        </div>
+        <div class="support-actions">
+          <button type="button" class="support-cancel" onclick="fecharSuporte()">Cancelar</button>
+          <button type="submit" class="support-send">Enviar solicitação</button>
+        </div>
+        <div class="support-note">A solicitação será encaminhada para a equipe da Monitore.</div>
+        <div id="supportResult" class="support-result"></div>
+      </form>
+    </div>
+  </div>
+</div>
 </body>
 </html>
