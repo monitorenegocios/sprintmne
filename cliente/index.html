@@ -77,6 +77,13 @@ header{height:70px;background:#fff;border-bottom:1px solid var(--line);display:f
 .info h3{font-size:12px;margin:0 0 10px}
 .info p{font-size:10px;line-height:1.7;color:var(--muted);margin:0}
 footer{border-top:1px solid var(--line);margin-top:42px;padding-top:18px;display:flex;justify-content:space-between;color:#91a0af;font-size:8px}
+
+.mentoring{margin-top:18px;background:#fff;border:1px solid #b8e6ea;border-radius:17px;padding:23px;display:flex;justify-content:space-between;align-items:center;gap:22px}
+.mentoring .kicker{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#0c7f8b;font-weight:800}
+.mentoring h2{font-size:17px;margin:7px 0}
+.mentoring p{font-size:10px;line-height:1.75;color:var(--muted);margin:0;max-width:760px}
+.mentoring .btn{display:inline-block;text-decoration:none}
+
 @media(max-width:850px){
 aside{display:none}main{margin:0;width:100%}header{padding:0 18px}.profile{display:none}.content{padding:24px 17px}.hero{padding:27px 24px}.hero h1{font-size:24px}
 .beforeafter,.deliverables,.flow{grid-template-columns:1fr}.next{display:block}.next .btn{margin-top:16px}
@@ -114,9 +121,9 @@ footer{display:block;line-height:2}
 <a href="#o-que-e">▣ &nbsp; O que é o Sprint</a>
 <a href="#entregaveis">✓ &nbsp; Entregáveis</a>
 <a href="#como-funciona">→ &nbsp; Como funciona</a>
-<a href="#suporte" onclick="abrirSuporte(event)">? &nbsp; Suporte</a>
+<a href="suporte/">? &nbsp; Suporte e Mentoria</a>
 </nav>
-<div class="help" id="suporte"><strong>Precisa de ajuda?</strong>Fale com a equipe Monitore.<br><a href="javascript:void(0)" onclick="abrirSuporte(event)">Abrir formulário de suporte →</a></div>
+<div class="help"><strong>Suporte e Mentoria</strong>Suporte ao Sprint e 4 horas de mentoria incluídas.<br><a href="suporte/">Acessar suporte e mentoria →</a></div>
 </aside>
 
 <main>
@@ -129,6 +136,15 @@ footer{display:block;line-height:2}
 <h1>Vamos estruturar a gestão da sua empresa.</h1>
 <p>Durante quatro semanas, vamos transformar os principais desafios identificados na sua empresa em uma estrutura de gestão clara, priorizada e prática — com plano de ação, indicadores, ferramentas e rotina para dar continuidade.</p>
 <div class="pills"><span class="pill cyan">● Projeto em andamento</span><span class="pill dark">4 semanas</span><span class="pill dark">Estrutura personalizada</span></div>
+</div>
+
+<div class="mentoring">
+  <div>
+    <div class="kicker">Benefício incluído no seu Sprint</div>
+    <h2>Você tem direito a 4 horas de mentoria com a Monitore</h2>
+    <p>São <strong>4 encontros individuais de 1 hora cada</strong> para discutir desafios da sua empresa, validar prioridades, analisar decisões e receber orientação para avançar na aplicação do que está construindo no Sprint. O suporte para dúvidas de uso da plataforma continua disponível e não consome essas horas.</p>
+  </div>
+  <a class="btn" href="suporte/">Acessar suporte e agendar mentoria →</a>
 </div>
 
 <section class="section" id="o-que-e">
@@ -208,80 +224,7 @@ footer{display:block;line-height:2}
 function iniciarDiagnostico(){
   window.location.href="diagnostico/";
 }
-
-function abrirSuporte(event){
-  if(event) event.preventDefault();
-  const overlay=document.getElementById("supportOverlay");
-  overlay.style.display="flex";
-  document.body.style.overflow="hidden";
-  setTimeout(()=>document.getElementById("supportNome")?.focus(),100);
-}
-function fecharSuporte(){
-  document.getElementById("supportOverlay").style.display="none";
-  document.body.style.overflow="";
-}
-document.getElementById("supportOverlay")?.addEventListener("click",function(e){
-  if(e.target===this) fecharSuporte();
-});
-document.addEventListener("keydown",function(e){
-  if(e.key==="Escape") fecharSuporte();
-});
 </script>
 
-<div class="support-overlay" id="supportOverlay" role="dialog" aria-modal="true" aria-labelledby="supportTitle">
-  <div class="support-modal">
-    <div class="support-head">
-      <div>
-        <h2 id="supportTitle">Fale com a Monitore</h2>
-        <p>Envie sua dúvida, dificuldade ou solicitação. Nossa equipe entrará em contato.</p>
-      </div>
-      <button class="support-close" onclick="fecharSuporte()" aria-label="Fechar">×</button>
-    </div>
-    <div class="support-body">
-      <form id="supportForm" action="https://formsubmit.co/administrativo@monitorenegocios.com.br" method="POST">
-        <input type="hidden" name="_subject" value="Suporte | Sprint de Gestão | Monitore">
-        <input type="hidden" name="_cc" value="monitorenegocios@gmail.com">
-        <input type="hidden" name="_captcha" value="false">
-        <input type="hidden" name="_template" value="table">
-        <input type="hidden" name="_next" value="https://sprint.monitorenegocios.com.br/cliente/">
-        <div class="support-grid">
-          <div class="support-field">
-            <label for="supportNome">Nome</label>
-            <input id="supportNome" name="Nome" required placeholder="Seu nome">
-          </div>
-          <div class="support-field">
-            <label for="supportEmail">E-mail</label>
-            <input id="supportEmail" name="E-mail" type="email" required placeholder="seu@email.com">
-          </div>
-          <div class="support-field">
-            <label for="supportWhats">WhatsApp</label>
-            <input id="supportWhats" name="WhatsApp" placeholder="(99) 99999-9999">
-          </div>
-          <div class="support-field">
-            <label for="supportAssunto">Assunto</label>
-            <select id="supportAssunto" name="Assunto" required>
-              <option value="">Selecione</option>
-              <option>Dúvida sobre o Sprint</option>
-              <option>Problema em uma etapa</option>
-              <option>Acesso / Login</option>
-              <option>Agendamento / Mentoria</option>
-              <option>Outro</option>
-            </select>
-          </div>
-          <div class="support-field full">
-            <label for="supportMensagem">Como podemos ajudar?</label>
-            <textarea id="supportMensagem" name="Mensagem" required placeholder="Descreva sua dúvida ou o que aconteceu."></textarea>
-          </div>
-        </div>
-        <div class="support-actions">
-          <button type="button" class="support-cancel" onclick="fecharSuporte()">Cancelar</button>
-          <button type="submit" class="support-send">Enviar solicitação</button>
-        </div>
-        <div class="support-note">A solicitação será encaminhada para a equipe da Monitore.</div>
-        <div id="supportResult" class="support-result"></div>
-      </form>
-    </div>
-  </div>
-</div>
 </body>
 </html>
