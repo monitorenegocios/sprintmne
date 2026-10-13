@@ -27,6 +27,10 @@
 .table-actions{display:flex;gap:8px;flex-wrap:wrap}
 .button.outline{background:#fff;color:#153149;border:1px solid #d7e0e5}
 .table-footnote{font-size:10px;color:#81909b;line-height:1.6;margin-top:10px}
+.pillar-group td{background:#f5f9fb;font-weight:800;color:var(--text);padding:11px 10px;border-bottom:1px solid var(--line)}
+.row-delete{border:1px solid #f0c9c6;background:#fff;color:#b42318;border-radius:7px;padding:8px 9px;font:700 10px Montserrat;cursor:pointer}
+.add-row{margin-top:10px}
+.row-num{display:block;font-size:9px;color:#7d8d99;margin-top:5px;font-weight:600}
 @media(max-width:900px){.table-toolbar{align-items:flex-start}.plan-table{min-width:1100px}}
 
 </style>
@@ -57,37 +61,98 @@ function statusOptions(value){
  const opts=["Não iniciado","Em andamento","Concluído","Bloqueado"];
  return opts.map(s=>`<option value="${s}" ${s===(value||"Não iniciado")?"selected":""}>${s}</option>`).join("");
 }
+let nextActionId=1;
+function ensureActionIds(){
+ acoes=acoes.map(a=>({...a,_localId:a._localId||`a${nextActionId++}`}));
+}
+function statusClass(value){
+ const map={"Não iniciado":"status-nao-iniciado","Em andamento":"status-em-andamento","Concluído":"status-concluido","Bloqueado":"status-bloqueado"};
+ return map[value]||map["Não iniciado"];
+}
+function statusOptions(value){
+ const opts=["Não iniciado","Em andamento","Concluído","Bloqueado"];
+ return opts.map(s=>`<option value="${s}" ${s===(value||"Não iniciado")?"selected":""}>${s}</option>`).join("");
+}
+function actionRows(pilar){
+ const items=acoes.filter(a=>a.pilar===pilar);
+ if(!items.length){const fresh={pilar,_localId:`a${nextActionId++}`,status:"Não iniciado"};acoes.push(fresh);return [fresh];}
+ return items;
+}
 function render(){
- const ordered=[...prioridades].sort((a,b)=>Number(a.ordem)-Number(b.ordem));
- const top=ordered.slice(0,4);
+ ensureActionIds();
+ const ordered=[...prioridades].sort((a,b)=>Number(a.ordem)-Number(b.ordem)).slice(0,4);
+ const tableRows=ordered.map((p,i)=>{
+   const d=defs.find(x=>x.key===p.pilar)||{name:p.pilar,desc:""};
+   const rows=actionRows(p.pilar);
+   const group=`<tr class="pillar-group"><td colspan="10"><span class="rank">${i+1}</span>${esc(d.name)} <span class="row-num">Índice de prioridade: ${esc(p.indice)} · ${esc(d.desc)}</span></td></tr>`;
+   return group+rows.map((a,j)=>`<tr data-action-id="${esc(a._localId)}" data-pilar="${esc(p.pilar)}">
+     <td><div><strong>Ação ${j+1}</strong></div><span class="row-num">${esc(d.name)}</span></td>
+     <td><textarea class="wide" data-action-id="${esc(a._localId)}" data-pilar="${esc(p.pilar)}" data-field="objetivo" placeholder="O que precisa mudar?">${esc(a.objetivo)}</textarea></td>
+     <td><textarea class="wide" data-action-id="${esc(a._localId)}" data-pilar="${esc(p.pilar)}" data-field="acao" placeholder="Ação específica e executável">${esc(a.acao)}</textarea></td>
+     <td><input data-action-id="${esc(a._localId)}" data-pilar="${esc(p.pilar)}" data-field="responsavel" value="${esc(a.responsavel)}" placeholder="Nome / função"></td>
+     <td><input type="date" data-action-id="${esc(a._localId)}" data-pilar="${esc(p.pilar)}" data-field="prazo" value="${esc(a.prazo)}"></td>
+     <td><input data-action-id="${esc(a._localId)}" data-pilar="${esc(p.pilar)}" data-field="indicador" value="${esc(a.indicador)}" placeholder="Como medir"></td>
+     <td><input data-action-id="${esc(a._localId)}" data-pilar="${esc(p.pilar)}" data-field="meta" value="${esc(a.meta)}" placeholder="Resultado esperado"></td>
+     <td><select class="status-select ${statusClass(a.status)}" data-action-id="${esc(a._localId)}" data-pilar="${esc(p.pilar)}" data-field="status">${statusOptions(a.status)}</select></td>
+     <td><textarea data-action-id="${esc(a._localId)}" data-pilar="${esc(p.pilar)}" data-field="observacoes" placeholder="Recursos, dependências...">${esc(a.observacoes)}</textarea></td>
+     <td><button type="button" class="row-delete" data-delete-id="${esc(a._localId)}" title="Excluir ação">Excluir</button></td>
+   </tr>`).join("")+`<tr><td colspan="10"><button type="button" class="button outline add-row" data-add-pilar="${esc(p.pilar)}">+ Adicionar ação para ${esc(d.name)}</button></td></tr>`;
+ }).join("");
  document.getElementById("app").innerHTML=`
- <div class="top"><div><div class="eyebrow">Sprint de Gestão · Etapa 04</div><h1>Plano de Ação</h1><div class="subtitle">Transforme as prioridades em ações concretas. Registre responsáveis, prazos, indicadores e status em uma tabela única, fácil de acompanhar e exportar para Excel.</div></div><div class="status"><span>Status</span><strong id="saveStatus">Em construção</strong></div></div>
+ <div class="top"><div><div class="eyebrow">Sprint de Gestão · Etapa 04</div><h1>Plano de Ação</h1><div class="subtitle">Transforme as prioridades em ações concretas. Adicione quantas ações forem necessárias para cada pilar, com responsáveis, prazos, indicadores e status.</div></div><div class="status"><span>Status</span><strong id="saveStatus">Em construção</strong></div></div>
  <div class="card company"><div><small>Empresa avaliada</small><strong>${esc(diagnostico.empresa)}</strong></div><div class="meta">${esc(diagnostico.responsavel)}<br>${esc(diagnostico.segmento)} · ${esc(diagnostico.colaboradores)}</div></div>
- <section class="card intro"><h2>Como usar o Plano de Ação</h2><p>Preencha uma ação objetiva para cada prioridade. Defina quem será responsável, o prazo, como o avanço será medido e qual resultado se espera alcançar. O plano deve ser construído e validado em conjunto com a empresa.</p><div class="notice"><strong>Status coloridos:</strong> cinza = Não iniciado · amarelo = Em andamento · verde = Concluído · vermelho = Bloqueado. Salve as alterações para mantê-las registradas no Sprint.</div></section>
+ <section class="card intro"><h2>Como usar o Plano de Ação</h2><p>Registre uma ação por linha. Uma prioridade pode ter várias ações. Defina quem será responsável, o prazo, como o avanço será medido e qual resultado se espera alcançar. O plano deve ser construído e validado em conjunto com a empresa.</p><div class="notice"><strong>Status coloridos:</strong> cinza = Não iniciado · amarelo = Em andamento · verde = Concluído · vermelho = Bloqueado. Use “Adicionar ação” para incluir linhas e salve as alterações para registrá-las no Sprint.</div></section>
  <section class="card action-card">
-   <div class="table-toolbar"><div><div class="action-title">Plano de ação em tabela</div><div class="action-meta">Até quatro prioridades da Matriz de Prioridades</div></div><div class="table-actions"><button class="button outline" id="exportBtn" type="button">Exportar para Excel (.xlsx)</button><button class="button" id="saveBtn" type="button">Salvar Plano de Ação</button></div></div>
-   <div class="table-wrap"><table class="plan-table" id="planTable"><thead><tr><th>Prioridade / Pilar</th><th>Objetivo da melhoria</th><th>Ação principal</th><th>Responsável</th><th>Prazo</th><th>Indicador</th><th>Meta</th><th>Status</th><th>Recursos / observações</th></tr></thead><tbody>
-   ${top.map((p,i)=>{const d=defs.find(x=>x.key===p.pilar)||{name:p.pilar,desc:""};const old=acoes.find(x=>x.pilar===p.pilar)||{};const st=old.status||"Não iniciado";return `<tr data-pilar="${esc(p.pilar)}"><td><div class="rank">${i+1}</div><div>${esc(d.name)}</div><div class="action-meta">Índice: ${esc(p.indice)}</div></td><td><textarea class="wide" data-pilar="${esc(p.pilar)}" data-field="objetivo" placeholder="O que precisa mudar?">${esc(old.objetivo)}</textarea></td><td><textarea class="wide" data-pilar="${esc(p.pilar)}" data-field="acao" placeholder="Ação específica e executável">${esc(old.acao)}</textarea></td><td><input data-pilar="${esc(p.pilar)}" data-field="responsavel" value="${esc(old.responsavel)}" placeholder="Nome / função"></td><td><input type="date" data-pilar="${esc(p.pilar)}" data-field="prazo" value="${esc(old.prazo)}"></td><td><input data-pilar="${esc(p.pilar)}" data-field="indicador" value="${esc(old.indicador)}" placeholder="Como medir"></td><td><input data-pilar="${esc(p.pilar)}" data-field="meta" value="${esc(old.meta)}" placeholder="Resultado esperado"></td><td><select class="status-select ${statusClass(st)}" data-pilar="${esc(p.pilar)}" data-field="status">${statusOptions(st)}</select></td><td><textarea data-pilar="${esc(p.pilar)}" data-field="observacoes" placeholder="Recursos, dependências...">${esc(old.observacoes)}</textarea></td></tr>`}).join("")}
-   </tbody></table></div><div class="table-footnote">A exportação gera uma planilha .xlsx compatível com Excel. Ela inclui os dados preenchidos na tabela; salve o plano no sistema para registrar as alterações no ambiente Monitore.</div>
+   <div class="table-toolbar"><div><div class="action-title">Plano de ação em tabela</div><div class="action-meta">Organizado pelas prioridades da Matriz · múltiplas ações por pilar</div></div><div class="table-actions"><button class="button outline" id="exportBtn" type="button">Exportar para Excel (.xlsx)</button><button class="button" id="saveBtn" type="button">Salvar Plano de Ação</button></div></div>
+   <div class="table-wrap"><table class="plan-table" id="planTable"><thead><tr><th>Prioridade / Pilar</th><th>Objetivo da melhoria</th><th>Ação principal</th><th>Responsável</th><th>Prazo</th><th>Indicador</th><th>Meta</th><th>Status</th><th>Recursos / observações</th><th>Gerenciar</th></tr></thead><tbody>${tableRows}</tbody></table></div>
+   <div class="table-footnote">A exportação gera uma planilha .xlsx compatível com Excel e inclui todas as ações preenchidas. Salve o plano no sistema para registrar as alterações no ambiente Monitore.</div>
  </section>
- <section class="card summary"><h2>Visão do Plano</h2><p>As prioridades foram trazidas da Matriz. A ordem de execução deve ser validada considerando impacto, urgência, dependências e capacidade de execução.</p><div class="summary-grid">${top.map((p,i)=>{const d=defs.find(x=>x.key===p.pilar)||{};return `<div class="summary-item"><small>Prioridade ${i+1}</small><b>${esc(d.name)}</b></div>`}).join("")}</div><div class="saved" id="savedMsg"></div></section>
+ <section class="card summary"><h2>Visão do Plano</h2><p>As prioridades foram trazidas da Matriz. A ordem de execução deve ser validada considerando impacto, urgência, dependências e capacidade de execução.</p><div class="summary-grid">${ordered.map((p,i)=>{const d=defs.find(x=>x.key===p.pilar)||{};return `<div class="summary-item"><small>Prioridade ${i+1}</small><b>${esc(d.name)}</b><span>${acoes.filter(a=>a.pilar===p.pilar).length} ação(ões)</span></div>`}).join("")}</div><div class="saved" id="savedMsg"></div></section>
  <section class="actions"><div><h3>Próxima etapa: Indicadores</h3><p>Depois de salvar o plano, estruture como acompanhar os resultados e medir a evolução.</p></div><div class="buttons"><a class="button secondary" href="../matriz/?token=${encodeURIComponent(token)}">Voltar à Matriz</a></div></section>`;
  document.querySelectorAll("[data-field]").forEach(el=>{el.addEventListener("input",capture);el.addEventListener("change",capture);});
  document.querySelectorAll(".status-select").forEach(el=>{paintStatus(el);el.addEventListener("change",()=>paintStatus(el));});
  document.getElementById("saveBtn").addEventListener("click",save);
  document.getElementById("exportBtn").addEventListener("click",exportExcel);
+ document.querySelectorAll("[data-add-pilar]").forEach(btn=>btn.addEventListener("click",()=>addAction(btn.dataset.addPilar)));
+ document.querySelectorAll("[data-delete-id]").forEach(btn=>btn.addEventListener("click",()=>deleteAction(btn.dataset.deleteId)));
 }
 function paintStatus(el){el.classList.remove("status-nao-iniciado","status-em-andamento","status-concluido","status-bloqueado");el.classList.add(statusClass(el.value));}
-function capture(){const p=this.dataset.pilar;let a=acoes.find(x=>x.pilar===p);if(!a){a={pilar:p};acoes.push(a);}a[this.dataset.field]=this.value;}
+function capture(){
+ const id=this.dataset.actionId,p=this.dataset.pilar;
+ let a=acoes.find(x=>x._localId===id);
+ if(!a){a={pilar:p,_localId:id,status:"Não iniciado"};acoes.push(a);}
+ a[this.dataset.field]=this.value;
+}
+function addAction(pilar){
+ collectForm();
+ const a={pilar,_localId:`a${nextActionId++}`,status:"Não iniciado"};
+ acoes.push(a);render();
+}
+function deleteAction(id){
+ collectForm();
+ const action=acoes.find(a=>a._localId===id);
+ if(!action)return;
+ const same=acoes.filter(a=>a.pilar===action.pilar);
+ if(same.length<=1){alert("Mantenha pelo menos uma linha por prioridade. Você pode limpar os campos se não precisar registrar uma ação agora.");return;}
+ acoes=acoes.filter(a=>a._localId!==id);render();
+}
 function collectForm(){
- document.querySelectorAll("[data-field]").forEach(el=>{const p=el.dataset.pilar;let a=acoes.find(x=>x.pilar===p);if(!a){a={pilar:p};acoes.push(a);}a[el.dataset.field]=el.value;});
+ document.querySelectorAll("[data-field]").forEach(el=>{
+   const id=el.dataset.actionId,p=el.dataset.pilar;
+   let a=acoes.find(x=>x._localId===id);
+   if(!a){a={pilar:p,_localId:id,status:"Não iniciado"};acoes.push(a);}
+   a[el.dataset.field]=el.value;
+ });
  return acoes;
 }
 function exportExcel(){
  collectForm();
  const ordered=[...prioridades].sort((a,b)=>Number(a.ordem)-Number(b.ordem)).slice(0,4);
  const rows=[["Prioridade","Pilar","Índice de prioridade","Objetivo da melhoria","Ação principal","Responsável","Prazo","Indicador","Meta","Status","Recursos / observações"]];
- ordered.forEach((p,i)=>{const d=defs.find(x=>x.key===p.pilar)||{name:p.pilar};const a=acoes.find(x=>x.pilar===p.pilar)||{};rows.push([i+1,d.name,p.indice||"",a.objetivo||"",a.acao||"",a.responsavel||"",a.prazo||"",a.indicador||"",a.meta||"",a.status||"Não iniciado",a.observacoes||""]);});
+ ordered.forEach((p,i)=>{
+   const d=defs.find(x=>x.key===p.pilar)||{name:p.pilar};
+   acoes.filter(a=>a.pilar===p.pilar).forEach(a=>rows.push([i+1,d.name,p.indice||"",a.objetivo||"",a.acao||"",a.responsavel||"",a.prazo||"",a.indicador||"",a.meta||"",a.status||"Não iniciado",a.observacoes||""]));
+ });
  if(typeof XLSX==="undefined"){alert("Não foi possível carregar o exportador Excel. Verifique sua conexão e tente novamente.");return;}
  const ws=XLSX.utils.aoa_to_sheet(rows);ws["!cols"]=[{wch:12},{wch:28},{wch:18},{wch:38},{wch:42},{wch:22},{wch:14},{wch:28},{wch:24},{wch:18},{wch:38}];
  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Plano de Ação");
@@ -95,8 +160,9 @@ function exportExcel(){
 }
 async function save(){
  collectForm();
+ const payload=acoes.map(({_localId,...a})=>a);
  const btn=document.getElementById("saveBtn");btn.disabled=true;document.getElementById("saveStatus").textContent="Salvando...";
- const {error}=await sb.rpc("save_sprint_plano",{p_access_token:token,p_acoes:acoes});
+ const {error}=await sb.rpc("save_sprint_plano",{p_access_token:token,p_acoes:payload});
  if(error){console.error(error);document.getElementById("saveStatus").textContent="Erro ao salvar";document.getElementById("savedMsg").textContent="Não foi possível salvar o plano. Verifique se o SQL da Etapa 04 foi executado no Supabase.";btn.disabled=false;return;}
  document.getElementById("saveStatus").textContent="Plano salvo";document.getElementById("savedMsg").textContent="Plano de Ação salvo com sucesso.";btn.textContent="Plano Salvo ✓";btn.disabled=false;
 }
@@ -116,7 +182,7 @@ async function load(){
   prioridades=Array.isArray(m.data[0].prioridades)?m.data[0].prioridades:[];
   if(!prioridades.length){document.getElementById("app").innerHTML='<div class="card empty error">A Matriz foi encontrada, mas não contém prioridades salvas. Volte à Matriz e clique em “Salvar Matriz”.</div>';return;}
   const p=await Promise.race([sb.rpc("get_sprint_plano",{p_access_token:token}),timeout]);
-  if(!p.error&&p.data?.length){acoes=Array.isArray(p.data[0].acoes)?p.data[0].acoes:[];}
+  if(!p.error&&p.data?.length){acoes=Array.isArray(p.data[0].acoes)?p.data[0].acoes:[];}\n  ensureActionIds();
   render();
  }catch(err){
   console.error("Erro ao carregar Plano de Ação:",err);
