@@ -7,7 +7,27 @@
 <style>
 *{box-sizing:border-box}body{margin:0;font-family:Montserrat,Arial,sans-serif;background:#f5f8fa;color:#172536}:root{--navy:#071b2c;--blue:#174b98;--cyan:#31c1ce;--text:#183247;--line:#e2e9ee}.sidebar{position:fixed;left:0;top:0;width:250px;height:100vh;background:var(--navy);color:#fff;padding:28px 20px}.logo{padding:2px 4px 28px;border-bottom:1px solid rgba(255,255,255,.12)}.logo img{display:block;width:178px;max-width:100%;height:auto}.sub{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;color:#aebdca;margin-top:8px}.nav{margin-top:28px}.nav a{display:block;padding:12px 13px;margin-bottom:7px;border-radius:9px;color:#b8c7d3;text-decoration:none;font-size:13px;font-weight:600}.nav a:hover,.nav a.active{background:#10324a;color:#fff}.nav a.active{border-left:3px solid var(--cyan);padding-left:10px}.main{margin-left:250px;min-height:100vh;padding:38px 46px 60px}.container{max-width:1120px;margin:auto}.top{display:flex;justify-content:space-between;align-items:flex-start;gap:20px;margin-bottom:25px}.eyebrow{font-size:11px;font-weight:800;letter-spacing:2px;color:#31aeba;text-transform:uppercase;margin-bottom:10px}h1{font-size:30px;line-height:1.2;margin:0 0 9px;color:#10263a}.subtitle{font-size:13px;line-height:1.7;color:#667786;max-width:780px}.status{background:#fff;border:1px solid var(--line);border-radius:12px;padding:12px 16px;min-width:180px;text-align:right}.status span{display:block;font-size:10px;text-transform:uppercase;letter-spacing:1px;color:#80909d;margin-bottom:5px}.status strong{font-size:13px;color:#1d9a84}.card{background:#fff;border:1px solid var(--line);border-radius:14px;box-shadow:0 5px 20px rgba(8,28,45,.04)}.company{padding:19px 22px;margin-bottom:20px;display:flex;justify-content:space-between;gap:20px;align-items:center}.company small{display:block;color:#8796a1;font-size:10px;text-transform:uppercase;letter-spacing:1px;font-weight:700;margin-bottom:6px}.company strong{font-size:17px;color:var(--text)}.company .meta{font-size:10px;color:#778793;text-align:right}.intro{padding:22px;margin-bottom:20px}.intro h2{font-size:18px;margin:0 0 9px;color:#10263a}.intro p{font-size:11px;line-height:1.75;color:#5f707e;margin:0}.notice{margin-top:15px;padding:13px 15px;border-left:3px solid var(--cyan);background:#f4fbfc;border-radius:8px;font-size:10px;line-height:1.65;color:#48606e}.indicator{padding:22px;margin-bottom:16px}.indicator-head{display:flex;justify-content:space-between;align-items:flex-start;gap:18px;margin-bottom:18px}.indicator-title{font-size:17px;font-weight:800;color:var(--text)}.indicator-meta{font-size:10px;color:#73838f;margin-top:5px}.tag{display:inline-block;padding:5px 8px;border-radius:999px;background:#edf7f8;color:#147a84;font-size:8px;font-weight:800;text-transform:uppercase;letter-spacing:.7px}.grid{display:grid;grid-template-columns:1fr 1fr;gap:14px}.field{display:flex;flex-direction:column}.field.full{grid-column:1/-1}.field label{font-size:9px;text-transform:uppercase;letter-spacing:1px;color:#81919c;font-weight:800;margin-bottom:6px}.field input,.field textarea,.field select{width:100%;border:1px solid #d7e0e5;border-radius:8px;padding:11px 12px;font:500 11px Montserrat;background:#fff;color:var(--text);outline:none}.field textarea{min-height:68px;resize:vertical;line-height:1.6}.field input:focus,.field textarea:focus,.field select:focus{border-color:var(--cyan);box-shadow:0 0 0 3px rgba(49,193,206,.10)}.help{font-size:9px;color:#8a98a2;margin-top:5px;line-height:1.45}.example{font-size:9px;color:#73838f;background:#f7fafb;border-radius:7px;padding:8px 10px;margin-top:7px;line-height:1.5}.summary{padding:22px;margin-top:20px}.summary h2{font-size:18px;margin:0 0 8px}.summary p{font-size:11px;line-height:1.65;color:#6e7e89;margin:0 0 15px}.summary-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px}.summary-item{border:1px solid #e3e9ed;border-radius:9px;padding:12px}.summary-item small{display:block;font-size:8px;text-transform:uppercase;letter-spacing:1px;color:#8b9aa4;font-weight:800}.summary-item b{display:block;font-size:11px;color:var(--text);margin-top:6px}.actions{margin-top:20px;padding:20px;background:var(--navy);color:#fff;border-radius:14px;display:flex;justify-content:space-between;align-items:center;gap:20px}.actions h3{margin:0 0 5px;font-size:15px}.actions p{margin:0;color:#b8c8d4;font-size:10px;line-height:1.6}.buttons{display:flex;gap:9px;flex-wrap:wrap}.button{border:0;background:var(--cyan);color:#062033;padding:12px 18px;border-radius:8px;font-family:inherit;font-size:11px;font-weight:800;cursor:pointer;text-decoration:none;white-space:nowrap}.button.secondary{background:#fff;color:#153149}.button:disabled{opacity:.55;cursor:wait}.saved{font-size:10px;color:#75c9b4;margin-top:8px;min-height:15px}.loading,.empty{padding:45px;text-align:center;color:#71808c;font-size:12px}.error{color:#b94a43}
 @media(max-width:900px){.sidebar{position:relative;width:100%;height:auto}.main{margin-left:0;padding:28px 20px}.top{flex-direction:column}.status{text-align:left;width:100%}.company{display:block}.company .meta{text-align:left;margin-top:8px}.grid,.summary-grid{grid-template-columns:1fr}.indicator-head{display:block}}
+
+.ind-toolbar{display:flex;justify-content:space-between;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:14px}
+.ind-toolbar p{margin:0;color:#71808c;font-size:10px;line-height:1.6}
+.ind-list{display:grid;gap:14px}
+.ind-actions{display:flex;gap:8px;flex-wrap:wrap}
+.ind-table-wrap{overflow-x:auto;border:1px solid var(--line);border-radius:10px}
+.ind-table{width:100%;border-collapse:collapse;min-width:900px;font-size:10px}
+.ind-table th{background:#f2f7f9;color:#718391;text-align:left;text-transform:uppercase;letter-spacing:.6px;font-size:9px;padding:11px;border-bottom:1px solid var(--line)}
+.ind-table td{padding:10px;border-bottom:1px solid #edf1f3;color:var(--text)}
+.ind-table tr:last-child td{border-bottom:0}
+.ind-table input,.ind-table select{width:100%;min-width:95px;padding:8px;border:1px solid #d7e0e5;border-radius:7px;font:500 10px Montserrat;color:var(--text);background:#fff}
+.ind-status{font-weight:800;border-radius:7px;padding:7px 8px;display:inline-block;font-size:9px}
+.ind-status.sem-meta{background:#eef2f5;color:#5f6f7c}
+.ind-status.atencao{background:#fff3d9;color:#9a6500}
+.ind-status.meta-atingida{background:#e0f6eb;color:#16764f}
+.indicator-delete{border:1px solid #f0c9c6;background:#fff;color:#b42318;border-radius:7px;padding:8px;font:700 10px Montserrat;cursor:pointer}
+.indicator .grid{margin-top:8px}
+@media(max-width:900px){.ind-toolbar{align-items:flex-start}}
+
 </style>
+<script src="https://cdn.sheetjs.com/xlsx-0.20.3/package/dist/xlsx.full.min.js"></script>
 </head>
 <body>
 <aside class="sidebar"><div class="logo"><img src="../diagnostico/logo-monitore-branca.png" alt="Monitore Negócios Empresariais"><div class="sub">Gestão Empresarial</div></div><nav class="nav"><a href="../">Visão geral</a><a href="../diagnostico/">Diagnóstico</a><a href="../mapa-gestao/">Mapa de Gestão</a><a href="../matriz/">Matriz de Prioridades</a><a href="../plano/">Plano de Ação</a><a class="active" href="#">Indicadores</a><a href="../ferramentas/">Ferramentas</a><a href="../rotina/">Rotina de Gestão</a><a href="../relatorio/">Relatório Final</a></nav></aside>
@@ -24,36 +44,124 @@ const defs=[
  {key:"desenvolvimento_pessoas",name:"Desenvolvimento de Pessoas",desc:"Indicadores relacionados a pessoas, liderança e desenvolvimento."}
 ];
 let token="",diagnostico=null,prioridades=[],plano=[],indicadores=[];
+let nextIndicatorId=1;
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
-function render(){
- const ordered=[...prioridades].sort((a,b)=>Number(a.ordem)-Number(b.ordem));
- const top=ordered.slice(0,4);
- document.getElementById("app").innerHTML=`
- <div class="top"><div><div class="eyebrow">Sprint de Gestão · Etapa 05</div><h1>Indicadores</h1><div class="subtitle">Nesta etapa, você vai preencher a ficha dos indicadores que permitirão acompanhar as prioridades do Plano de Ação. Comece com um indicador útil por prioridade; ele poderá ser ajustado conforme a empresa avance.</div></div><div class="status"><span>Status</span><strong id="saveStatus">Em construção</strong></div></div>
- <div class="card company"><div><small>Empresa avaliada</small><strong>${esc(diagnostico.empresa)}</strong></div><div class="meta">${esc(diagnostico.responsavel)}<br>${esc(diagnostico.segmento)} · ${esc(diagnostico.colaboradores)}</div></div>
- <section class="card intro"><h2>Como preencher a ficha do indicador</h2><p>Cada cartão abaixo corresponde a uma ficha de indicador vinculada a uma prioridade da Matriz. Preencha o nome, a fórmula, a unidade, a situação atual, a meta, a periodicidade, o responsável e a fonte dos dados. Se ainda não houver medição, registre “Não medido” e defina como obter o dado.</p><div class="notice"><strong>Importante:</strong> a meta deve ser viável e ter prazo. O indicador precisa apoiar uma decisão ou mostrar se a ação está avançando — não basta apenas registrar um número.</div></section>
- ${top.map((p,i)=>{const d=defs.find(x=>x.key===p.pilar)||{name:p.pilar,desc:""};const old=indicadores.find(x=>x.pilar===p.pilar)||{};const a=plano.find(x=>x.pilar===p.pilar)||{};return `<section class="card indicator"><div class="indicator-head"><div><span class="tag">Prioridade ${i+1}</span><div class="indicator-title">Ficha do indicador · ${esc(d.name)}</div><div class="indicator-meta">${esc(d.desc)}</div></div><div class="tag">Índice ${esc(p.indice)}</div></div><div class="grid">
- <div class="field full"><label>1. Nome do indicador</label><input data-pilar="${p.pilar}" data-field="nome" value="${esc(old.nome||a.indicador)}" placeholder="Ex.: Percentual de processos padronizados"><div class="help">Escreva exatamente o resultado que será acompanhado.</div></div>
- <div class="field"><label>2. Fórmula de cálculo</label><textarea data-pilar="${p.pilar}" data-field="formula" placeholder="Ex.: processos padronizados ÷ processos mapeados × 100">${esc(old.formula)}</textarea><div class="help">Descreva os dados usados e a operação para chegar ao resultado.</div></div>
- <div class="field"><label>3. Unidade de medida</label><select data-pilar="${p.pilar}" data-field="unidade"><option value="">Selecione</option><option>%</option><option>Quantidade</option><option>R$</option><option>dias</option><option>horas</option><option>índice</option><option>outro</option></select></div>
- <div class="field"><label>4. Resultado atual (linha de base)</label><input data-pilar="${p.pilar}" data-field="atual" value="${esc(old.atual)}" placeholder="Ex.: 62% ou Não medido"><div class="help">É o ponto de partida para comparar a evolução.</div></div>
- <div class="field"><label>5. Meta e prazo</label><input data-pilar="${p.pilar}" data-field="meta" value="${esc(old.meta||a.meta)}" placeholder="Ex.: alcançar 90% até 30/11"><div class="help">Defina o resultado esperado e até quando deve ser alcançado.</div></div>
- <div class="field"><label>6. Periodicidade de acompanhamento</label><select data-pilar="${p.pilar}" data-field="periodicidade"><option value="">Selecione</option><option>Diária</option><option>Semanal</option><option>Quinzenal</option><option>Mensal</option><option>Trimestral</option></select></div>
- <div class="field"><label>7. Responsável pelo acompanhamento</label><input data-pilar="${p.pilar}" data-field="responsavel" value="${esc(old.responsavel||a.responsavel)}" placeholder="Nome ou função"></div>
- <div class="field"><label>8. Fonte dos dados</label><input data-pilar="${p.pilar}" data-field="fonte" value="${esc(old.fonte)}" placeholder="Ex.: ERP, financeiro, planilha, RH"><div class="help">Indique onde o responsável encontrará os dados para atualizar o indicador.</div></div>
- </div></section>`}).join("")}
- <section class="card summary"><h2>Resumo das fichas de indicadores</h2><p>Confira se cada prioridade tem um indicador definido. Este resumo apresenta os nomes registrados nas fichas acima; os resultados serão acompanhados conforme a periodicidade escolhida.</p><div class="summary-grid">${top.map((p,i)=>{const d=defs.find(x=>x.key===p.pilar);const x=indicadores.find(y=>y.pilar===p.pilar)||{};return `<div class="summary-item"><small>Prioridade ${i+1}</small><b>${esc(d.name)}</b><span style="display:block;font-size:9px;color:#7b8a96;margin-top:5px">${esc(x.nome||"Indicador a definir")}</span></div>`}).join("")}</div><div class="saved" id="savedMsg"></div></section>
- <section class="actions"><div><h3>Próxima etapa: Ferramentas de Gestão</h3><p>Salve os indicadores para definir as ferramentas que apoiarão a execução do plano.</p></div><div class="buttons"><a class="button secondary" href="../plano/?token=${encodeURIComponent(token)}">Voltar ao Plano</a><button class="button" id="saveBtn">Salvar Indicadores</button><a class="button" id="nextBtn" href="../ferramentas/?token=${encodeURIComponent(token)}" style="display:none">Ir para Ferramentas →</a></div></section>`;
- document.querySelectorAll("[data-field]").forEach(el=>{const old=indicadores.find(x=>x.pilar===el.dataset.pilar)||{};if(el.tagName==="SELECT")el.value=old[el.dataset.field]||"";el.addEventListener("input",capture);el.addEventListener("change",capture);});
- document.getElementById("saveBtn").addEventListener("click",save);
+function ensureIds(){indicadores=indicadores.map(x=>({...x,_id:x._id||`ind${nextIndicatorId++}`}));}
+function indicatorFor(pilar){return indicadores.filter(x=>x.pilar===pilar);}
+function indicatorStatus(x){
+ if(x.atual==null||String(x.atual).trim()===""||x.meta==null||String(x.meta).trim()==="")return "Sem linha de base/meta";
+ const n=Number(String(x.atual).replace("%","").replace(",",".").trim());
+ const m=Number(String(x.meta).replace("%","").replace(",",".").trim());
+ if(!Number.isFinite(n)||!Number.isFinite(m))return "Definir avaliação";
+ const unit=String(x.unidade||"").toLowerCase();
+ const lower=/reduzir|diminuir|menor|máximo|máxima|até/i.test(String(x.meta||""));
+ if(unit==="%"||unit==="quantidade"||unit==="r$"||unit==="dias"||unit==="horas"||unit==="índice"){
+   if(lower)return n<=m?"Meta atingida":"Atenção";
+   return n>=m?"Meta atingida":"Atenção";
+ }
+ return "Definir avaliação";
 }
-function capture(){const p=this.dataset.pilar;let x=indicadores.find(i=>i.pilar===p);if(!x){x={pilar:p};indicadores.push(x);}x[this.dataset.field]=this.value;}
+function statusMarkup(x){
+ const s=indicatorStatus(x);
+ const cls=s==="Meta atingida"?"meta-atingida":s==="Atenção"?"atencao":"sem-meta";
+ return `<span class="ind-status ${cls}">${esc(s)}</span>`;
+}
+function render(){
+ const ordered=[...prioridades].sort((a,b)=>Number(a.ordem)-Number(b.ordem)).slice(0,4);
+ document.getElementById("app").innerHTML=`
+ <div class="top"><div><div class="eyebrow">Sprint de Gestão · Etapa 05</div><h1>Indicadores de Gestão</h1><div class="subtitle">Defina os indicadores que vão mostrar se as ações prioritárias estão avançando. Cadastre uma ou mais fichas por prioridade e consolide os resultados em um painel de acompanhamento.</div></div><div class="status"><span>Status</span><strong id="saveStatus">Em construção</strong></div></div>
+ <div class="card company"><div><small>Empresa avaliada</small><strong>${esc(diagnostico.empresa)}</strong></div><div class="meta">${esc(diagnostico.responsavel)}<br>${esc(diagnostico.segmento)} · ${esc(diagnostico.colaboradores)}</div></div>
+ <section class="card intro"><h2>O que será entregue nesta etapa?</h2><p>Você vai construir fichas técnicas dos indicadores, organizar uma visão consolidada para acompanhamento e exportar os registros para Excel. Cada ficha documenta o que será medido, como calcular, a situação atual, a meta, a frequência, o responsável e a fonte dos dados.</p><div class="notice"><strong>Como usar:</strong> comece com poucos indicadores que ajudem a tomar decisões. Se ainda não houver dados, registre “Não medido” na situação atual e combine como obter a linha de base. O status do painel é uma indicação inicial; confirme se a meta deve aumentar ou diminuir antes de interpretar o resultado.</div></section>
+ <section class="card indicator">
+   <div class="ind-toolbar"><div><div class="indicator-title">Painel inicial de indicadores</div><div class="indicator-meta">Resumo dos indicadores cadastrados e situação em relação à meta</div></div><div class="ind-actions"><button class="button secondary" id="exportBtn" type="button">Exportar para Excel (.xlsx)</button><button class="button" id="saveBtn" type="button">Salvar indicadores</button></div></div>
+   <div class="ind-table-wrap"><table class="ind-table"><thead><tr><th>Prioridade / pilar</th><th>Indicador</th><th>Resultado atual</th><th>Meta</th><th>Periodicidade</th><th>Responsável</th><th>Status inicial</th></tr></thead><tbody>${ordered.map((p,i)=>{
+    const d=defs.find(x=>x.key===p.pilar)||{name:p.pilar};
+    const list=indicatorFor(p.pilar);
+    if(!list.length)return `<tr><td>${i+1}. ${esc(d.name)}</td><td colspan="6" style="color:#81909b">Nenhum indicador cadastrado para esta prioridade.</td></tr>`;
+    return list.map(x=>`<tr><td>${i+1}. ${esc(d.name)}</td><td>${esc(x.nome||"Indicador a definir")}</td><td>${esc(x.atual||"Não medido")}</td><td>${esc(x.meta||"A definir")}</td><td>${esc(x.periodicidade||"A definir")}</td><td>${esc(x.responsavel||"A definir")}</td><td>${statusMarkup(x)}</td></tr>`).join("");
+   }).join("")}</tbody></table></div>
+   <div class="table-footnote">O status é uma referência inicial baseada nos valores informados. Indicadores em que a meta é reduzir um resultado, ou que usam escalas específicas, precisam ter o sentido da meta confirmado para evitar interpretações incorretas.</div>
+ </section>
+ <div class="section-title"><h2>Fichas técnicas dos indicadores</h2><p>Cadastre vários indicadores por prioridade</p></div>
+ <div class="ind-list">${ordered.map((p,i)=>{
+   const d=defs.find(x=>x.key===p.pilar)||{name:p.pilar,desc:""};
+   const list=indicatorFor(p.pilar);
+   return `<section class="card indicator"><div class="indicator-head"><div><span class="tag">Prioridade ${i+1}</span><div class="indicator-title">${esc(d.name)}</div><div class="indicator-meta">${esc(d.desc)}</div></div><div class="tag">Índice ${esc(p.indice)}</div></div>
+   <div class="ind-list" data-pilar-list="${esc(p.pilar)}">${list.map((x,j)=>indicatorCard(p.pilar,x,j)).join("")}</div>
+   <button class="button secondary add-indicator" type="button" data-add-pilar="${esc(p.pilar)}">+ Adicionar indicador para ${esc(d.name)}</button></section>`;
+ }).join("")}</div>
+ <section class="card summary"><h2>Entrega desta etapa</h2><p>Ao concluir, a empresa terá fichas técnicas preenchidas, um resumo inicial dos indicadores e uma planilha Excel para registrar os resultados conforme a periodicidade definida. O acompanhamento ao longo do tempo dependerá da atualização dos dados pelos responsáveis.</p><div class="summary-grid"><div class="summary-item"><small>Fichas cadastradas</small><b id="countIndicators">${indicadores.length}</b></div><div class="summary-item"><small>Prioridades cobertas</small><b>${new Set(indicadores.map(x=>x.pilar)).size} de ${ordered.length}</b></div><div class="summary-item"><small>Formato de saída</small><b>Excel (.xlsx)</b></div><div class="summary-item"><small>Próxima etapa</small><b>Ferramentas de Gestão</b></div></div><div class="saved" id="savedMsg"></div></section>
+ <section class="actions"><div><h3>Próxima etapa: Ferramentas de Gestão</h3><p>Salve as fichas e use as ferramentas adequadas para apoiar a execução e o acompanhamento.</p></div><div class="buttons"><a class="button secondary" href="../plano/?token=${encodeURIComponent(token)}">Voltar ao Plano</a><a class="button" href="../ferramentas/?token=${encodeURIComponent(token)}">Ir para Ferramentas →</a></div></section>`;
+ bindEvents();
+}
+function indicatorCard(pilar,x,j){
+ return `<article class="card" style="padding:16px;border-radius:10px;box-shadow:none" data-indicator-id="${esc(x._id)}"><div class="indicator-head"><div><div class="indicator-title" style="font-size:13px">Ficha ${j+1}: ${esc(x.nome||"Novo indicador")}</div><div class="indicator-meta">Preencha os campos para definir como medir e acompanhar este indicador.</div></div><button type="button" class="indicator-delete" data-delete-id="${esc(x._id)}">Excluir ficha</button></div><div class="grid">
+ <div class="field full"><label>1. Nome do indicador</label><input data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="nome" value="${esc(x.nome)}" placeholder="Ex.: Percentual de processos padronizados"><div class="help">Qual resultado será acompanhado?</div></div>
+ <div class="field"><label>2. Objetivo do indicador</label><textarea data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="objetivo" placeholder="Que decisão ou melhoria ele ajuda a acompanhar?">${esc(x.objetivo)}</textarea></div>
+ <div class="field"><label>3. Fórmula de cálculo</label><textarea data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="formula" placeholder="Ex.: processos padronizados ÷ processos mapeados × 100">${esc(x.formula)}</textarea></div>
+ <div class="field"><label>4. Unidade de medida</label><select data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="unidade"><option value="">Selecione</option>${["%","Quantidade","R$","dias","horas","índice","outro"].map(v=>`<option ${v===x.unidade?"selected":""}>${v}</option>`).join("")}</select></div>
+ <div class="field"><label>5. Sentido da meta</label><select data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="sentido"><option value="">Selecione</option>${[["maior","Quanto maior, melhor"],["menor","Quanto menor, melhor"],["faixa","Manter dentro de uma faixa"]].map(([v,t])=>`<option value="${v}" ${v===(x.sentido||"")?"selected":""}>${t}</option>`).join("")}</select></div>
+ <div class="field"><label>6. Resultado atual / linha de base</label><input data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="atual" value="${esc(x.atual)}" placeholder="Ex.: 62% ou Não medido"><div class="help">Ponto de partida para comparar a evolução.</div></div>
+ <div class="field"><label>7. Meta e prazo</label><input data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="meta" value="${esc(x.meta)}" placeholder="Ex.: alcançar 90% até 30/11"></div>
+ <div class="field"><label>8. Periodicidade</label><select data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="periodicidade"><option value="">Selecione</option>${["Diária","Semanal","Quinzenal","Mensal","Trimestral"].map(v=>`<option ${v===x.periodicidade?"selected":""}>${v}</option>`).join("")}</select></div>
+ <div class="field"><label>9. Responsável pelo acompanhamento</label><input data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="responsavel" value="${esc(x.responsavel)}" placeholder="Nome ou função"></div>
+ <div class="field"><label>10. Fonte dos dados</label><input data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="fonte" value="${esc(x.fonte)}" placeholder="Ex.: financeiro, ERP, RH, planilha"></div>
+ </div></article>`;
+}
+function bindEvents(){
+ document.querySelectorAll("[data-field][data-ind-id]").forEach(el=>{el.addEventListener("input",capture);el.addEventListener("change",capture);});
+ document.querySelectorAll(".add-indicator").forEach(btn=>btn.addEventListener("click",()=>addIndicator(btn.dataset.addPilar)));
+ document.querySelectorAll("[data-delete-id]").forEach(btn=>btn.addEventListener("click",()=>deleteIndicator(btn.dataset.deleteId)));
+ document.getElementById("saveBtn").addEventListener("click",save);
+ document.getElementById("exportBtn").addEventListener("click",exportExcel);
+}
+function capture(){
+ const id=this.dataset.indId,p=this.dataset.pilar;
+ let x=indicadores.find(i=>i._id===id);
+ if(!x){x={_id:id,pilar:p};indicadores.push(x);}
+ x[this.dataset.field]=this.value;
+}
+function collectForm(){
+ document.querySelectorAll("[data-field][data-ind-id]").forEach(el=>{
+  const id=el.dataset.indId,p=el.dataset.pilar;
+  let x=indicadores.find(i=>i._id===id);
+  if(!x){x={_id:id,pilar:p};indicadores.push(x);}
+  x[el.dataset.field]=el.value;
+ });
+ return indicadores;
+}
+function addIndicator(pilar){
+ collectForm();
+ indicadores.push({_id:`ind${nextIndicatorId++}`,pilar,sentido:"",unidade:"",periodicidade:""});
+ render();
+}
+function deleteIndicator(id){
+ collectForm();
+ const x=indicadores.find(i=>i._id===id);
+ if(!x)return;
+ if(indicadores.filter(i=>i.pilar===x.pilar).length<=1){alert("Mantenha ao menos uma ficha por prioridade. Você pode limpar os campos se não precisar definir o indicador agora.");return;}
+ indicadores=indicadores.filter(i=>i._id!==id);
+ render();
+}
+function exportExcel(){
+ collectForm();
+ if(typeof XLSX==="undefined"){alert("Não foi possível carregar o exportador Excel. Verifique sua conexão e tente novamente.");return;}
+ const rows=[["Pilar","Indicador","Objetivo","Fórmula","Unidade","Sentido da meta","Resultado atual","Meta e prazo","Periodicidade","Responsável","Fonte dos dados","Status inicial"]];
+ indicadores.forEach(x=>{
+  const d=defs.find(y=>y.key===x.pilar)||{name:x.pilar};
+  rows.push([d.name,x.nome||"",x.objetivo||"",x.formula||"",x.unidade||"",x.sentido||"",x.atual||"",x.meta||"",x.periodicidade||"",x.responsavel||"",x.fonte||"",indicatorStatus(x)]);
+ });
+ const ws=XLSX.utils.aoa_to_sheet(rows);ws["!cols"]=[{wch:28},{wch:32},{wch:38},{wch:42},{wch:15},{wch:24},{wch:20},{wch:24},{wch:18},{wch:25},{wch:28},{wch:22}];
+ const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Fichas de Indicadores");
+ XLSX.writeFile(wb,`Indicadores_Monitore_${new Date().toISOString().slice(0,10)}.xlsx`);
+}
 async function save(){
- document.querySelectorAll("[data-field]").forEach(el=>{const p=el.dataset.pilar;let x=indicadores.find(i=>i.pilar===p);if(!x){x={pilar:p};indicadores.push(x);}x[el.dataset.field]=el.value;});
+ collectForm();
+ const payload=indicadores.map(({_id,...x})=>x);
  const btn=document.getElementById("saveBtn");btn.disabled=true;document.getElementById("saveStatus").textContent="Salvando...";
- const {error}=await sb.rpc("save_sprint_indicadores",{p_access_token:token,p_indicadores:indicadores});
- if(error){console.error(error);document.getElementById("saveStatus").textContent="Erro ao salvar";document.getElementById("savedMsg").textContent="Não foi possível salvar. Verifique se o SQL da Etapa 05 foi executado no Supabase.";btn.disabled=false;return;}
- document.getElementById("saveStatus").textContent="Indicadores salvos";document.getElementById("savedMsg").textContent="Indicadores salvos com sucesso.";btn.textContent="Indicadores Salvos ✓";document.getElementById("nextBtn").style.display="inline-block";
+ const {error}=await sb.rpc("save_sprint_indicadores",{p_access_token:token,p_indicadores:payload});
+ if(error){console.error(error);document.getElementById("saveStatus").textContent="Erro ao salvar";document.getElementById("savedMsg").textContent="Não foi possível salvar. Verifique se a função save_sprint_indicadores aceita múltiplas fichas para o mesmo pilar.";btn.disabled=false;return;}
+ document.getElementById("saveStatus").textContent="Indicadores salvos";document.getElementById("savedMsg").textContent="Fichas de indicadores salvas com sucesso.";btn.textContent="Indicadores Salvos ✓";btn.disabled=false;
 }
 async function load(){
  try{
