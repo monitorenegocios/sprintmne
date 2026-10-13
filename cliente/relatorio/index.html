@@ -38,7 +38,8 @@ button:hover,.next:hover{background:#164d75}
 .summary{background:#0b2d4d;color:#fff;border-radius:14px;padding:24px;margin:20px 0}
 .summary h2{margin:0 0 8px;font-size:21px}
 .summary p{margin:0;color:#dbe8f2;font-size:13px;line-height:1.7}
-.badge{display:inline-block;background:#e8f3f5;color:#0b5965;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:700;margin:4px 5px 0 0}
+.metric-grid{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:12px;margin:14px 0}.metric{border:1px solid #dce5ec;border-radius:10px;padding:14px;background:#fbfdfe}.metric strong{display:block;font-size:12px;margin-bottom:7px}.metric input{margin-top:5px}.delta{font-size:12px;color:#557080;margin-top:8px}.report-table{width:100%;border-collapse:collapse;font-size:12px}.report-table th,.report-table td{padding:9px;border-bottom:1px solid #dce5ec;text-align:left}.report-table th{background:#eef3f6}.badge{display:inline-block;background:#e8f3f5;color:#0b5965;padding:6px 10px;border-radius:20px;font-size:11px;font-weight:700;margin:4px 5px 0 0}
+@media print{.sidebar,.actions,.notice,#loading,#error,#success{display:none!important}.main{margin:0;padding:0;max-width:none}.card,.summary{break-inside:avoid;box-shadow:none}body{background:#fff}}
 @media(max-width:850px){
 .sidebar{position:relative;width:100%;height:auto;padding:18px}
 .nav{display:flex;flex-wrap:wrap;gap:4px}
@@ -73,9 +74,8 @@ button:hover,.next:hover{background:#164d75}
   <div class="kicker">Sprint de Gestão</div>
   <h1>Relatório Final</h1>
   <div class="subtitle">
-    Esta é a consolidação do que foi construído durante o Sprint.
-    O objetivo é registrar a situação inicial, as prioridades definidas, as ações estruturadas
-    e a forma de continuidade da gestão.
+    Este relatório compara a situação inicial com os resultados observados após a execução das melhorias.
+    Registra o que foi implementado, o que mudou, quais metas foram alcançadas e o que ainda precisa de atenção.
   </div>
 
   <div id="company" class="company"></div>
@@ -83,8 +83,7 @@ button:hover,.next:hover{background:#164d75}
 
   <div class="notice">
     <strong>O que este relatório representa?</strong><br>
-    Ele não é apenas um resumo das etapas. É o registro da estrutura de gestão construída para a empresa
-    e serve como referência para a continuidade do trabalho depois do Sprint.
+    O relatório deve se apoiar em indicadores, evidências de execução e medições comparáveis. Se ainda não houver dados posteriores à implementação, ele registrará a linha de base e indicará que ainda não é possível concluir se houve melhoria.
   </div>
 
   <div id="loading" class="loading">Consolidando o Sprint...</div>
@@ -93,76 +92,41 @@ button:hover,.next:hover{background:#164d75}
 
   <div id="form" style="display:none">
     <section class="card">
-      <div class="section-title">1. Síntese executiva</div>
-      <div class="helper" style="margin-bottom:16px">Registre, em poucas palavras, o principal diagnóstico e a direção definida.</div>
+      <div class="section-title">1. Período e estágio das melhorias</div>
+      <div class="helper" style="margin-bottom:16px">Este relatório deve distinguir o que foi planejado do que já foi implementado e medido.</div>
       <div class="grid">
-        <div class="full">
-          <label>Como a empresa estava no início do Sprint?</label>
-          <textarea id="situacaoInicial" placeholder="Síntese dos principais pontos identificados no diagnóstico."></textarea>
-        </div>
-        <div class="full">
-          <label>O que foi definido como foco?</label>
-          <textarea id="foco" placeholder="Principais prioridades que foram escolhidas para tratamento."></textarea>
-        </div>
-        <div class="full">
-          <label>Qual é a principal transformação esperada?</label>
-          <textarea id="transformacao" placeholder="O que deve melhorar se o plano for executado e acompanhado?"></textarea>
-        </div>
+        <div><label>Data de referência inicial</label><input id="dataInicial" type="date"></div>
+        <div><label>Data da avaliação atual</label><input id="dataAtual" type="date"></div>
+        <div class="full"><label>Estágio das melhorias</label><select id="estagio"><option value="">Selecione</option><option>Plano estruturado — ações ainda não iniciadas</option><option>Em implementação</option><option>Implementação concluída — resultados em acompanhamento</option><option>Resultados avaliados após período de execução</option></select><div class="helper">Se ainda não houver medições após a implementação, o relatório registra a linha de base e as metas, sem afirmar que houve melhoria.</div></div>
       </div>
     </section>
-
     <section class="card">
-      <div class="section-title">2. Prioridades e compromissos</div>
-      <div class="helper" style="margin-bottom:16px">Consolide as prioridades e os compromissos assumidos no Plano de Ação.</div>
+      <div class="section-title">2. Indicadores: situação inicial × situação atual</div>
+      <p class="helper">Preencha os valores observados antes das melhorias e na data da avaliação. A meta será carregada quando estiver cadastrada na etapa de Indicadores.</p>
+      <div id="outcomeIndicators"><p class="helper">Os indicadores cadastrados serão apresentados aqui.</p></div>
+    </section>
+    <section class="card">
+      <div class="section-title">3. Execução das ações</div>
       <div class="grid">
-        <div class="full">
-          <label>Principais prioridades</label>
-          <textarea id="prioridades" placeholder="Liste as prioridades definidas e a ordem de tratamento."></textarea>
-        </div>
-        <div class="full">
-          <label>Compromissos principais</label>
-          <textarea id="compromissos" placeholder="Quais ações precisam acontecer para que o Sprint gere resultado?"></textarea>
-        </div>
+        <div class="full"><label>Ações concluídas e evidências</label><textarea id="acoesConcluidas" placeholder="Quais ações foram realmente executadas? Que evidências comprovam a conclusão? Ex.: procedimento implantado, checklist em uso, treinamento realizado."></textarea></div>
+        <div class="full"><label>Ações pendentes ou atrasadas</label><textarea id="acoesPendentes" placeholder="O que ainda não foi executado e por quê?"></textarea></div>
       </div>
     </section>
-
     <section class="card">
-      <div class="section-title">3. Indicadores e acompanhamento</div>
-      <div class="helper" style="margin-bottom:16px">Registre como a empresa saberá se está evoluindo.</div>
+      <div class="section-title">4. Análise dos resultados</div>
       <div class="grid">
-        <div class="full">
-          <label>Indicadores principais</label>
-          <textarea id="indicadores" placeholder="Liste os indicadores e metas definidos."></textarea>
-        </div>
-        <div class="full">
-          <label>Como os resultados serão acompanhados?</label>
-          <textarea id="acompanhamento" placeholder="Descreva a frequência e a forma de acompanhamento."></textarea>
-        </div>
+        <div class="full"><label>Melhorias observadas</label><textarea id="melhoriasObservadas" placeholder="Descreva apenas mudanças observadas e sustentadas por dados ou evidências."></textarea></div>
+        <div class="full"><label>Resultados que ainda não foram alcançados</label><textarea id="resultadosNaoAlcancados" placeholder="Quais metas não foram atingidas ou ainda não podem ser avaliadas?"></textarea></div>
+        <div class="full"><label>Fatores que influenciaram os resultados</label><textarea id="fatoresResultados" placeholder="O que contribuiu ou dificultou a obtenção dos resultados? Evite atribuir causalidade sem evidência."></textarea></div>
       </div>
     </section>
-
     <section class="card">
-      <div class="section-title">4. Continuidade da gestão</div>
-      <div class="helper" style="margin-bottom:16px">Registre a rotina que deverá continuar depois do Sprint.</div>
+      <div class="section-title">5. Conclusão e próximos passos</div>
       <div class="grid">
-        <div class="full">
-          <label>Rotina de gestão definida</label>
-          <textarea id="rotina" placeholder="Descreva a rotina principal, participantes, periodicidade e pauta."></textarea>
-        </div>
-        <div class="full">
-          <label>Próximos passos recomendados</label>
-          <textarea id="proximosPassos" placeholder="O que a empresa deve fazer nos próximos 30, 60 ou 90 dias?"></textarea>
-        </div>
-      </div>
-    </section>
-
-    <section class="card">
-      <div class="section-title">5. Observações finais</div>
-      <div class="grid">
-        <div class="full">
-          <label>Observações da empresa / responsável</label>
-          <textarea id="observacoes" placeholder="Registre percepções, decisões ou pontos que merecem atenção futura."></textarea>
-        </div>
+        <div class="full"><label>Conclusão da avaliação</label><select id="conclusao"><option value="">Selecione</option><option>Resultados positivos observados</option><option>Resultados parciais — manter acompanhamento</option><option>Sem evidência suficiente para concluir</option><option>Resultados abaixo do esperado — revisar ações</option><option>Avaliação ainda não aplicável — implementação recente ou não iniciada</option></select></div>
+        <div class="full"><label>Decisões e ajustes recomendados</label><textarea id="decisoesAjustes" placeholder="O que deve ser mantido, corrigido ou alterado a partir dos resultados?"></textarea></div>
+        <div class="full"><label>Próximas ações, responsáveis e prazos</label><textarea id="proximosPassos" placeholder="Registre ação, responsável e prazo para cada encaminhamento."></textarea></div>
+        <div class="full"><label>Observações e limitações da avaliação</label><textarea id="observacoes" placeholder="Ex.: período de medição curto, dados incompletos ou fatores externos que precisam ser considerados."></textarea></div>
       </div>
     </section>
   </div>
@@ -215,7 +179,7 @@ function buildSummary(d,m,p,i,r){
     const s=scores[k]!==undefined?scores[k]:"—";
     return `<span class="badge">${labels[k]}: ${esc(s)}/5</span>`;
   }).join("");
-  $("summary").innerHTML=`<h2>${esc(company)}</h2><p>O Sprint consolidou diagnóstico, prioridades, plano de ação, indicadores, ferramentas e rotina de gestão.</p><div style="margin-top:12px">${chips}</div>`;
+  $("summary").innerHTML=`<h2>${esc(company)}</h2><p>Relatório de acompanhamento: compare a linha de base com as medições atuais e registre evidências antes de concluir sobre os resultados.</p><div style="margin-top:12px">${chips}</div>`;
   $("summary").style.display="block";
 }
 
@@ -270,19 +234,10 @@ async function loadData(){
       const prioridades=Array.isArray(m.prioridades)?m.prioridades:[];
       const ordered=prioridades.slice().sort((a,b)=>(Number(a.ordem||999)-Number(b.ordem||999))).slice(0,4);
 
-      const autoPrioridades=ordered.map((x,i)=>`${i+1}. ${x.pilar||x.pillar||"Prioridade"} — ordem ${x.ordem||i+1}`).join("\n");
-      const autoIndicadores=indicadores.map((x,i)=>`${i+1}. ${x.pilar||""}: ${x.nome||x.indicador||"Indicador"} — Meta: ${x.meta||"não definida"}`).join("\n");
-
-      setValue("situacaoInicial","Diagnóstico realizado nos quatro pilares da gestão, identificando os principais pontos de atenção da empresa.");
-      setValue("prioridades",saved?.relatorio?.prioridades||autoPrioridades);
-      setValue("indicadores",saved?.relatorio?.indicadores||autoIndicadores);
-      setValue("rotina",saved?.relatorio?.rotina||`${rotina.nome||"Rotina de Gestão"} — ${rotina.periodicidade||""}. ${rotina.objetivo||""}`);
-      setValue("acompanhamento",saved?.relatorio?.acompanhamento||"Acompanhar os indicadores e o Plano de Ação conforme a periodicidade definida na Rotina de Gestão.");
-      setValue("foco",saved?.relatorio?.foco||"Tratar as prioridades definidas na Matriz de Prioridades e executar o Plano de Ação.");
-      setValue("transformacao",saved?.relatorio?.transformacao||"Transformar os principais pontos de atenção em ações acompanhadas por indicadores e uma rotina de gestão.");
-      setValue("compromissos",saved?.relatorio?.compromissos||acoes.map((x,i)=>`${i+1}. ${x.acao||x.objetivo||"Ação"} — Responsável: ${x.responsavel||"a definir"} — Prazo: ${x.prazo||"a definir"}`).join("\n"));
-      setValue("proximosPassos",saved?.relatorio?.proximosPassos||"Executar as ações priorizadas, acompanhar os indicadores e manter a rotina de gestão definida.");
-      setValue("observacoes",saved?.relatorio?.observacoes||"");
+      const report=saved?.relatorio||{};
+      ["dataInicial","dataAtual","estagio","acoesConcluidas","acoesPendentes","melhoriasObservadas","resultadosNaoAlcancados","fatoresResultados","conclusao","decisoesAjustes","proximosPassos","observacoes"].forEach(id=>setValue(id,report[id]||""));
+      renderOutcomeIndicators(indicadores,report.indicadoresResultado||[]);
+      setValue("acoesConcluidas",report.acoesConcluidas||acoes.filter(x=>/conclu/i.test(x.status||"")).map(x=>x.acao||x.objetivo||"").join("\n"));
 
       $("loading").style.display="none";
       $("form").style.display="block";
@@ -298,7 +253,26 @@ async function loadData(){
   }
 }
 
-const fields=["situacaoInicial","foco","transformacao","prioridades","compromissos","indicadores","acompanhamento","rotina","proximosPassos","observacoes"];
+function renderOutcomeIndicators(indicadores,previous=[]){
+  const box=$("outcomeIndicators");
+  if(!indicadores.length){box.innerHTML='<p class="helper">Nenhum indicador foi encontrado. Volte à etapa 05 e salve pelo menos um indicador para avaliar resultados.</p>';return;}
+  box.innerHTML=indicadores.map((it,i)=>{
+    const name=it.nome||it.indicador||`Indicador ${i+1}`;
+    const old=previous.find(x=>x.id===String(it.id||i)||x.nome===name)||{};
+    const meta=it.meta??it.meta_valor??"";
+    return `<div class="card metric-card" data-indicator-id="${esc(it.id||i)}" data-name="${esc(name)}" data-unit="${esc(it.unidade||"")}" data-sense="${esc(it.sentido_meta||it.sentido||"maior")}">
+      <div class="section-title">${esc(name)}</div><div class="helper">${esc(it.pilar||"")} ${it.unidade?"· Unidade: "+esc(it.unidade):""} ${meta!==""?"· Meta cadastrada: "+esc(meta):"· Meta não informada"}</div>
+      <div class="metric-grid"><div class="metric"><strong>Valor inicial (linha de base)</strong><input data-metric="inicial" value="${esc(old.inicial||"")}" placeholder="Ex.: 62" inputmode="decimal"></div><div class="metric"><strong>Valor atual</strong><input data-metric="atual" value="${esc(old.atual||"")}" placeholder="Ex.: 78" inputmode="decimal"></div><div class="metric"><strong>Meta</strong><input data-metric="meta" value="${esc(old.meta??meta)}" placeholder="Ex.: 85" inputmode="decimal"></div></div>
+      <label>Evidência / fonte dos dados</label><input data-metric="evidencia" value="${esc(old.evidencia||"")}" placeholder="Ex.: relatório mensal, sistema, planilha ou registro operacional">
+      <div class="delta" data-delta>Preencha os valores para comparar a evolução.</div></div>`;
+  }).join("");
+  box.querySelectorAll('.metric-card input[data-metric]').forEach(el=>el.addEventListener('input',updateDeltas));updateDeltas();
+}
+function numeric(v){if(v===null||v===undefined||String(v).trim()==="")return null;const n=Number(String(v).replace(',','.'));return Number.isFinite(n)?n:null;}
+function updateDeltas(){document.querySelectorAll('.metric-card').forEach(card=>{const get=k=>numeric(card.querySelector(`[data-metric="${k}"]`)?.value);const a=get('inicial'),b=get('atual'),sense=card.dataset.sense;const el=card.querySelector('[data-delta]');if(a===null||b===null){el.textContent='Preencha os valores inicial e atual para comparar a evolução.';return;}const diff=b-a;const pct=a!==0?(diff/Math.abs(a))*100:null;const trend=diff===0?'Sem variação numérica':(diff>0?'Aumentou':'Diminuiu');el.textContent=`${trend}: ${diff>0?'+':''}${diff}${card.dataset.unit?' '+card.dataset.unit:''}${pct!==null?` (${pct>0?'+':''}${pct.toFixed(1)}%)`:''}. Interprete conforme o sentido desejado do indicador e as evidências.`;});}
+function collectOutcomeIndicators(){return [...document.querySelectorAll('.metric-card')].map(card=>{const get=k=>card.querySelector(`[data-metric="${k}"]`)?.value?.trim()||'';return {id:card.dataset.indicatorId,nome:card.dataset.name,unidade:card.dataset.unit,sentido_meta:card.dataset.sense,inicial:get('inicial'),atual:get('atual'),meta:get('meta'),evidencia:get('evidencia')};});}
+
+const fields=["dataInicial","dataAtual","estagio","acoesConcluidas","acoesPendentes","melhoriasObservadas","resultadosNaoAlcancados","fatoresResultados","conclusao","decisoesAjustes","proximosPassos","observacoes"];
 
 $("saveBtn").addEventListener("click",async()=>{
   if(!token){showError("Token de acesso não encontrado.");return;}
@@ -308,6 +282,7 @@ $("saveBtn").addEventListener("click",async()=>{
   try{
     const relatorio={};
     fields.forEach(id=>relatorio[id]=value(id));
+    relatorio.indicadoresResultado=collectOutcomeIndicators();
     const {error}=await sb.rpc("save_sprint_relatorio_final",{p_access_token:token,p_relatorio:relatorio});
     if(error) throw error;
     $("success").style.display="block";
