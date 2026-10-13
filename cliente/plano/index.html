@@ -182,7 +182,8 @@ async function load(){
   prioridades=Array.isArray(m.data[0].prioridades)?m.data[0].prioridades:[];
   if(!prioridades.length){document.getElementById("app").innerHTML='<div class="card empty error">A Matriz foi encontrada, mas não contém prioridades salvas. Volte à Matriz e clique em “Salvar Matriz”.</div>';return;}
   const p=await Promise.race([sb.rpc("get_sprint_plano",{p_access_token:token}),timeout]);
-  if(!p.error&&p.data?.length){acoes=Array.isArray(p.data[0].acoes)?p.data[0].acoes:[];}\n  ensureActionIds();
+  if(!p.error&&p.data?.length){acoes=Array.isArray(p.data[0].acoes)?p.data[0].acoes:[];}
+  ensureActionIds();
   render();
  }catch(err){
   console.error("Erro ao carregar Plano de Ação:",err);
