@@ -36,7 +36,7 @@ textarea{min-height:90px;resize:vertical}
 button,.next{border:0;border-radius:9px;background:#0b2d4d;color:#fff;padding:13px 20px;font-family:inherit;font-weight:700;cursor:pointer;text-decoration:none;font-size:13px}
 button:hover,.next:hover{background:#164d75}
 .status{font-size:12px;color:#557080}
-.error{display:none;background:#fff0f0;border:1px solid #efb8b8;color:#9a2d2d;border-radius:10px;padding:14px;margin:20px 0;font-size:13px}
+.guide{background:#eef6f8;border:1px solid #cfe2e8;border-radius:10px;padding:14px 16px;margin:14px 0;font-size:12px;line-height:1.65}.guide strong{display:block;color:#0b2d4d;margin-bottom:5px}.guide ul{margin:6px 0 0;padding-left:18px}.model-btn{background:#2b8291;padding:9px 12px;font-size:11px;margin-top:10px}.error{display:none;background:#fff0f0;border:1px solid #efb8b8;color:#9a2d2d;border-radius:10px;padding:14px;margin:20px 0;font-size:13px}
 .success{display:none;background:#edf8f3;border:1px solid #b9dfcf;color:#176044;border-radius:10px;padding:14px;margin:20px 0;font-size:13px}
 .loading{text-align:center;padding:60px;color:#647687}
 @media(max-width:850px){
@@ -222,6 +222,7 @@ function render(actions){
             <option>Outro</option>
           </select>
           <div class="helper">Escolha o instrumento que melhor apoia a execução.</div>
+          <button type="button" class="model-btn" data-action="modelo">Usar exemplo preenchido</button>
         </div>
 
         <div>
@@ -250,6 +251,12 @@ function render(actions){
         </div>
 
         <div class="full">
+          <div class="guide" data-guide>
+            <strong>Como usar esta ferramenta</strong>
+            Selecione um tipo para ver uma explicação, um exemplo e orientações práticas. Você pode adaptar o modelo à realidade da empresa.
+          </div>
+        </div>
+        <div class="full">
           <label>Observações / conteúdo inicial</label>
           <textarea data-field="observacoes" placeholder="Inclua campos, itens de checklist, informações importantes ou outras orientações."></textarea>
         </div>
@@ -270,9 +277,70 @@ function render(actions){
       if(el) el.value=v;
     });
     container.appendChild(card);
+    const typeSelect=card.querySelector('[data-field="tipo"]');
+    typeSelect.addEventListener('change',()=>updateGuide(card, false));
+    card.querySelector('[data-action="modelo"]').addEventListener('click',()=>updateGuide(card, true));
+    updateGuide(card, false);
   });
 
   $("status").textContent=priorities.length+" prioridade(s) pronta(s) para estruturar.";
+}
+
+const toolGuides={
+  "Checklist":{
+    purpose:"Verificar se etapas importantes foram cumpridas, evitando esquecimentos.",
+    example:{nome:"Checklist de execução da atividade",finalidade:"Confirmar que todas as etapas críticas foram realizadas antes de concluir a atividade.",frequencia:"A cada execução da atividade",modo:"1. O responsável percorre os itens. 2. Marca cada item como concluído. 3. Registra desvios encontrados. 4. Comunica e corrige pendências.",observacoes:"Itens sugeridos: atividade identificada; materiais disponíveis; etapas realizadas; qualidade conferida; pendências registradas; responsável e data."},
+    steps:["Liste apenas verificações observáveis.","Use uma opção simples: Sim / Não / Não se aplica.","Defina o que fazer quando um item não for atendido."]
+  },
+  "Procedimento / POP":{
+    purpose:"Padronizar como uma atividade deve ser realizada, com sequência e responsabilidades claras.",
+    example:{nome:"Procedimento operacional da atividade",finalidade:"Orientar a execução padronizada da atividade e reduzir variações e retrabalho.",frequencia:"Sempre que a atividade for executada e na integração de novos colaboradores",modo:"1. Conferir pré-requisitos. 2. Executar as etapas na ordem definida. 3. Verificar o resultado. 4. Registrar ocorrências e encaminhar desvios.",observacoes:"Estrutura sugerida: objetivo; área de aplicação; responsável; recursos necessários; etapas; cuidados; registros; versão e data de revisão."},
+    steps:["Descreva etapas na ordem em que acontecem.","Use linguagem simples e verbos de ação.","Valide o procedimento com quem executa o trabalho."]
+  },
+  "Fluxograma":{
+    purpose:"Mostrar visualmente as etapas, decisões e caminhos de um processo.",
+    example:{nome:"Fluxograma do processo prioritário",finalidade:"Tornar visíveis as etapas, os responsáveis e os pontos de decisão do processo.",frequencia:"Na análise do processo e sempre que houver mudança relevante",modo:"1. Definir início e fim. 2. Listar etapas na ordem. 3. Identificar decisões como Sim/Não. 4. Validar o fluxo com os envolvidos.",observacoes:"Comece com: Solicitação recebida → Conferir informações → Informações completas? → Sim: executar próxima etapa / Não: solicitar correção → Finalizar e registrar."},
+    steps:["Mapeie o processo real, não apenas o processo ideal.","Identifique entradas, saídas e responsáveis.","Destaque esperas, retrabalho e aprovações desnecessárias."]
+  },
+  "Formulário":{
+    purpose:"Coletar informações de forma padronizada para permitir análise e encaminhamento.",
+    example:{nome:"Formulário de registro de ocorrência",finalidade:"Registrar informações necessárias para analisar e tratar uma ocorrência.",frequencia:"Sempre que ocorrer uma situação que precise de registro",modo:"1. Preencher data e local. 2. Descrever o fato observado. 3. Identificar responsável pelo registro. 4. Encaminhar para análise e acompanhar a tratativa.",observacoes:"Campos sugeridos: data; área; tipo de ocorrência; descrição objetiva; impacto; ação imediata; responsável; prazo; situação."},
+    steps:["Pergunte apenas o que será usado.","Prefira opções padronizadas quando possível.","Defina quem analisa os registros e em quanto tempo."]
+  },
+  "Planilha de acompanhamento":{
+    purpose:"Acompanhar ações, prazos, responsáveis, andamento ou resultados em um único lugar.",
+    example:{nome:"Planilha de acompanhamento das ações",finalidade:"Visualizar o andamento das ações prioritárias e sinalizar atrasos ou impedimentos.",frequencia:"Atualização semanal",modo:"1. Registrar cada ação. 2. Definir responsável e prazo. 3. Atualizar status e evidências. 4. Revisar atrasos e definir encaminhamentos.",observacoes:"Colunas sugeridas: ação; responsável; data de início; prazo; status; percentual concluído; impedimento; próxima providência; data da atualização."},
+    steps:["Cada linha deve representar uma ação ou registro.","Use status consistentes para todos.","Combine quem atualiza e quando a equipe revisa a planilha."]
+  },
+  "Quadro de gestão":{
+    purpose:"Dar visibilidade ao trabalho, às prioridades, aos problemas e às decisões da equipe.",
+    example:{nome:"Quadro visual de acompanhamento",finalidade:"Facilitar a visualização diária das tarefas e dos impedimentos da equipe.",frequencia:"Atualização diária e revisão semanal",modo:"1. Registrar tarefas prioritárias. 2. Atualizar etapa e responsável. 3. Sinalizar bloqueios. 4. Definir próximo passo e prazo.",observacoes:"Colunas sugeridas: A fazer; Em andamento; Aguardando; Concluído. Acrescente responsável, prazo e impedimento quando necessário."},
+    steps:["Mantenha visíveis poucas prioridades importantes.","Atualize o quadro com a equipe, não apenas para a equipe.","Toda pendência deve ter responsável e próximo passo."]
+  },
+  "Roteiro de reunião":{
+    purpose:"Estruturar reuniões objetivas que terminem com decisões, responsáveis e prazos.",
+    example:{nome:"Roteiro de reunião semanal de gestão",finalidade:"Analisar resultados, remover impedimentos e acordar as próximas ações.",frequencia:"Semanal, com duração definida",modo:"1. Revisar ações anteriores. 2. Analisar indicadores e desvios. 3. Discutir causas prioritárias. 4. Registrar decisões, responsáveis e prazos. 5. Confirmar próximos passos.",observacoes:"Pauta sugerida: objetivo da reunião; indicadores; ações atrasadas; problemas que exigem decisão; decisões tomadas; responsável; prazo; data do próximo acompanhamento."},
+    steps:["Envie a pauta antes da reunião.","Reserve tempo para decisões, não apenas relatos.","Registre decisões e acompanhe os compromissos na reunião seguinte."]
+  },
+  "Outro":{
+    purpose:"Descrever um instrumento específico que não esteja entre as opções listadas.",
+    example:{nome:"Nome do instrumento",finalidade:"Explique qual problema ou necessidade o instrumento atenderá.",frequencia:"Defina quando será utilizado",modo:"Descreva os passos de uso, quem participa e como o resultado será registrado.",observacoes:"Inclua os campos, critérios ou orientações necessários para começar."},
+    steps:["Explique por que as opções existentes não atendem.","Defina usuário, frequência e resultado esperado.","Teste se o instrumento realmente ajuda na execução ou decisão."]
+  }
+};
+function updateGuide(card, fillExample){
+  const type=card.querySelector('[data-field="tipo"]').value;
+  const guide=card.querySelector('[data-guide]');
+  const info=toolGuides[type];
+  if(!info){guide.innerHTML='<strong>Como usar esta ferramenta</strong>Selecione um tipo para receber orientações e um exemplo prático.';return;}
+  guide.innerHTML='<strong>Para que serve</strong>'+esc(info.purpose)+'<br><strong style="margin-top:8px">Como aplicar</strong><ul>'+info.steps.map(x=>'<li>'+esc(x)+'</li>').join('')+'</ul><div style="margin-top:8px"><strong>Exemplo</strong>Use o botão “Usar exemplo preenchido” para inserir um ponto de partida editável. Revise tudo antes de salvar.</div>';
+  if(fillExample){
+    Object.entries(info.example).forEach(([field,value])=>{
+      const el=card.querySelector('[data-field="'+field+'"]');
+      if(el && !el.value.trim()) el.value=value;
+    });
+    guide.insertAdjacentHTML('beforeend','<p><strong>Exemplo inserido.</strong> Adapte os campos à sua realidade antes de salvar.</p>');
+  }
 }
 
 function collect(){
