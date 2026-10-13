@@ -35,6 +35,15 @@ button:hover,.next:hover{background:#164d75}
 .error{display:none;background:#fff0f0;border:1px solid #efb8b8;color:#9a2d2d;border-radius:10px;padding:14px;margin:20px 0;font-size:13px}
 .success{display:none;background:#edf8f3;border:1px solid #b9dfcf;color:#176044;border-radius:10px;padding:14px;margin:20px 0;font-size:13px}
 .loading{text-align:center;padding:60px;color:#647687}
+.guide{background:#eaf4f7;border:1px solid #cfe4ea;border-radius:12px;padding:16px 18px;margin:16px 0;font-size:13px;line-height:1.7}
+.guide strong{color:#0b2d4d}
+.example{background:#f8fafc;border:1px dashed #b9cbd8;border-radius:10px;padding:14px;margin-top:12px;font-size:12px;line-height:1.7}
+.example ul{margin:6px 0 0;padding-left:20px}
+.preview{background:#fff;border:1px solid #cbdce5;border-radius:12px;padding:18px;margin:18px 0;line-height:1.7}
+.preview h3{margin:0 0 10px;font-size:16px}
+.preview-item{padding:8px 0;border-bottom:1px solid #edf1f4;font-size:12px}
+.preview-item:last-child{border-bottom:0}
+.small-btn{background:#2b8291;padding:9px 12px;font-size:12px;margin-top:10px}
 @media(max-width:850px){
 .sidebar{position:relative;width:100%;height:auto;padding:18px}
 .nav{display:flex;flex-wrap:wrap;gap:4px}
@@ -83,6 +92,15 @@ button:hover,.next:hover{background:#164d75}
     <strong>Não queremos criar mais reuniões.</strong> Queremos definir uma rotina mínima e útil para a gestão acontecer.
   </div>
 
+  <div class="guide">
+    <strong>Como preencher esta etapa</strong><br>
+    Você não precisa ter uma rotina de gestão pronta. Use os exemplos como ponto de partida e adapte à realidade da empresa. Comece com uma reunião curta e regular; depois, ajuste quando a prática mostrar necessidade.
+    <div class="example"><strong>Exemplo de rotina mínima</strong>
+      <ul><li><strong>Quando:</strong> toda segunda-feira, às 9h, por 30 minutos.</li><li><strong>Quem:</strong> gestor e responsáveis pelas prioridades.</li><li><strong>O que verificar:</strong> resultados, ações concluídas ou atrasadas, problemas e decisões pendentes.</li><li><strong>Como terminar:</strong> cada decisão deve ter responsável e prazo.</li></ul>
+      <button type="button" class="small-btn" id="exampleBtn">Usar este exemplo como ponto de partida</button>
+    </div>
+  </div>
+
   <div id="loading" class="loading">Carregando Rotina de Gestão...</div>
   <div id="error" class="error"></div>
   <div id="success" class="success">Rotina de Gestão salva com sucesso.</div>
@@ -90,7 +108,7 @@ button:hover,.next:hover{background:#164d75}
   <div id="form" style="display:none">
     <section class="card">
       <div class="section-title">1. Reunião / momento principal de acompanhamento</div>
-      <div class="helper" style="margin-bottom:16px">Defina a rotina principal em que os resultados e as prioridades serão acompanhados.</div>
+      <div class="helper" style="margin-bottom:16px">Defina um momento recorrente para acompanhar a gestão. Comece com uma rotina simples, compatível com o tamanho e a disponibilidade da equipe.</div>
       <div class="grid">
         <div>
           <label>Nome da rotina</label>
@@ -123,7 +141,7 @@ button:hover,.next:hover{background:#164d75}
 
     <section class="card">
       <div class="section-title">2. Participantes e responsabilidades</div>
-      <div class="helper" style="margin-bottom:16px">Quem precisa participar e qual é o papel de cada pessoa?</div>
+      <div class="helper" style="margin-bottom:16px">Convide apenas quem contribui para analisar resultados ou tomar decisões. O condutor mantém a conversa objetiva; quem registra anota decisões, responsáveis e prazos. Uma mesma pessoa pode fazer os dois papéis.</div>
       <div class="grid">
         <div class="full">
           <label>Participantes</label>
@@ -142,7 +160,7 @@ button:hover,.next:hover{background:#164d75}
 
     <section class="card">
       <div class="section-title">3. Pauta mínima da rotina</div>
-      <div class="helper" style="margin-bottom:16px">O que precisa ser verificado sempre para que a rotina gere decisões?</div>
+      <div class="helper" style="margin-bottom:16px">Use uma pauta fixa para a reunião não virar uma conversa sem encaminhamentos. Sugestão: 1) olhar indicadores; 2) revisar ações; 3) entender desvios; 4) decidir próximos passos.</div>
       <div class="grid">
         <div class="full">
           <label>Itens que serão acompanhados</label>
@@ -157,7 +175,7 @@ button:hover,.next:hover{background:#164d75}
 
     <section class="card">
       <div class="section-title">4. Registro e tomada de decisão</div>
-      <div class="helper" style="margin-bottom:16px">Defina como a empresa evitará que as decisões e pendências se percam.</div>
+      <div class="helper" style="margin-bottom:16px">Toda decisão importante precisa ficar registrada. Exemplo: “Revisar o fluxo de coleta de dados — responsável: gerente administrativo — prazo: 20/10”.</div>
       <div class="grid">
         <div>
           <label>Onde as decisões serão registradas?</label>
@@ -175,7 +193,7 @@ button:hover,.next:hover{background:#164d75}
     </section>
 
     <section class="card">
-      <div class="section-title">5. Regra simples para manter a rotina</div>
+      <div class="section-title">5. Regra simples para manter a rotina</div><div class="helper" style="margin:0 0 16px">Escolha uma regra que a equipe consiga cumprir mesmo nos períodos mais corridos. Evite criar controles que ninguém atualizará.</div>
       <div class="grid">
         <div class="full">
           <label>O que não pode deixar de acontecer?</label>
@@ -188,6 +206,12 @@ button:hover,.next:hover{background:#164d75}
       </div>
     </section>
   </div>
+
+  <section class="preview" id="preview" style="display:none">
+    <h3>Prévia da sua rotina de gestão</h3>
+    <div class="helper">A prévia é atualizada enquanto você preenche os campos. Revise se a rotina está clara para todos os participantes.</div>
+    <div id="previewContent"></div>
+  </section>
 
   <div class="actions">
     <span class="status" id="status">Defina uma rotina simples, objetiva e sustentável.</span>
@@ -255,6 +279,7 @@ async function loadData(){
       $("form").style.display="block";
       if(r) $("nextBtn").style.display="inline-block";
       $("status").textContent=r?"Rotina salva. Revise e atualize se necessário.":"Agora vamos estruturar a rotina mínima de gestão.";
+      updatePreview();
     })();
     await Promise.race([work,timeout]);
   }catch(e){
@@ -264,6 +289,22 @@ async function loadData(){
 }
 
 const fields=["nome","periodicidade","dia","duracao","objetivo","participantes","condutor","registro","pauta","desvios","registroDecisao","acompanhamento","regra","essencial","observacoes"];
+
+function updatePreview(){
+  const form=$("form");
+  if(form.style.display==="none") return;
+  const labels={nome:"Nome da rotina",periodicidade:"Periodicidade",dia:"Dia / momento",duracao:"Duração",objetivo:"Objetivo",participantes:"Participantes",condutor:"Quem conduz",registro:"Quem registra",pauta:"Pauta",desvios:"Tratamento dos desvios",registroDecisao:"Registro das decisões",acompanhamento:"Acompanhamento das ações",regra:"Regra de acompanhamento",essencial:"Regra essencial",observacoes:"Próximos ajustes"};
+  const content=fields.map(id=>({id,label:labels[id],value:$(id).value.trim()})).filter(x=>x.value).map(x=>`<div class="preview-item"><strong>${esc(x.label)}:</strong> ${esc(x.value).replace(/\n/g,"<br>")}</div>`).join("");
+  $("previewContent").innerHTML=content||"Preencha os campos para visualizar sua rotina.";
+  $("preview").style.display="block";
+}
+fields.forEach(id=>$(id).addEventListener("input",updatePreview));
+$("periodicidade").addEventListener("change",updatePreview);
+$("exampleBtn").addEventListener("click",()=>{
+  const sample={nome:"Reunião Semanal de Gestão",periodicidade:"Semanal",dia:"Toda segunda-feira, às 9h",duracao:"30 minutos",objetivo:"Acompanhar resultados, ações prioritárias, desvios e decisões necessárias.",participantes:"Gestor e responsáveis pelas prioridades",condutor:"Gestor da empresa",registro:"Responsável administrativo ou pessoa designada",pauta:"1. Verificar indicadores e metas.\n2. Revisar ações concluídas e atrasadas.\n3. Analisar problemas e desvios.\n4. Definir decisões e próximos passos.",desvios:"Quando um resultado ficar fora da meta ou uma ação atrasar, entender a causa, definir uma ação corretiva, um responsável e um prazo.",registroDecisao:"Planilha ou documento compartilhado de decisões",acompanhamento:"Plano de Ação do Sprint",regra:"Toda ação deve ter responsável, prazo, status e evidência de conclusão.",essencial:"Toda semana, atualizar os indicadores prioritários e tratar ações atrasadas.",observacoes:"Reavaliar a duração e a pauta após quatro semanas de uso."};
+  Object.entries(sample).forEach(([id,value])=>{if(!$(id).value.trim()) $(id).value=value;});
+  updatePreview();
+});
 
 $("saveBtn").addEventListener("click",async()=>{
   if(!token){showError("Token de acesso não encontrado.");return;}
@@ -299,4 +340,3 @@ loadData();
 </script>
 </body>
 </html>
-
