@@ -24,6 +24,8 @@
 .ind-status.meta-atingida{background:#e0f6eb;color:#16764f}
 .indicator-delete{border:1px solid #f0c9c6;background:#fff;color:#b42318;border-radius:7px;padding:8px;font:700 10px Montserrat;cursor:pointer}
 .indicator .grid{margin-top:8px}
+.dashboard{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin:18px 0}.kpi{padding:17px;border:1px solid var(--line);border-radius:12px;background:#fff}.kpi small{display:block;font-size:9px;font-weight:800;text-transform:uppercase;letter-spacing:.8px;color:#7d8d99}.kpi strong{display:block;font-size:25px;color:var(--text);margin-top:8px}.kpi span{font-size:10px;color:#788894}.charts{display:grid;grid-template-columns:1fr 1fr;gap:16px;margin:18px 0}.chart-card{padding:20px;min-width:0}.chart-card h3{font-size:14px;margin:0 0 5px;color:var(--text)}.chart-card p{font-size:10px;color:#788894;line-height:1.5;margin:0 0 14px}.chart-area{min-height:220px;overflow:auto}.chart-area svg{width:100%;height:auto;min-width:300px;display:block}.chart-empty{padding:28px 12px;text-align:center;color:#81909b;background:#f7fafb;border-radius:9px;font-size:11px;line-height:1.7}.history-box{border-top:1px solid #e8eef1;margin-top:16px;padding-top:14px}.history-box h4{font-size:11px;margin:0 0 10px}.history-form{display:grid;grid-template-columns:1fr 1fr auto;gap:8px;align-items:end}.history-form label{display:block;font-size:9px;color:#81919c;font-weight:800;text-transform:uppercase;margin-bottom:5px}.history-form input{width:100%;padding:9px;border:1px solid #d7e0e5;border-radius:7px;font:500 10px Montserrat}.history-list{font-size:10px;color:#5f707e;margin-top:9px;line-height:1.8}.history-list button{border:0;background:none;color:#b42318;cursor:pointer;font-weight:700}.table-footnote{font-size:10px;color:#667786;line-height:1.6;margin-top:12px}
+@media(max-width:900px){.dashboard{grid-template-columns:repeat(2,1fr)}.charts{grid-template-columns:1fr}.history-form{grid-template-columns:1fr}.chart-card{padding:15px}}
 @media(max-width:900px){.ind-toolbar{align-items:flex-start}}
 
 </style>
@@ -45,21 +47,16 @@ const defs=[
 ];
 let token="",diagnostico=null,prioridades=[],plano=[],indicadores=[];
 let nextIndicatorId=1;
+let historico={};
 function esc(v){return String(v??"").replace(/[&<>"']/g,m=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;","'":"&#039;"}[m]));}
 function ensureIds(){indicadores=indicadores.map(x=>({...x,_id:x._id||`ind${nextIndicatorId++}`}));}
 function indicatorFor(pilar){return indicadores.filter(x=>x.pilar===pilar);}
 function indicatorStatus(x){
- if(x.atual==null||String(x.atual).trim()===""||x.meta==null||String(x.meta).trim()==="")return "Sem linha de base/meta";
- const n=Number(String(x.atual).replace("%","").replace(",",".").trim());
- const m=Number(String(x.meta).replace("%","").replace(",",".").trim());
- if(!Number.isFinite(n)||!Number.isFinite(m))return "Definir avaliação";
- const unit=String(x.unidade||"").toLowerCase();
- const lower=/reduzir|diminuir|menor|máximo|máxima|até/i.test(String(x.meta||""));
- if(unit==="%"||unit==="quantidade"||unit==="r$"||unit==="dias"||unit==="horas"||unit==="índice"){
-   if(lower)return n<=m?"Meta atingida":"Atenção";
-   return n>=m?"Meta atingida":"Atenção";
- }
- return "Definir avaliação";
+ if(x.atual==null||String(x.atual).trim()===""||String(x.atual).toLowerCase().includes("não medido")||x.meta==null||String(x.meta).trim()==="")return "Sem linha de base/meta";
+ const n=numericValue(x.atual),m=numericValue(x.meta);
+ if(!Number.isFinite(n)||!Number.isFinite(m)||!x.sentido||x.sentido==="faixa")return "Definir avaliação";
+ if(x.sentido==="menor")return n<=m?"Meta atingida":"Atenção";
+ return n>=m?"Meta atingida":"Atenção";
 }
 function statusMarkup(x){
  const s=indicatorStatus(x);
@@ -72,6 +69,11 @@ function render(){
  <div class="top"><div><div class="eyebrow">Sprint de Gestão · Etapa 05</div><h1>Indicadores de Gestão</h1><div class="subtitle">Defina os indicadores que vão mostrar se as ações prioritárias estão avançando. Cadastre uma ou mais fichas por prioridade e consolide os resultados em um painel de acompanhamento.</div></div><div class="status"><span>Status</span><strong id="saveStatus">Em construção</strong></div></div>
  <div class="card company"><div><small>Empresa avaliada</small><strong>${esc(diagnostico.empresa)}</strong></div><div class="meta">${esc(diagnostico.responsavel)}<br>${esc(diagnostico.segmento)} · ${esc(diagnostico.colaboradores)}</div></div>
  <section class="card intro"><h2>O que será entregue nesta etapa?</h2><p>Você vai construir fichas técnicas dos indicadores, organizar uma visão consolidada para acompanhamento e exportar os registros para Excel. Cada ficha documenta o que será medido, como calcular, a situação atual, a meta, a frequência, o responsável e a fonte dos dados.</p><div class="notice"><strong>Como usar:</strong> comece com poucos indicadores que ajudem a tomar decisões. Se ainda não houver dados, registre “Não medido” na situação atual e combine como obter a linha de base. O status do painel é uma indicação inicial; confirme se a meta deve aumentar ou diminuir antes de interpretar o resultado.</div></section>
+ <div class="dashboard" id="kpiDashboard"></div>
+ <div class="charts">
+   <section class="card chart-card"><h3>Resultado atual × meta</h3><p>Comparação dos indicadores numéricos com metas numéricas. O sentido da meta é considerado na avaliação.</p><div class="chart-area" id="targetChart"></div></section>
+   <section class="card chart-card"><h3>Evolução dos resultados</h3><p>Registre medições periódicas nas fichas para visualizar a evolução ao longo do tempo.</p><div class="chart-area" id="trendChart"></div></section>
+ </div>
  <section class="card indicator">
    <div class="ind-toolbar"><div><div class="indicator-title">Painel inicial de indicadores</div><div class="indicator-meta">Resumo dos indicadores cadastrados e situação em relação à meta</div></div><div class="ind-actions"><button class="button secondary" id="exportBtn" type="button">Exportar para Excel (.xlsx)</button><button class="button" id="saveBtn" type="button">Salvar indicadores</button></div></div>
    <div class="ind-table-wrap"><table class="ind-table"><thead><tr><th>Prioridade / pilar</th><th>Indicador</th><th>Resultado atual</th><th>Meta</th><th>Periodicidade</th><th>Responsável</th><th>Status inicial</th></tr></thead><tbody>${ordered.map((p,i)=>{
@@ -106,7 +108,7 @@ function indicatorCard(pilar,x,j){
  <div class="field"><label>8. Periodicidade</label><select data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="periodicidade"><option value="">Selecione</option>${["Diária","Semanal","Quinzenal","Mensal","Trimestral"].map(v=>`<option ${v===x.periodicidade?"selected":""}>${v}</option>`).join("")}</select></div>
  <div class="field"><label>9. Responsável pelo acompanhamento</label><input data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="responsavel" value="${esc(x.responsavel)}" placeholder="Nome ou função"></div>
  <div class="field"><label>10. Fonte dos dados</label><input data-ind-id="${esc(x._id)}" data-pilar="${esc(pilar)}" data-field="fonte" value="${esc(x.fonte)}" placeholder="Ex.: financeiro, ERP, RH, planilha"></div>
- </div></article>`;
+ </div><div class="history-box"><h4>Registrar nova medição</h4><div class="history-form"><div><label>Data da medição</label><input type="date" data-history-date="${esc(x._id)}" value="${new Date().toISOString().slice(0,10)}"></div><div><label>Resultado numérico</label><input type="number" step="any" data-history-value="${esc(x._id)}" placeholder="Ex.: 35"></div><button type="button" class="button secondary add-measurement" data-history-id="${esc(x._id)}">Registrar</button></div><div class="history-list">${historyMarkup(x._id)}</div></div></article>`;
 }
 function bindEvents(){
  document.querySelectorAll("[data-field][data-ind-id]").forEach(el=>{el.addEventListener("input",capture);el.addEventListener("change",capture);});
@@ -114,6 +116,9 @@ function bindEvents(){
  document.querySelectorAll("[data-delete-id]").forEach(btn=>btn.addEventListener("click",()=>deleteIndicator(btn.dataset.deleteId)));
  document.getElementById("saveBtn").addEventListener("click",save);
  document.getElementById("exportBtn").addEventListener("click",exportExcel);
+ document.querySelectorAll(".add-measurement").forEach(btn=>btn.addEventListener("click",()=>addMeasurement(btn.dataset.historyId)));
+ document.querySelectorAll("[data-remove-measurement]").forEach(btn=>btn.addEventListener("click",()=>removeMeasurement(btn.dataset.id,Number(btn.dataset.index))));
+ renderCharts();
 }
 function capture(){
  const id=this.dataset.indId,p=this.dataset.pilar;
@@ -143,6 +148,44 @@ function deleteIndicator(id){
  indicadores=indicadores.filter(i=>i._id!==id);
  render();
 }
+function historyMarkup(id){
+ const arr=historico[id]||[]; if(!arr.length)return 'Nenhuma medição registrada ainda.';
+ return arr.slice().sort((a,b)=>b.data.localeCompare(a.data)).map((m)=>{const idx=arr.indexOf(m);return `${esc(m.data)} · ${esc(m.valor)} <button type="button" data-remove-measurement="1" data-id="${esc(id)}" data-index="${idx}">Excluir</button>`}).join('<br>');
+}
+function addMeasurement(id){
+ const date=document.querySelector(`[data-history-date="${CSS.escape(id)}"]`);
+ const val=document.querySelector(`[data-history-value="${CSS.escape(id)}"]`);
+ if(!date?.value||val?.value===""||!Number.isFinite(Number(val.value))){alert('Informe a data e um resultado numérico válido.');return;}
+ historico[id]=historico[id]||[];historico[id].push({data:date.value,valor:Number(val.value)});historico[id].sort((a,b)=>a.data.localeCompare(b.data));
+ localStorage.setItem('sprint_indicadores_historico_'+token,JSON.stringify(historico));
+ render();
+}
+function removeMeasurement(id,index){historico[id]?.splice(index,1);localStorage.setItem('sprint_indicadores_historico_'+token,JSON.stringify(historico));render();}
+function numericValue(v){if(v==null)return NaN;const m=String(v).replace(/\s/g,'').replace(/R\$/i,'').replace('%','').replace(/\.(?=\d{3}(?:\D|$))/g,'').replace(',','.');return Number(m);}
+function svgBarChart(items){
+ if(!items.length)return '<div class="chart-empty">Ainda não há indicadores com resultado e meta numéricos para comparar.<br>Preencha os campos de resultado atual, meta e sentido da meta.</div>';
+ const width=560,row=44,top=18,left=170,right=35,height=top+items.length*row+22,plot=width-left-right;
+ const max=Math.max(1,...items.flatMap(x=>[x.atual,x.meta]));
+ let out=`<svg viewBox="0 0 ${width} ${height}" role="img" aria-label="Comparação de resultado atual e meta"><text x="${left}" y="12" font-size="9" fill="#718391">0</text><text x="${width-right}" y="12" text-anchor="end" font-size="9" fill="#718391">${max.toLocaleString('pt-BR')}</text>`;
+ items.forEach((x,i)=>{const y=top+i*row;const aw=Math.max(0,x.atual/max*plot),mw=Math.max(0,x.meta/max*plot);const good=x.sentido==='menor'?x.atual<=x.meta:x.atual>=x.meta;out+=`<text x="${left-9}" y="${y+12}" text-anchor="end" font-size="9" fill="#183247">${esc(x.nome.slice(0,24))}</text><rect x="${left}" y="${y+1}" width="${plot}" height="10" rx="4" fill="#edf2f5"/><rect x="${left}" y="${y+1}" width="${mw}" height="10" rx="4" fill="#c7d6e1"/><rect x="${left}" y="${y+16}" width="${plot}" height="10" rx="4" fill="#edf2f5"/><rect x="${left}" y="${y+16}" width="${aw}" height="10" rx="4" fill="${good?'#22a58a':'#e3a53d'}"/><text x="${left}" y="${y+38}" font-size="8" fill="#718391">Atual: ${x.atual} · Meta: ${x.meta}</text>`});
+ return out+'</svg><div style="font-size:9px;color:#718391;margin-top:8px">Barra cinza-azulada: meta · Barra colorida: resultado atual.</div>';
+}
+function renderCharts(){
+ const named=indicadores.filter(x=>x.nome&&numericValue(x.atual)!==NaN&&Number.isFinite(numericValue(x.atual))&&Number.isFinite(numericValue(x.meta))&&x.sentido&&x.sentido!=='faixa').map(x=>({...x,atual:numericValue(x.atual),meta:numericValue(x.meta)}));
+ const all=indicadores.filter(x=>x.nome);const statuses=all.map(indicatorStatus);const achieved=statuses.filter(s=>s==='Meta atingida').length;const attention=statuses.filter(s=>s==='Atenção').length;const missing=statuses.filter(s=>s==='Sem linha de base/meta'||s==='Definir avaliação').length;
+ const k=document.getElementById('kpiDashboard');if(k)k.innerHTML=`<div class="kpi"><small>Indicadores cadastrados</small><strong>${all.length}</strong><span>Com nome definido</span></div><div class="kpi"><small>Dentro da meta</small><strong>${achieved}</strong><span>Conforme regra cadastrada</span></div><div class="kpi"><small>Precisam de atenção</small><strong>${attention}</strong><span>Resultado abaixo/acima da meta esperada</span></div><div class="kpi"><small>Sem avaliação</small><strong>${missing}</strong><span>Dados ou sentido da meta pendentes</span></div>`;
+ const tc=document.getElementById('targetChart');if(tc)tc.innerHTML=svgBarChart(named);
+ const entries=Object.entries(historico).flatMap(([id,arr])=>{const x=indicadores.find(i=>i._id===id);return x?(arr||[]).map(m=>({...m,nome:x.nome||'Indicador',id})):[]}).sort((a,b)=>a.data.localeCompare(b.data));
+ const trend=document.getElementById('trendChart');if(!trend)return;
+ if(entries.length<2){trend.innerHTML='<div class="chart-empty">O gráfico aparecerá quando houver pelo menos duas medições registradas.<br>Use “Registrar nova medição” em cada ficha técnica para construir o histórico.</div>';return;}
+ const groups={};entries.forEach(e=>(groups[e.id]=groups[e.id]||[]).push(e));const chosen=Object.values(groups).filter(a=>a.length>=2).sort((a,b)=>b.length-a.length)[0];
+ if(!chosen){trend.innerHTML='<div class="chart-empty">Registre pelo menos duas medições para o mesmo indicador para visualizar sua evolução.</div>';return;}
+ const w=560,h=230,l=42,r=15,t=18,b=38,vals=chosen.map(x=>x.valor),min=Math.min(...vals),max=Math.max(...vals),span=max-min||1,px=i=>l+i*(w-l-r)/(chosen.length-1),py=v=>t+(max-v)*(h-t-b)/span;
+ let svg=`<svg viewBox="0 0 ${w} ${h}" role="img" aria-label="Gráfico de evolução histórica"><line x1="${l}" y1="${t}" x2="${l}" y2="${h-b}" stroke="#dce5ea"/><line x1="${l}" y1="${h-b}" x2="${w-r}" y2="${h-b}" stroke="#dce5ea"/><text x="${l-6}" y="${t+4}" text-anchor="end" font-size="9" fill="#718391">${max}</text><text x="${l-6}" y="${h-b}" text-anchor="end" font-size="9" fill="#718391">${min}</text>`;
+ svg+=`<polyline fill="none" stroke="#20a6b6" stroke-width="3" points="${chosen.map((x,i)=>`${px(i)},${py(x.valor)}`).join(' ')}"/>`;
+ chosen.forEach((x,i)=>{svg+=`<circle cx="${px(i)}" cy="${py(x.valor)}" r="4" fill="#20a6b6"/><text x="${px(i)}" y="${h-18}" text-anchor="middle" font-size="8" fill="#718391">${esc(x.data.slice(5))}</text>`});
+ trend.innerHTML=`<div style="font-size:10px;font-weight:700;margin-bottom:6px;color:#183247">${esc(chosen[0].nome)}</div>${svg}</svg><div style="font-size:9px;color:#718391;margin-top:8px">Histórico armazenado neste navegador. Para uso em outros dispositivos, será necessário persistir as medições no banco de dados.</div>`;
+}
 function exportExcel(){
  collectForm();
  if(typeof XLSX==="undefined"){alert("Não foi possível carregar o exportador Excel. Verifique sua conexão e tente novamente.");return;}
@@ -153,6 +196,7 @@ function exportExcel(){
  });
  const ws=XLSX.utils.aoa_to_sheet(rows);ws["!cols"]=[{wch:28},{wch:32},{wch:38},{wch:42},{wch:15},{wch:24},{wch:20},{wch:24},{wch:18},{wch:25},{wch:28},{wch:22}];
  const wb=XLSX.utils.book_new();XLSX.utils.book_append_sheet(wb,ws,"Fichas de Indicadores");
+ const hr=[['Pilar','Indicador','Data','Resultado']];Object.entries(historico).forEach(([id,arr])=>{const x=indicadores.find(i=>i._id===id);if(x)(arr||[]).forEach(m=>hr.push([(defs.find(d=>d.key===x.pilar)||{}).name||x.pilar,x.nome||'',m.data,m.valor]));});const hws=XLSX.utils.aoa_to_sheet(hr);XLSX.utils.book_append_sheet(wb,hws,'Histórico de medições');
  XLSX.writeFile(wb,`Indicadores_Monitore_${new Date().toISOString().slice(0,10)}.xlsx`);
 }
 async function save(){
@@ -166,6 +210,7 @@ async function save(){
 async function load(){
  try{
   const params=new URLSearchParams(window.location.search);const fromUrl=params.get("token");if(fromUrl)localStorage.setItem("sprint_diagnostico_token",fromUrl);token=fromUrl||localStorage.getItem("sprint_diagnostico_token");
+  try{historico=JSON.parse(localStorage.getItem("sprint_indicadores_historico_"+token)||"{}")}catch(e){historico={}}
   if(!token){document.getElementById("app").innerHTML='<div class="card empty">Diagnóstico ainda não localizado.<br><br>Conclua o diagnóstico primeiro.</div>';return;}
   const timeout=new Promise((_,reject)=>setTimeout(()=>reject(new Error("Tempo limite de conexão com o Supabase.")),15000));
   const d=await Promise.race([sb.rpc("get_sprint_diagnostico",{p_access_token:token}),timeout]);if(d.error||!d.data?.length)throw new Error(d.error?.message||"Diagnóstico não encontrado.");
